@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 
 class Signup extends React.Component {
   constructor(props) {
@@ -21,7 +22,6 @@ class Signup extends React.Component {
   }
 
   handleSubmit(e) {
-    debugger
     e.preventDefault();
     this.props.createNewUser(this.state)
       .then(() => this.props.history.push('/'));
@@ -67,4 +67,4 @@ class Signup extends React.Component {
   }
 }
 
-export default Signup;
+export default withRouter(Signup);
