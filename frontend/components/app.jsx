@@ -5,10 +5,6 @@ import LoginContainer from './session/login_container';
 import WorkspaceIndex from './workspaces/workspace_index_container';
 import { AuthRoute, ProtectedRoute } from "../util/route_util";
 
-const dummyComp = () => (
-    <h2>Hi</h2>
-);
-
 // ??? study this shit
 
 export default () => (
