@@ -1,36 +1,46 @@
+html {
+  height: 100%;
+  background: linear-gradient(to top right, #2367c7 30%, #00a09b 80%, #1efff8 110%);
+}
+
 .login {
   display: flex;
   flex-direction: column;
-  background: linear-gradient(to top right, rgba(255, 82, 99, 0.9) 10%, rgba(255, 115, 129, 0.9) 65%, rgba(252, 189, 1, 0.9) 125%);
-  background-size: 100%
+  font-family: -apple-system,BlinkMacSystemFont;
+}
+
+.logo {
+  margin: 20px auto 30px auto;
+  cursor: pointer;
+}
+
+.logo-image {
+  height: 35px;
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
-  margin: 100px auto;
-  margin-bottom: 0px;
-  padding: 75px 75px 75px 75px;
+  margin: 0px auto;
+  padding: 50px 75px 50px 75px;
   border-radius: 5px;
   background: white;
+  width: 400px;
 }
 
 .login-form > h2 {
   text-align: center;
   font-size: 32px;
   font-weight: 400;
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Helvetica,Arial,sans-serif;
-  padding-bottom: 45px;
+  padding-bottom: 20px;
 }
 
 .login-form > label {
-  width: 450px;
   display: flex;
   flex-direction: column;
   color: #848f99;
   font-size: 12px;
   font-weight: 500;
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Helvetica,Arial,sans-serif;
   margin-top: 30px;
 }
 
@@ -62,10 +72,9 @@
   padding: 15px;
   font-size: 14px;
   color: white;
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
-.login-footer-login-button {
+.login-footer-button {
   background: none;
   color: white;
   border-radius: 4px;
@@ -75,3 +84,13 @@
   padding: 7px 9px 7px 9px;
   cursor: pointer;
 }
+
+.errors {
+  background-color: #ffedef;
+  font-size: 14px;
+  font-weight: 325;
+  border-radius: 4px;
+  padding: 15px;
+  text-align: center;
+}
+

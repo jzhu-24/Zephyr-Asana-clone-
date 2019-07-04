@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 class Signup extends React.Component {
   constructor(props) {
@@ -27,11 +27,29 @@ class Signup extends React.Component {
       .then(() => this.props.history.push('/'));
   }
 
+  renderErrors() {
+    if (this.props.errors.length !== 0) {
+      return (
+        <ul className="errors">
+          {this.props.errors.map((error, i) => (
+            <ul key={`error-${i}`}>
+              {error}
+            </ul>
+          ))}
+        </ul>
+      );
+    }
+  }
+
   render() {
     return (
-      <div className="session-form">
-        <h2>Sign Up!</h2>
-        <form>
+      <div className="login">
+        <div className="logo">
+          <img src={window.images.logo} alt="logo" className="logo-image" />
+        </div>
+        <form className="login-form">
+          <h2>Sign Up</h2>
+          {this.renderErrors()}
           <label>First Name:
             <input
               type="text"
@@ -46,7 +64,7 @@ class Signup extends React.Component {
               onChange={this.handleInput('last_name')}
             />
           </label>
-          <label>Email:
+          <label>Email Address:
             <input
               type="text"
               value={this.state.email}
@@ -55,13 +73,28 @@ class Signup extends React.Component {
           </label>
           <label>Password:
             <input
-              type="text"
+              type="password"
               value={this.state.password}
               onChange={this.handleInput('password')}
             />
           </label>
-          <button onClick={this.handleSubmit}>Sign Up!</button>
+          <div className="login-form-button-container">
+            <Link to="/signup">
+              <button className="login-form-button">
+                <span>Demo Login</span>
+              </button>
+            </Link>
+            <button onClick={this.handleSubmit} className="login-form-button">
+              <span>Sign Up</span>
+            </button>
+          </div>
         </form>
+        <div className="login-footer">
+          <span>Already have an account?</span>
+          <Link className="btn" to="login">
+            <button className="login-footer-button">Log In</button>
+          </Link>
+        </div>
       </div>
     )
   }
