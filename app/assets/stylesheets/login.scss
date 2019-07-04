@@ -1,6 +1,6 @@
 html {
   height: 100%;
-  background: linear-gradient(to top right, #2367c7 30%, #00a09b 80%, #1efff8 110%);
+  background: linear-gradient(to top right, #2367c7 30%, #00a09b 80%, #1efff8 110%) fixed;
 }
 
 .login {
@@ -12,6 +12,7 @@ html {
 .logo {
   margin: 20px auto 30px auto;
   cursor: pointer;
+
 }
 
 .logo-image {
@@ -45,15 +46,28 @@ html {
 }
 
 .login-form > label > input {
+  border: none;
+  border: 1px solid rgb(218, 218, 218);
   margin-top: 10px;
   padding: 5px;
   font-size: 14px;
   font-weight: 325;
+  border-radius: 4px;
+  // transition: border 200ms;
+  transition-property: border, box-shadow;
+  transition-duration: .3s;
+  transition-timing-function: ease-out, ease-out, ease-out, ease-out;
+}
+
+.login-form > label > input:focus {
+  outline: none;
+  border: 1px solid rgb(193, 193, 193);
+  box-shadow: 0 0 3px #9ecaed;
 }
 
 .login-form-button-container {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-end;
 }
 
 .login-form-button {
@@ -65,10 +79,27 @@ html {
   border-radius: 4px;
   padding: 8px;
   margin-top: 50px;
+  margin-right: 10px;
+  transition-property: background, border;
+  transition-duration: .2s;
+  transition-timing-function: ease-out, ease-out, ease-out, ease-out;
+}
+
+.login-form-button:hover {
+  background-color: #1591cf;
+}
+
+.login-form-button:focus {
+  outline: none;
+}
+
+.login-form-button:active {
+  background-color: #0f6894;
 }
 
 .login-footer {
-  margin: 0px auto;
+  margin: 5px auto;
+  margin-bottom: 50px;
   padding: 15px;
   font-size: 14px;
   color: white;
@@ -83,14 +114,22 @@ html {
   font-weight: 300;
   padding: 7px 9px 7px 9px;
   cursor: pointer;
+  transition-property: background, border;
+  transition-duration: .2s;
+  transition-timing-function: ease-out, ease-out, ease-out, ease-out;
+}
+
+.login-footer-button:hover {
+  background-color: white;
+  border-color: white;
+  color: #1f395c;
 }
 
 .errors {
-  background-color: #ffedef;
+  background-color: #ffdbdf;
   font-size: 14px;
   font-weight: 325;
   border-radius: 4px;
   padding: 15px;
   text-align: center;
 }
-

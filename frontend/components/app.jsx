@@ -8,10 +8,14 @@ import { AuthRoute, ProtectedRoute } from "../util/route_util";
 
 export default () => (
     <div>
-        {/* todo - how to route everything to /login */}
-        <AuthRoute path="/login" component={LoginContainer} />
-        <AuthRoute path="/signup" component={SignupContainer} />
-        {/* <Route exact path="/" component={WorkspaceIndex} /> */}
-        <ProtectedRoute path="/workspaces" component={WorkspaceIndex} />
+        <Switch>
+            {/* todo - how to route everything to /login */}
+            <AuthRoute exact path="/" component={SignupContainer} />
+            {/* <AuthRoute path="/signup" component={SignupContainer} /> */}
+            <AuthRoute exact path="/login" component={LoginContainer} />
+            {/* <AuthRoute path="/signup" component={SignupContainer} /> */}
+            {/* <Route exact path="/" component={WorkspaceIndex} /> */}
+            <ProtectedRoute path="/workspaces" component={WorkspaceIndex} />
+        </Switch>
     </div>
 );

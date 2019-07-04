@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 
+
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -11,6 +12,11 @@ class Login extends React.Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.demoLogin = this.demoLogin.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.clearErrors();
   }
 
   handleInput(type) {
@@ -22,7 +28,11 @@ class Login extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.login(this.state)
-      .then(() => this.props.history.push('/'));
+  }
+
+  demoLogin(e) {
+    e.preventDefault();
+    this.props.login({ email: "demo_user@gmail.com", password: "password" })
   }
 
   renderErrors() {
@@ -43,19 +53,21 @@ class Login extends React.Component {
     return (
       <div className="login">
         <div className="logo">
-          <img src={window.images.logo} alt="logo" className="logo-image" />
+          <Link to="/">
+            <img src={window.images.logo} alt="logo" className="logo-image" />
+          </Link>
         </div>
         <form className="login-form">
           <h2>Log In</h2>
             {this.renderErrors()}
-          <label>Email Address:
+          <label>Email Address
             <input
               type="text"
               value={this.state.email}
               onChange={this.handleInput('email')}
             />
           </label>
-          <label>Password:
+          <label>Password
             <input
               type="password"
               value={this.state.password}
@@ -63,11 +75,9 @@ class Login extends React.Component {
             />
           </label>
           <div className="login-form-button-container">
-            <Link to="/signup">
-              <button className="login-form-button">
-                <span>Demo Login</span>
-              </button>
-            </Link>
+            <button className="login-form-button" onClick={this.demoLogin}>
+              <span>Demo Login</span>
+            </button>
             <button onClick={this.handleSubmit} className="login-form-button">
               <span>Log In</span>
             </button>
@@ -75,7 +85,7 @@ class Login extends React.Component {
         </form>
         <div className="login-footer">
           <span>Don't have an account?</span>
-          <Link className="btn" to="signup">
+          <Link className="btn" to="/">
             <button className="login-footer-button">Sign Up</button>
           </Link>
         </div>

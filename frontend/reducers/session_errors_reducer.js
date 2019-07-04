@@ -1,6 +1,7 @@
 import {
   RECEIVE_SESSION_ERRORS,
   RECEIVE_CURRENT_USER,
+  CLEAR_SESSION_ERRORS
 } from '../actions/session_action';
 
 // create session actions + reducer (add to root reducer)

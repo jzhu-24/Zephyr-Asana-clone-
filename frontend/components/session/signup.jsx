@@ -13,8 +13,13 @@ class Signup extends React.Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.demoLogin = this.demoLogin.bind(this);
   }
 
+  componentDidMount() {
+    this.props.clearErrors();
+  }
+  
   handleInput(type) {
     return (e) => {
       this.setState({ [type]: e.target.value })
@@ -24,7 +29,12 @@ class Signup extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.createNewUser(this.state)
-      .then(() => this.props.history.push('/'));
+  }
+
+  demoLogin(e) {
+    debugger
+    e.preventDefault();
+    this.props.login({ email: "demo_user@gmail.com", password: "password" })
   }
 
   renderErrors() {
@@ -45,33 +55,35 @@ class Signup extends React.Component {
     return (
       <div className="login">
         <div className="logo">
-          <img src={window.images.logo} alt="logo" className="logo-image" />
+          <Link to="/">
+            <img src={window.images.logo} alt="logo" className="logo-image" />
+          </Link>
         </div>
         <form className="login-form">
           <h2>Sign Up</h2>
           {this.renderErrors()}
-          <label>First Name:
+          <label>First Name
             <input
               type="text"
               value={this.state.first_name}
               onChange={this.handleInput('first_name')}
             />
           </label>
-          <label>Last Name:
+          <label>Last Name
             <input
               type="text"
               value={this.state.last_name}
               onChange={this.handleInput('last_name')}
             />
           </label>
-          <label>Email Address:
+          <label>Email Address
             <input
               type="text"
               value={this.state.email}
               onChange={this.handleInput('email')}
             />
           </label>
-          <label>Password:
+          <label>Password
             <input
               type="password"
               value={this.state.password}
@@ -79,11 +91,9 @@ class Signup extends React.Component {
             />
           </label>
           <div className="login-form-button-container">
-            <Link to="/signup">
-              <button className="login-form-button">
-                <span>Demo Login</span>
-              </button>
-            </Link>
+            <button className="login-form-button" onClick={this.demoLogin}>
+              <span>Demo Login</span>
+            </button>
             <button onClick={this.handleSubmit} className="login-form-button">
               <span>Sign Up</span>
             </button>
