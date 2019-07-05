@@ -6,9 +6,9 @@ export const REMOVE_WORKSPACE = 'REMOVE_WORKSPACE';
 
 // ??? do we filter stuff like fetchWorkspaces in actions?
 
-export const requestWorkspaces = () => dispatch => {
-  return WorkspaceUtil.fetchWorkspaces().then(workspaces => dispatch(receiveWorkspaces(workspaces)))
-};
+export const requestWorkspaces = () => dispatch => (
+  WorkspaceUtil.fetchWorkspaces().then(workspaces => dispatch(receiveWorkspaces(workspaces)))
+);
 
 export const requestWorkspace = id => dispatch => (
   WorkspaceUtil.fetchWorkspace(id).then(workspace => dispatch(receiveWorkspace(workspace)))

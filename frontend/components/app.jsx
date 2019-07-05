@@ -17,8 +17,9 @@ export default () => (
             <AuthRoute path="/" component={SignupContainer} />
             <Redirect to="/signup" />
         </Switch>
-
-        <ProtectedRoute path="/" component={Nav} />
-        <ProtectedRoute path="/" component={WorkspaceIndexContainer} />
+        <div className='protected'>
+            <ProtectedRoute path="/:workspaceId" component={Nav} />
+            <ProtectedRoute path="/:workspaceId" component={WorkspaceIndexContainer} />
+        </div>
     </div>
 );

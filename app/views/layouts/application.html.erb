@@ -7,6 +7,11 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application' %>
+
+    <!-- ??? must set window.currentUser to current_user -->
+    <% if current_user %>
+    <script> window.currentUser = <%= current_user.id %> </script>
+    <% end %>
   </head>
 
   <body>

@@ -1,11 +1,60 @@
+.protected {
+  display: flex;
+}
+
 .nav {
-  background: grey;
-  width: 300px;
-  height: 100%;
-  padding: 0;
+  // ??? wtf is vh/vw
+  height: 100vh;
+  width: 240px;
+  background: #151b26;
+  margin: 0;
   margin: 0;
 }
 
 .nav-logo {
+  margin: 8px;
   width: 100px;
+}
+
+.nav-links {
+  width: 100%;
+  border-bottom: 1px solid #222b37;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #d5dce0;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  margin-left: 15px;
+}
+
+.nav-favorites {
+  width: 100%;
+  border-bottom: 1px solid #222b37;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+}
+
+.nav-favorites-title {
+  color: #646f79;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-left: 15px;
+}
+
+.nav-workspace {
+  text-decoration: none;
+  color: #d5dce0;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  margin-left: 15px;
 }

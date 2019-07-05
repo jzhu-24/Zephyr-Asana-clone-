@@ -1,9 +1,13 @@
 import { connect } from 'react-redux';
 import Nav from './nav';
-import { logout } from '../../actions/session_actions';
+import { requestWorkspace } from '../../actions/workspace_actions';
 
-const mapDispatchToProps = state => ({
-  
+const mapStateToProps = (state, { match } ) => ({
+  workspace: state.entities.workspaces[match.params.workspaceId]
 });
 
-export default connect(mapDispatchToProps, null)(Nav);
+const mapDispatchToProps = dispatch => ({
+  requestWorkspace: id => dispatch(requestWorkspace(id))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Nav);
