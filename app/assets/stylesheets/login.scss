@@ -1,12 +1,13 @@
-html {
+html, body {
   height: 100%;
-  background: linear-gradient(to top right, #2367c7 30%, #00a09b 80%, #1efff8 110%) fixed;
 }
 
 .login {
   display: flex;
   flex-direction: column;
   font-family: -apple-system,BlinkMacSystemFont;
+  height: 100%;
+  background: linear-gradient(to top right, #2367c7 30%, #00a09b 80%, #1efff8 110%) fixed;
 }
 
 .logo {
@@ -53,7 +54,6 @@ html {
   font-size: 14px;
   font-weight: 325;
   border-radius: 4px;
-  // transition: border 200ms;
   transition-property: border, box-shadow;
   transition-duration: .3s;
   transition-timing-function: ease-out, ease-out, ease-out, ease-out;
@@ -132,4 +132,5 @@ html {
   border-radius: 4px;
   padding: 15px;
   text-align: center;
+  color: #5b5b5b;
 }

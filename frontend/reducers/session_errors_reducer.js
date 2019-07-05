@@ -2,7 +2,7 @@ import {
   RECEIVE_SESSION_ERRORS,
   RECEIVE_CURRENT_USER,
   CLEAR_SESSION_ERRORS
-} from '../actions/session_action';
+} from '../actions/session_actions';
 
 // create session actions + reducer (add to root reducer)
 // add states via containers + add to components

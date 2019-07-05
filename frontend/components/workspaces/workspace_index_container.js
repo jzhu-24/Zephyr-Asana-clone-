@@ -1,9 +1,16 @@
 import { connect } from 'react-redux';
 import WorkspaceIndex from './workspace_index';
-import { logout } from '../../actions/session_action';
+import { logout } from '../../actions/session_actions';
+import { requestWorkspaces, deleteWorkspace } from '../../actions/workspace_actions';
 
-const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch(logout())
+const mapStateToProps = state => ({
+  workspaces: Object.keys(state.entities.workspaces).map(id => state.entities.workspaces[id])
 });
 
-export default connect(null, mapDispatchToProps)(WorkspaceIndex);
+const mapDispatchToProps = dispatch => ({
+  requestWorkspaces: () => dispatch(requestWorkspaces()),
+  logout: () => dispatch(logout()),
+  deleteWorkspace: id => dispatch(deleteWorkspace(id))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(WorkspaceIndex);

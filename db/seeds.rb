@@ -7,3 +7,6 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 User.create(first_name: "Demo", last_name: "User", email: "demo_user@gmail.com", password: "password")
+Workspace.create(name: "Engineering")
+Workspace.create(name: "Customer Success")
+Workspace.create(name: "Product")
