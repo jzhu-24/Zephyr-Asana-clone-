@@ -22,7 +22,7 @@ export default () => (
             <ProtectedRoute path="/:workspaceId" component={Nav} />
             <header className='header'>
                 <ProtectedRoute path="/:workspaceId" component={WorkspaceHeaderContainer} />
-                <ProtectedRoute path="/" component={UserDropdownContainer} />
+                <ProtectedRoute path="/:workspaceId" component={UserDropdownContainer} />
             </header>
         </div>
     </div>

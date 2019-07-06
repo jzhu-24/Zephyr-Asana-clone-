@@ -14,7 +14,7 @@ const mapDispatchToProps = dispatch => ({
   createWorkspace: workspace => dispatch(createWorkspace(workspace)),
   updateWorkspace: workspace => dispatch(updateWorkspace(workspace)),
   deleteWorkspace: id => dispatch(deleteWorkspace(id)),
-  logout: () => dispatch(logout()),
+  logout: () => dispatch(logout())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserDropdown);

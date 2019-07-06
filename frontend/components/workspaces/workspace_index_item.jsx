@@ -1,12 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const WorkspaceIndexItem = ({ workspace }) => {  
-  return (
-    <div>
-      <Link to={`/${workspace.id}`}>{workspace.name}</Link>
-    </div>
-  )
+// ??? fontawesome importing
+
+class WorkspaceIndexItem extends React.Component {
+
+  render() {    
+    // ??? conditional view
+    let faCheckIcon = <div></div>;
+
+    if (this.props.workspace.id === parseInt(this.props.workspaceId)) {
+      faCheckIcon = <FontAwesomeIcon icon={faCheck} className="user-dropdown-check"/>
+    }
+
+    return (
+      <Link to={`/${this.props.workspace.id}`} className="user-dropdown-row">
+        {faCheckIcon}
+        <span>{this.props.workspace.name}</span>
+      </Link>
+    )
+  };
 };
 
 export default WorkspaceIndexItem;
