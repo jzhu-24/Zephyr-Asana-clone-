@@ -1,14 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const WorkspaceIndexItem = ({ workspace, deleteWorkspace }) => {  
-  // const deleteWorkspaceAction = () => deleteWorkspace(workspace.id)
-
+const WorkspaceIndexItem = ({ workspace }) => {  
   return (
-    <li>
+    <div>
       <Link to={`/${workspace.id}`}>{workspace.name}</Link>
-      {/* <button onClick={deleteWorkspaceAction}>Delete</button> */}
-    </li>
+    </div>
   )
 };
 

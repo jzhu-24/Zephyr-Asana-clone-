@@ -1,0 +1,31 @@
+/* Dropdown Button */
+.dropbtn {
+  cursor: pointer;
+}
+
+.user-dropdown {
+  float: right;
+  position: relative;
+}
+
+.dropdown-content {
+  background-color: white;
+  display: none;
+  position: absolute;
+  right: 0;
+  min-width: 180px;
+  box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
