@@ -91,15 +91,15 @@ class Signup extends React.Component {
           </label>
           <div className="login-form-button-container">
             <button className="login-form-button" onClick={this.demoLogin}>
-              <span>Demo Login</span>
+              <p>Demo Login</p>
             </button>
             <button onClick={this.handleSubmit} className="login-form-button">
-              <span>Sign Up</span>
+              <p>Sign Up</p>
             </button>
           </div>
         </form>
         <div className="login-footer">
-          <span>Already have an account?</span>
+          <p>Already have an account?</p>
           <Link className="btn" to="login">
             <button className="login-footer-button">Log In</button>
           </Link>

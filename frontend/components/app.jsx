@@ -2,10 +2,9 @@ import React from 'react';
 import { Redirect, Switch } from 'react-router-dom';
 import SignupContainer from './session/signup_container';
 import LoginContainer from './session/login_container';
-import Protected from './protected';
+import ProtectedContainer from './protected/protected_container';
 import { AuthRoute, ProtectedRoute } from "../util/route_util";
-
-// ??? study this shit
+// import WorkspaceForm from '../../frontend/components/workspaces/workspace_form';
 
 export default () => (
     <div>
@@ -15,6 +14,7 @@ export default () => (
             <AuthRoute path="/" component={SignupContainer} />
             <Redirect to="/signup" />
         </Switch>
-        <ProtectedRoute path="/:workspaceId" component={Protected} />
+        
+        <ProtectedRoute exact path="/:workspaceId" component={ProtectedContainer} />
     </div>
 );

@@ -12,7 +12,7 @@ class Api::WorkspacesController < ApplicationController
     if @workspace.save
       render :show
     else
-      render json: @workspace.errors.full_messages, status: 422
+      render json: ['Workspace already exists.'], status: 401
     end
   end
 

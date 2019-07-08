@@ -75,16 +75,16 @@ class Login extends React.Component {
           </label>
           <div className="login-form-button-container">
             <button className="login-form-button" onClick={this.demoLogin}>
-              <span>Demo Login</span>
+              <p>Demo Login</p>
             </button>
             <button onClick={this.handleSubmit} className="login-form-button">
-              <span>Log In</span>
+              <p>Log In</p>
             </button>
           </div>
         </form>
         <div className="login-footer">
-          <span>Don't have an account?</span>
-          <Link className="btn" to="/">
+          <p>Don't have an account?</p>
+          <Link className="btn" to="/signup">
             <button className="login-footer-button">Sign Up</button>
           </Link>
         </div>

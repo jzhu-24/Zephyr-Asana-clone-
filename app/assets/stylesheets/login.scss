@@ -1,9 +1,14 @@
+// ??? why are height/background needed here?
+
+html {
+  height: 100%;
+  background: linear-gradient(to top right, #2367c7 30%, #00a09b 80%, #1efff8 110%) fixed;
+}
+
 .login {
   display: flex;
   flex-direction: column;
   font-family: -apple-system,BlinkMacSystemFont;
-  height: 100vh;
-  background: linear-gradient(to top right, #2367c7 30%, #00a09b 80%, #1efff8 110%) fixed;
 }
 
 .logo {
@@ -93,6 +98,8 @@
 }
 
 .login-footer {
+  display: flex;
+  align-items: center;
   margin: 5px auto;
   margin-bottom: 50px;
   padding: 15px;
