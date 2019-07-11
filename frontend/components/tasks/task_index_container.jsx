@@ -8,12 +8,10 @@ import {
   createTask
 } from '../../actions/task_actions';
 
-const mapStateToProps = (state, ownProps) => {
-  const currentColumnId = ownProps.column.id;
-  
+const mapStateToProps = (state, ownProps) => {  
   return {
-    currentColumn: state.entities.columns[currentColumnId],
-    tasks: Object.values(state.entities.tasks),
+    column: state.entities.columns[ownProps.column.id],
+    tasks: state.entities.tasks,
     tasksArray: ownProps.column.task
   };
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 class TaskIndexItem extends React.Component {
 
   render() {   
@@ -8,7 +9,7 @@ class TaskIndexItem extends React.Component {
     return (
       <div className="task">
         <p className="task-name">{this.props.task.name}</p>
-      </div>
+      </div>      
     )
   };
 };

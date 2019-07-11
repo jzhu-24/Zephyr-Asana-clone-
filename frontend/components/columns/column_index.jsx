@@ -1,37 +1,54 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import ColumnIndexItem from "./column_index_item";
-import CreateColumnContainer from "./column_create_form_container";
+import ColumnCreateContainer from "./column_create_form_container";
+import { DragDropContext } from "react-beautiful-dnd";
 
 class ColumnIndex extends React.Component {
   
-  componentDidMount() {
-    this.props.requestColumns(this.props.match.params.projectId);
-    this.props.requestProject(this.props.match.params.projectId);
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      project: this.props.project,
+      columnsArray: this.props.columnsArray,
+      columns: this.columns
+    };
   }
 
-  componentDidUpdate(prevProps) {
-    // if (prevProps.currentProject.column !== this.props.currentProject.column) {
-    //   this.props.requestProject(this.props.match.params.projectId);
-    // }
+  componentDidMount() {
+    this.props.requestProject(this.props.match.params.projectId).then(() => this.forceUpdate());
+    this.props.requestColumns(this.props.match.params.projectId).then(() => this.forceUpdate());
   }
+
+  onDragEnd = result => {
+    
+  };
 
   render() {
-    const columns = this.props.columnsArray.map(columnId => {
-      return (
-        <ColumnIndexItem
-          key={columnId}
-          column={this.props.columns[columnId]} />
-      );
-    });
+    if (this.props.columnsArray.length === 0) return null;
+    if (Object.keys(this.props.columns).length === 0) return null;
 
     return (
-      <div className="column-index">
-        {columns}
-        <CreateColumnContainer
-          match={this.props.match}
-          currentProject={this.props.currentProject}
-        />
+      <div>
+        <div className="column-index">
+          <DragDropContext onDragEnd={this.onDragEnd}>
+              {this.props.columnsArray.map(columnId => (
+                <ColumnIndexItem
+                  updateColumn={this.props.updateColumn}
+                  key={columnId}
+                  column={this.props.columns[columnId]}
+                  requestColumn={this.props.requestColumn}
+                  deleteColumn={this.props.deleteColumn}
+                  project={this.props.project}
+                />
+              ))}
+          </DragDropContext>
+          <ColumnCreateContainer
+            match={this.props.match}
+            project={this.props.project}
+            />
+        </div>
       </div>
     );
   }

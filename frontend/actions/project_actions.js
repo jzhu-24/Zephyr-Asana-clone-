@@ -18,8 +18,8 @@ export const requestProject = id => dispatch => (
   fetchProject(id).then(Project => dispatch(receiveProject(Project)))
 );
 
-export const createProject = (workspace_id, project) => dispatch =>
-  postProject(workspace_id, project).then(project =>
+export const createProject = project => dispatch =>
+  postProject(project).then(project =>
     dispatch(receiveProject(project))
   );
 

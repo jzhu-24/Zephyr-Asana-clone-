@@ -7,17 +7,32 @@ class Nav extends React.Component {
 
   componentDidMount() {
     this.props.requestWorkspace(this.props.match.params.workspaceId);
-    // this.props.requestProjects();
   }
 
   render() {
-    if (this.props.currentWorkspace === undefined) return null
+    if (this.props.currentWorkspace === undefined) {
+      return (
+        <div className="nav">
+          <img src={window.images.logo} alt="logo" className="nav-logo" />
+          <div className="nav-links">
+            <Link to="/0" className="nav-link">
+              Home
+            </Link>
+          </div>
+          <div className="nav-favorites">
+            <p className="nav-favorites-title">Favorites</p>
+          </div>
+          <p className="nav-workspace">
+          </p>
+        </div>
+      );
+    }
     
     return (
       <div className="nav">
         <img src={window.images.logo} alt="logo" className="nav-logo" />
         <div className="nav-links">
-          <Link to="/1" className="nav-link">Home</Link>
+          <Link to="/0" className="nav-link">Home</Link>
         </div>
         <div className="nav-favorites">
           <p className="nav-favorites-title">Favorites</p>

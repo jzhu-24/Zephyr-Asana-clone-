@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import { createColumn, fetchColumns } from "../../actions/column_actions";
+import { createColumn } from "../../actions/column_actions";
 import { updateProject } from "../../actions/project_actions";
-import ColumnForm from './column_form';
+import ColumnCreateForm from './column_create_form';
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -10,12 +10,11 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  action: (column) => dispatch(createColumn(column)),
-  fetchColumns: project_id => dispatch(fetchColumns(project_id)),
+  createColumn: column => dispatch(createColumn(column)),
   updateProject: project => dispatch(updateProject(project))
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ColumnForm);
+)(ColumnCreateForm);

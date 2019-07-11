@@ -39,7 +39,7 @@ class UserDropdown extends React.Component {
 
   handleDelete(e) {
     e.preventDefault();
-    this.props.deleteWorkspace(this.props.match.params.workspaceId).then(() => this.props.history.push('/1')); 
+    this.props.deleteWorkspace(this.props.match.params.workspaceId).then(() => this.props.history.push('/0')); 
   }
 
   render() {   

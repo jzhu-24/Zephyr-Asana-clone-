@@ -11,18 +11,18 @@ import {
 import { requestProject } from '../../actions/project_actions';
 
 const mapStateToProps = (state, ownProps) => {
-  const currentProjectId = ownProps.match.params.projectId;
+  const projectId = ownProps.match.params.projectId;
   
   // better way to handle undfined?
   let columnsArray
-  if (state.entities.projects[currentProjectId] === undefined) {
+  if (state.entities.projects[projectId] === undefined) {
     columnsArray = []
   } else {
-    columnsArray = state.entities.projects[currentProjectId].column
+    columnsArray = state.entities.projects[projectId].column
   };
 
   return {
-    currentProject: state.entities.projects[currentProjectId],
+    project: state.entities.projects[projectId],
     columns: state.entities.columns,
     columnsArray: columnsArray
   };

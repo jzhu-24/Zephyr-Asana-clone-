@@ -10,8 +10,14 @@ class ProjectIndex extends React.Component {
   }
 
   render() {
-    if (this.props.projects.length === 0) return null;
-
+    if (this.props.projects.length === 0) {
+      return (
+        <div>
+          Home
+        </div>
+      )
+    };
+  
     const projects = this.props.projects.map(project => {
       return (
         <ProjectIndexItem

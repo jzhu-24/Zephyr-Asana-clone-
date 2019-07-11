@@ -12,10 +12,10 @@ export const fetchProject = id => (
   })
 );
 
-export const postProject = (workspace_id, project) => (
+export const postProject = project => (
   $.ajax({
     method: `POST`,
-    url: `api/workspaces/${workspace_id}/projects`,
+    url: `api/workspaces/${project.workspace_id}/projects`,
     data: { project }
   })
 );

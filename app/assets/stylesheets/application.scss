@@ -15,7 +15,7 @@
  */
 
 @import 'reset.scss';
-@import 'logged_in_view.scss';
+@import 'protected';
 @import 'nav.scss';
 @import 'header_container.scss';
 @import 'login.scss';
@@ -24,3 +24,4 @@
 @import 'column_container.scss';
 @import 'create_workspace_form.scss';
 @import 'edit_workspace_form.scss';
+@import 'tasks.scss';

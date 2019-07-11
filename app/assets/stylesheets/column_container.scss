@@ -1,8 +1,9 @@
 // ??? fix height % wtf
 
 .column-container {
-  height: 85%;
+  height: 90%;
   cursor: pointer;
+  overflow: visible;
 }
 
 .column-index {
@@ -11,11 +12,11 @@
   padding: 10px;
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Helvetica,Arial,sans-serif;
   height: 100%;
-  overflow-y: scroll;
+  overflow: auto;
 }
 
 .column {
-  width: 280px;
+  min-width: 250px;
   position: relative;
   border: 1px solid transparent;
   border-radius: 5px;
@@ -33,12 +34,11 @@
   font-size: 16px;
   font-weight: 500;
   line-height: 30px;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .add-column-container {
   padding: 10px 0px 0px 10px;
+  min-width: 250px;
 }
 
 .add-column-button {
@@ -54,12 +54,13 @@
 
 .add-column-input {
   border: 1px solid lightgrey;
-  width: 100%;
+  width: 150px;
   border-radius: 3px;
   line-height: 30px;
   background: white;
   padding-left: 10px;
   font-size: 16px;
+  font-weight: 500;
   position: relative;
   top: -10px;
 }
@@ -68,30 +69,37 @@
   outline: none;
 }
 
-.task-index {
-
-}
-
-.task {
-  margin: 10px;
-  padding: 10px 0px 10px 0px;
-  font-size: 13px;
-  line-height: normal;
+.edit-column-input {
+  border: 1px solid lightgrey;
+  border-radius: 3px;
+  line-height: 26px;
   background: white;
-  border-radius: 5px;
-  box-shadow: 0 1px 3px 0 rgba(21,27,38,.15);
-  -moz-box-sizing: border-box;
-  position: relative;
-  top: 0;
-  transition: top ease 0.2s;
-}
-
-.task:hover {
-  top: -1px;
-  box-shadow: 0 2px 6px 0 rgba(21,27,38,.15);
-}
-
-.task-name {
+  margin-left: 10px;
   padding-left: 10px;
+  font-size: 16px;
+  font-weight: 500;
 }
 
+.edit-column-input:focus {
+  outline: none;
+}
+
+.column-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.column-delete-button {
+  margin-right: 12px;
+  height: 16px;
+  color: grey;
+  transition-property: color;
+  transition-duration: .2s;
+  transition-timing-function: ease-out, ease-out, ease-out, ease-out;
+}
+
+.column-delete-button:hover {
+  color: rgba(208, 0, 0, 0.755);
+}

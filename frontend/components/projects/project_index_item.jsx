@@ -5,10 +5,14 @@ class ProjectIndexItem extends React.Component {
 
   render() {   
     return (
-      <Link to={`/${this.props.project.workspace_id}/${this.props.project.id}`} className="nav-project-row">
-        <p>{this.props.project.name}</p>
-      </Link>
-    )
+      <div className="nav-project-row">
+        <Link to={`/${this.props.project.workspace_id}/${this.props.project.id}`} >
+          <div>
+            {this.props.project.name}
+          </div> 
+        </Link>
+      </div>
+    );
   };
 };
 

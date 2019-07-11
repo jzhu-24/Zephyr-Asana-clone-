@@ -21,6 +21,7 @@ class Api::ColumnsController < ApplicationController
 
   def update
     @column = Column.find_by(id: params[:id])
+    @column.task_will_change!
     if @column.update_attributes(column_params)
       render :update
     else
@@ -36,6 +37,6 @@ class Api::ColumnsController < ApplicationController
   private
 
   def column_params
-    params.require(:column).permit(:id, :name, :project_id, :task)
+    params.require(:column).permit!
   end
 end

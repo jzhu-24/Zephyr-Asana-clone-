@@ -7,6 +7,7 @@ class Api::TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     @task.column_id = @task.column_id
+    @task.creator_id = current_user.id
 
     if @task.save
       render :show
