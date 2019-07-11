@@ -4,9 +4,6 @@ import {
   CLEAR_SESSION_ERRORS
 } from '../actions/session_actions';
 
-// create session actions + reducer (add to root reducer)
-// add states via containers + add to components
-
 export default (state = [], action) => {
   Object.freeze(state);
   switch (action.type) {

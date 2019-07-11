@@ -1,9 +1,18 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import ProjectIndexContainer from '../projects/project_index_container';
+import merge from "lodash/merge";
 
 class Nav extends React.Component {
 
+  componentDidMount() {
+    this.props.requestWorkspace(this.props.match.params.workspaceId);
+    // this.props.requestProjects();
+  }
+
   render() {
+    if (this.props.currentWorkspace === undefined) return null
+    
     return (
       <div className="nav">
         <img src={window.images.logo} alt="logo" className="nav-logo" />
@@ -14,6 +23,8 @@ class Nav extends React.Component {
           <p className="nav-favorites-title">Favorites</p>
         </div>
         <p className='nav-workspace'>{this.props.currentWorkspace.name}</p>
+        <ProjectIndexContainer 
+          match={this.props.match}/>
       </div>
     )
   }

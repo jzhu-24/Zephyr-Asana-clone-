@@ -1,2 +1,0 @@
-class AddFieldToWorkspaceUser < ApplicationRecord
-end

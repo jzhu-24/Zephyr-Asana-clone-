@@ -20,7 +20,7 @@ export const logout = () => dispatch => deleteSession()
 
 export const clearErrors = () => dispatch => dispatch(clearError());
 
-export const receiveErrors = errors => ({
+const receiveErrors = errors => ({
   type: RECEIVE_SESSION_ERRORS,
   errors
 });

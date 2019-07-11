@@ -35,10 +35,10 @@ class Login extends React.Component {
   }
 
   renderErrors() {
-    if (this.props.errors.length !== 0) {
+    if (this.props.errors.session.length !== 0) {
       return (
         <ul className="errors">
-          {this.props.errors.map((error, i) => (
+          {this.props.errors.session.map((error, i) => (
             <ul key={`error-${i}`}>
               {error}
             </ul>

@@ -8,23 +8,39 @@
 }
 
 .user-dropdown-container {
+  width: 250px;
   border-radius: 5px;
   background-color: white;
   display: none;
   position: absolute;
   top: 30px;
   right: 0;
-  min-width: 250px;
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.05);
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 13px;
 }
 
 .user-dropdown-container > div {
-  // ??? h-value v-value blur spread
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
   // ??? add margin to account for overlapping borders
   margin: 1px;
+}
+
+// .user-dropdown-workspaces {
+//   max-height: 210px;
+//   overflow: hidden;
+//   overflow-y: scroll;
+// }
+
+.user-dropdown-button {
+  border: 1px solid rgba(0, 0, 0, 0.322);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  font-size: 11px;
+  // ??? line-height for circles
+  line-height: 24px;
+  text-align: center;
 }
 
 .user-dropdown-row {
@@ -48,7 +64,6 @@
   justify-content: left;
 }
 
-// ??? absolute position
 .user-dropdown-check {
   position: absolute;
   left: 15px;

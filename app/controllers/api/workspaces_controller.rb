@@ -3,7 +3,8 @@ class Api::WorkspacesController < ApplicationController
   # ??? status codes?
 
   def index
-    @workspaces = Workspace.all
+    # @workspaces = Workspace.all
+    @workspaces = Workspace.includes(projects: [{ columns: [:tasks] }])
   end
 
   def create
@@ -37,6 +38,6 @@ class Api::WorkspacesController < ApplicationController
   private
 
   def workspace_params
-    params.require(:workspace).permit(:name)
+    params.require(:workspace).permit(:id, :name)
   end
 end

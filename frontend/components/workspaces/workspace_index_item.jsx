@@ -3,15 +3,13 @@ import { Link } from 'react-router-dom';
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-// ??? fontawesome importing
-
 class WorkspaceIndexItem extends React.Component {
 
   render() {    
     // ??? conditional view
     let faCheckIcon = <div></div>;
-
-    if (this.props.workspace.id === parseInt(this.props.currentWorkspace.id)) {
+    
+    if (this.props.workspace.id === parseInt(this.props.currentWorkspaceId)) {
       faCheckIcon = <FontAwesomeIcon icon={faCheck} className="user-dropdown-check"/>
     }
 

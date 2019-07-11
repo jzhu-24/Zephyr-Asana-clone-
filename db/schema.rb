@@ -10,10 +10,53 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_07_052602) do
+ActiveRecord::Schema.define(version: 2019_07_11_020524) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "columns", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "project_id", null: false
+    t.integer "task", default: [], array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_columns_on_project_id"
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description"
+    t.integer "creator_id", null: false
+    t.integer "owner_id"
+    t.string "color", default: "red"
+    t.string "view", default: "board"
+    t.integer "column", default: [], array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "workspace_id", null: false
+    t.index ["creator_id"], name: "index_projects_on_creator_id"
+    t.index ["owner_id"], name: "index_projects_on_owner_id"
+    t.index ["workspace_id"], name: "index_projects_on_workspace_id"
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.integer "creator_id", null: false
+    t.integer "owner_id"
+    t.integer "column_id", null: false
+    t.integer "task_id"
+    t.integer "subtask", default: [], array: true
+    t.boolean "completed", default: false
+    t.date "due_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["column_id"], name: "index_tasks_on_column_id"
+    t.index ["creator_id"], name: "index_tasks_on_creator_id"
+    t.index ["owner_id"], name: "index_tasks_on_owner_id"
+    t.index ["task_id"], name: "index_tasks_on_task_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -32,7 +75,6 @@ ActiveRecord::Schema.define(version: 2019_07_07_052602) do
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_workspace_users_on_user_id"
     t.index ["workspace_id", "user_id"], name: "index_workspace_users_on_workspace_id_and_user_id", unique: true
   end
 

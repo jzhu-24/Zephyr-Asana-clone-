@@ -4,7 +4,7 @@ import { logout } from '../../actions/session_actions';
 import { requestWorkspaces, deleteWorkspace } from '../../actions/workspace_actions';
 
 const mapStateToProps = state => ({
-  workspaces: Object.keys(state.entities.workspaces).map(id => state.entities.workspaces[id])
+  workspaces: Object.values(state.entities.workspaces)
 });
 
 const mapDispatchToProps = dispatch => ({

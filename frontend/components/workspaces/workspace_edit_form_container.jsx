@@ -1,15 +1,11 @@
 import { connect } from 'react-redux';
 import WorkspaceEditForm from './workspace_edit_form';
 import { updateWorkspace } from '../../actions/workspace_actions';
-import { clearErrors } from '../../actions/session_actions';
-
-const mapStateToProps = ({ errors }) => ({
-  errors
-});
+import { closeModal } from '../../actions/modal_actions';
 
 const mapDispatchToProps = dispatch => ({
   updateWorkspace: workspace => dispatch(updateWorkspace(workspace)),
-  clearErrors: () => dispatch(clearErrors())
+  closeModal: () => dispatch(closeModal())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(WorkspaceEditForm);
+export default connect(null, mapDispatchToProps)(WorkspaceEditForm);

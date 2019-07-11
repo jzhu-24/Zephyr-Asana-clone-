@@ -5,14 +5,14 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     resource :session, only: [:create, :destroy]
-    resources :workspaces
+    resources :workspaces do
+      resources :projects, shallow: true do
+        resources :columns, shallow: true do
+          resources :tasks, shallow: true
+        end
+      end
+    end
     resources :users
-    
-    # post '/search', to: 'users#search'
-    # resources :chirps
-    # resources :likes, only: [:create]
-    # delete '/likes', to: 'likes#destroy'
-    # resources :follows, only: [:create, :destroy]
   end
 
   root to: 'static_pages#root'

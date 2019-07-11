@@ -12,7 +12,7 @@ export const fetchWorkspace = id => (
   })
 );
 
-export const createWorkspace = workspace => (
+export const postWorkspace = workspace => (
   $.ajax({
     method: `POST`,
     url: `api/workspaces`,
@@ -20,7 +20,7 @@ export const createWorkspace = workspace => (
   })
 );
 
-export const updateWorkspace = workspace => (
+export const patchWorkspace = workspace => (
   $.ajax({
     method: `PATCH`,
     url: `api/workspaces/${workspace.id}`,
@@ -28,7 +28,7 @@ export const updateWorkspace = workspace => (
   })
 );
 
-export const deleteWorkspace = id => (
+export const destroyWorkspace = id => (
   $.ajax({
     method: `DELETE`,
     url: `api/workspaces/${id}`
