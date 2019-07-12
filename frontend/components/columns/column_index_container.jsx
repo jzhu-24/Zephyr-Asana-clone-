@@ -9,6 +9,7 @@ import {
 } from '../../actions/column_actions';
 
 import { requestProject, updateProject } from '../../actions/project_actions';
+import { updateTask } from '../../actions/task_actions';
 
 const mapStateToProps = (state, ownProps) => {
   const projectId = ownProps.match.params.projectId;
@@ -16,15 +17,24 @@ const mapStateToProps = (state, ownProps) => {
   // better way to handle undfined?
   let columnsArray
   if (state.entities.projects[projectId] === undefined) {
-    columnsArray = []
+    columnsArray = [];
   } else {
-    columnsArray = state.entities.projects[projectId].column
+    columnsArray = state.entities.projects[projectId].column;
   };
+
+  // let tasksArray
+  // if (Object.keys(state.entities.columns).length === 0) {
+  //   tasksArray = [];
+  // } else {
+  //   tasksArray = Object.keys(columnsArray).map(columnId => state.entities.columns[columnId].task);
+  // }
 
   return {
     project: state.entities.projects[projectId],
     columns: state.entities.columns,
-    columnsArray: columnsArray
+    columnsArray,
+    tasks: state.entities.tasks,
+    // tasksArray,
   };
 };
 
@@ -36,7 +46,8 @@ const mapDispatchToProps = dispatch => ({
   updateColumn: column => dispatch(updateColumn(column)),
   deleteColumn: id => dispatch(deleteColumn(id)),
   requestProject: id => dispatch(requestProject(id)),
-  updateProject: project => dispatch(updateProject(project))
+  updateProject: project => dispatch(updateProject(project)),
+  updateTask: task => dispatch(updateTask(task))
 });
 
 export default connect(

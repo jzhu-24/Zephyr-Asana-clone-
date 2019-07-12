@@ -12,7 +12,7 @@ class ColumnIndex extends React.Component {
     this.state = {
       project: this.props.project,
       columnsArray: this.props.columnsArray,
-      columns: this.columns
+      columns: this.props.columns
     };
 
     this.onDragEnd = this.onDragEnd.bind(this);
@@ -37,25 +37,60 @@ class ColumnIndex extends React.Component {
       return;
     }
 
-    const column = this.props.columns[source.droppableId];
-    const newTaskIds = column.task;
-    newTaskIds.splice(source.index, 1);
-    newTaskIds.splice(destination.index, 0, draggableId);
+    const start = this.props.columns[source.droppableId];
+    const finish = this.props.columns[destination.droppableId];
 
-    const newColumn = {
-      ...column,
-      taskIds: newTaskIds
+    if (start === finish) {
+      const newTaskIds = start.task;
+      newTaskIds.splice(source.index, 1);
+      newTaskIds.splice(destination.index, 0, draggableId);
+
+      const newColumn = {
+        ...start,
+        task: newTaskIds
+      };
+
+      const newState = {
+        ...this.state,
+        columns: {
+          ...this.props.columns,
+          [newColumn.id]: newColumn
+        }
+      };
+
+      // ??? how to make this not flicker?
+      this.props.updateColumn(newColumn);
+      this.setState(newState);
+      return;
+    }
+
+    const startTaskIds = start.task;
+    startTaskIds.splice(source.index, 1);
+    const newStart = {
+      ...start,
+      task: startTaskIds
+    };
+
+    const finishTaskIds = finish.task;
+    finishTaskIds.splice(destination.index, 0, draggableId);
+
+    const newFinish = {
+      ...finish,
+      task: finishTaskIds
     };
 
     const newState = {
       ...this.state,
       columns: {
         ...this.state.columns,
-        [newColumn.id]: newColumn
+        [newStart.id]: newStart,
+        [newFinish.id]: newFinish,
       }
     };
-    debugger
-    this.setState(newState).then(() => this.forceUpdate());
+    
+    this.setState(newState);
+    // this.props.updateTask({column_id: finish.id});  
+    // Object.values(newState.columns).forEach(column => this.props.updateColumn(column));
   };
 
   render() {
@@ -66,11 +101,11 @@ class ColumnIndex extends React.Component {
       <div>
         <div className="column-index">
           <DragDropContext onDragEnd={this.onDragEnd}>
-            {this.props.columnsArray.map(columnId => (
+            {this.state.columnsArray.map(columnId => (
               <ColumnIndexItem
                 updateColumn={this.props.updateColumn}
                 key={columnId}
-                column={this.props.columns[columnId]}
+                column={this.state.columns[columnId]}
                 requestColumn={this.props.requestColumn}
                 updateProject={this.props.updateProject}
                 deleteColumn={this.props.deleteColumn}

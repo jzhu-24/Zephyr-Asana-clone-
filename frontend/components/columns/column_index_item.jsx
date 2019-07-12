@@ -1,6 +1,6 @@
 import React from "react";
 import TaskIndexContainer from "../tasks/task_index_container";
-import TaskCreateFormContain   from "../tasks/task_create_form_container";
+import TaskCreateFormContain from "../tasks/task_create_form_container";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Droppable } from "react-beautiful-dnd";
@@ -63,7 +63,7 @@ class ColumnIndexItem extends React.Component {
 
   handleDelete() {
     const updatedProject = this.props.project;
-    const index = updatedProject.column.indexOf(this.state.column.id)
+    const index = updatedProject.column.indexOf(this.state.column.id);
 
     this.props.deleteColumn(this.state.column.id).then(() => {
       updatedProject.column.splice(index, 1);
@@ -95,7 +95,7 @@ class ColumnIndexItem extends React.Component {
           />
         </form>
       );
-    }
+    } 
 
     return (
       <div className="column">
@@ -111,7 +111,7 @@ class ColumnIndexItem extends React.Component {
 
         <Droppable droppableId={this.props.column.id}>
           {provided => (
-            <div ref={provided.innerRef} {...provided.droppableProps}>
+            <div className="column-droppable" ref={provided.innerRef} {...provided.droppableProps}>
               <TaskIndexContainer column={this.props.column} />
               {provided.placeholder}
             </div>

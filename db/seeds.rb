@@ -32,5 +32,5 @@ ActiveRecord::Base.transaction do
   Project.first.add_column(Column.all[2].id)
   Column.first.add_task(Task.all[0].id)
   Column.first.add_task(Task.all[1].id)
-  Column.first.add_task(Task.all[2].id)
+  Column.second.add_task(Task.all[2].id)
 end

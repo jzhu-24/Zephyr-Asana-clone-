@@ -6,6 +6,13 @@ import { Draggable } from "react-beautiful-dnd";
  
 class TaskIndex extends React.Component {
   
+  constructor(props) {
+    super(props)
+
+
+
+  }
+
   componentDidMount() {
     this.props.requestTasks(this.props.column.id);
   }
