@@ -8,7 +8,7 @@ import {
   createColumn
 } from '../../actions/column_actions';
 
-import { requestProject } from '../../actions/project_actions';
+import { requestProject, updateProject } from '../../actions/project_actions';
 
 const mapStateToProps = (state, ownProps) => {
   const projectId = ownProps.match.params.projectId;
@@ -35,7 +35,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(createColumn((project_id, column))),
   updateColumn: column => dispatch(updateColumn(column)),
   deleteColumn: id => dispatch(deleteColumn(id)),
-  requestProject: id => dispatch(requestProject(id))
+  requestProject: id => dispatch(requestProject(id)),
+  updateProject: project => dispatch(updateProject(project))
 });
 
 export default connect(

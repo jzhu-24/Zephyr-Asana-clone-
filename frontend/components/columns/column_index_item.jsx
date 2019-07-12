@@ -63,10 +63,10 @@ class ColumnIndexItem extends React.Component {
 
   handleDelete() {
     const updatedProject = this.props.project;
-    const index = updatedProject.indexOf(this.state.column.id)
+    const index = updatedProject.column.indexOf(this.state.column.id)
 
     this.props.deleteColumn(this.state.column.id).then(() => {
-      updatedProject.splice(index, 1);
+      updatedProject.column.splice(index, 1);
       this.props.updateProject(updatedProject);
     });
   }
@@ -112,9 +112,8 @@ class ColumnIndexItem extends React.Component {
         <Droppable droppableId={this.props.column.id}>
           {provided => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
-              <TaskIndexContainer column={this.props.column}>
-                <div>{provided.placeholder}</div>
-              </TaskIndexContainer>
+              <TaskIndexContainer column={this.props.column} />
+              {provided.placeholder}
             </div>
           )}
         </Droppable>
