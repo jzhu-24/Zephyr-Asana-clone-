@@ -21,14 +21,13 @@ class ColumnIndex extends React.Component {
     this.props.requestProject(this.props.match.params.projectId);
     this.props.requestColumns(this.props.match.params.projectId);
     this.props.requestTasks(1);
-    this.forceUpdate();
-    this.setState(this.state);
   }
 
-  // componentDidUpdate(prevProps) {
-  //   if (prevProps !== this.props) {
-  //     this.forceUpdate();
-  //     this.setState(this.state);
+  // componentDidUpdate(prevState) {
+  //   if (prevState !== this.state) {
+  //     this.props
+  //       .requestColumns(this.props.match.params.projectId)
+  //       .then(() => this.forceUpdate());
   //   }
   // }
 
@@ -47,7 +46,6 @@ class ColumnIndex extends React.Component {
 
   onDragEnd = result => {
     const { destination, source, draggableId, type } = result;
-    debugger
 
     if (!destination) {
       return;
@@ -65,13 +63,9 @@ class ColumnIndex extends React.Component {
       newColumnOrder.splice(source.index, 1);
       newColumnOrder.splice(destination.index, 0, draggableId);
 
-      const newState = {
-        ...this.state,
-        columnOrder: newColumnOrder
-      };
-
       const newProject = this.props.project;
       newProject.column = newColumnOrder;
+      this.setState(Object.assign(this.state, {columnsArray: newColumnOrder}));
       this.props.updateProject(newProject);
       return;
     }
@@ -89,14 +83,17 @@ class ColumnIndex extends React.Component {
         task: newTaskIds
       };
 
+      let that = this;
+
       const newState = {
         ...this.state,
         columns: {
-          ...this.state.columns,
+          ...that.state.columns,
           [newColumn.id]: newColumn
         }
       };
 
+      this.props.updateColumn(newColumn);
       this.setState(newState);
       return;
     }
@@ -124,15 +121,25 @@ class ColumnIndex extends React.Component {
         [newFinish.id]: newFinish
       }
     };
+  
+    this.setState(newState);
 
-    debugger
-
-    this.setState(newState, () => this.forceUpdate());
+    this.props.updateTask({
+      id: draggableId,
+      column_id: destination.droppableId
+    });
+    Object.values(this.state.columns).forEach(column => {
+      this.props.updateColumn(column);
+    });
+    // this.forceUpdate();
+    return;
   };
 
   render() {
     if (this.props.columnsArray.length === 0) return null;
     if (Object.keys(this.props.columns).length === 0) return null;
+    if (this.state.columnsArray.length === 0) return null;
+    if (Object.keys(this.state.columns).length === 0) return null;
 
     return (
       <div>

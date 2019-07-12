@@ -7,7 +7,7 @@ import {
 import { updateColumn } from '../../actions/column_actions';
 import TaskEditForm from './task_edit_form'
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, ownProps) => ({
   task: Object.values(state.entities.tasks),
 });
 

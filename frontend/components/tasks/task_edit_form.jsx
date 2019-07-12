@@ -5,11 +5,20 @@ class TaskEditForm extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
+
+    this.state = {
+      name: '',
+      description: '',
+      owner_id: '',
+      completed: '',
+      due_date: ''
+    }
   }
 
   componentDidMount() {
-    this.props.requestTask(this.props.taskId);
+    this.props.requestTask(this.props.taskId).then(task => this.setState(task));
     this.closeModalEsc();
+
   }
 
   componentDidUpdate(prevProps) {
@@ -60,7 +69,7 @@ class TaskEditForm extends React.Component {
         <textarea
           type="text"
           value={this.props.task.name}
-          onChange={this.handleInput("name")}
+          onChange={this.handleInput("description")}
         />
       </div>
     );

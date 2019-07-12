@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import TaskIndexItem from "./task_index_item";
+import TaskIndexItemContainer from "./task_index_item_container";
 import { Draggable } from "react-beautiful-dnd";
  
 class TaskIndex extends React.Component {
@@ -17,7 +18,7 @@ class TaskIndex extends React.Component {
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
               >
-                <TaskIndexItem
+                <TaskIndexItemContainer
                   key={taskId}
                   task={this.props.tasks[taskId]}
                   editTask={this.props.editTask}
