@@ -13,7 +13,6 @@ class LoggedInView extends React.Component {
 
   render() {
     // ??? render (must have conditional) -> componentDidMount
-    if (this.props.currentWorkspace === undefined) return null;
     
     return (
       <div className="logged_in_view">

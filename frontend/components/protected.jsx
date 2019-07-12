@@ -17,11 +17,11 @@ export default () => (
     <div className="main-container">
       <div className="header-container">
         <ProtectedRoute
-          path="/:workspaceId?/:projectId?"
+          path="/:workspaceId"
           component={HeaderContainer}
         />
         <ProtectedRoute
-          path="/:workspaceId?/:projectId?"
+          path="/:workspaceId"
           component={UserDropdownContainer}
         />
       </div>

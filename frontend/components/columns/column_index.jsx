@@ -1,11 +1,10 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
-import ColumnIndexItem from "./column_index_item";
+import ColumnIndexItemContainer from "./column_index_item_container";
 import ColumnCreateContainer from "./column_create_form_container";
-import { DragDropContext } from "react-beautiful-dnd";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 class ColumnIndex extends React.Component {
-  
   constructor(props) {
     super(props);
 
@@ -21,10 +20,34 @@ class ColumnIndex extends React.Component {
   componentDidMount() {
     this.props.requestProject(this.props.match.params.projectId);
     this.props.requestColumns(this.props.match.params.projectId);
+    this.props.requestTasks(1);
+    this.forceUpdate();
+    this.setState(this.state);
   }
 
+  // componentDidUpdate(prevProps) {
+  //   if (prevProps !== this.props) {
+  //     this.forceUpdate();
+  //     this.setState(this.state);
+  //   }
+  // }
+
+  // componentWillUnmount() {
+    // if (Object.keys(this.state.columns).length !== 0) {
+    //   const columns = this.state.columns;
+    //   this.state.columnsArray.forEach(columnId => {
+    //     let columnTask = columns[columnId].task;
+    //     this.props.updateColumn({id: columnId, task: columnTask})
+    //     // columnTask.forEach(taskId => {
+    //     //   this.props.updateTask({id: taskId, column_id: columnId})
+    //     // })
+    //   });
+    // }
+  // }
+
   onDragEnd = result => {
-    const { destination, source, draggableId } = result;
+    const { destination, source, draggableId, type } = result;
+    debugger
 
     if (!destination) {
       return;
@@ -37,8 +60,24 @@ class ColumnIndex extends React.Component {
       return;
     }
 
-    const start = this.props.columns[source.droppableId];
-    const finish = this.props.columns[destination.droppableId];
+    if (type === "column") {
+      const newColumnOrder = this.props.columnsArray;
+      newColumnOrder.splice(source.index, 1);
+      newColumnOrder.splice(destination.index, 0, draggableId);
+
+      const newState = {
+        ...this.state,
+        columnOrder: newColumnOrder
+      };
+
+      const newProject = this.props.project;
+      newProject.column = newColumnOrder;
+      this.props.updateProject(newProject);
+      return;
+    }
+
+    const start = this.state.columns[source.droppableId];
+    const finish = this.state.columns[destination.droppableId];
 
     if (start === finish) {
       const newTaskIds = start.task;
@@ -53,13 +92,11 @@ class ColumnIndex extends React.Component {
       const newState = {
         ...this.state,
         columns: {
-          ...this.props.columns,
+          ...this.state.columns,
           [newColumn.id]: newColumn
         }
       };
 
-      // ??? how to make this not flicker?
-      this.props.updateColumn(newColumn);
       this.setState(newState);
       return;
     }
@@ -84,13 +121,13 @@ class ColumnIndex extends React.Component {
       columns: {
         ...this.state.columns,
         [newStart.id]: newStart,
-        [newFinish.id]: newFinish,
+        [newFinish.id]: newFinish
       }
     };
-    
-    this.setState(newState);
-    // this.props.updateTask({column_id: finish.id});  
-    // Object.values(newState.columns).forEach(column => this.props.updateColumn(column));
+
+    debugger
+
+    this.setState(newState, () => this.forceUpdate());
   };
 
   render() {
@@ -101,21 +138,40 @@ class ColumnIndex extends React.Component {
       <div>
         <div className="column-index">
           <DragDropContext onDragEnd={this.onDragEnd}>
-            {this.state.columnsArray.map(columnId => (
-              <ColumnIndexItem
-                updateColumn={this.props.updateColumn}
-                key={columnId}
-                column={this.state.columns[columnId]}
-                requestColumn={this.props.requestColumn}
-                updateProject={this.props.updateProject}
-                deleteColumn={this.props.deleteColumn}
-                project={this.props.project}
-              />
-            ))}
+            <Droppable
+              droppableId="all-columns"
+              direction="horizotal"
+              type="column"
+            >
+              {provided => (
+                <div
+                  className="index-droppable"
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                >
+                  {this.state.columnsArray.map((columnId, index) => (
+                    <ColumnIndexItemContainer
+                      updateColumn={this.props.updateColumn}
+                      key={columnId}
+                      column={this.props.columns[columnId]}
+                      columns={this.props.columns}
+                      requestColumn={this.props.requestColumn}
+                      updateProject={this.props.updateProject}
+                      deleteColumn={this.props.deleteColumn}
+                      project={this.props.project}
+                      index={index}
+                      tasks={this.props.tasks}
+                    />
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
           </DragDropContext>
           <ColumnCreateContainer
             match={this.props.match}
             project={this.props.project}
+            column={this.props.column}
           />
         </div>
       </div>

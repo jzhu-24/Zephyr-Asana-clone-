@@ -9,7 +9,7 @@ import {
 } from '../../actions/column_actions';
 
 import { requestProject, updateProject } from '../../actions/project_actions';
-import { updateTask } from '../../actions/task_actions';
+import { updateTask, requestTasks } from "../../actions/task_actions";
 
 const mapStateToProps = (state, ownProps) => {
   const projectId = ownProps.match.params.projectId;
@@ -34,7 +34,6 @@ const mapStateToProps = (state, ownProps) => {
     columns: state.entities.columns,
     columnsArray,
     tasks: state.entities.tasks,
-    // tasksArray,
   };
 };
 
@@ -46,6 +45,7 @@ const mapDispatchToProps = dispatch => ({
   updateColumn: column => dispatch(updateColumn(column)),
   deleteColumn: id => dispatch(deleteColumn(id)),
   requestProject: id => dispatch(requestProject(id)),
+  requestTasks: columnId => dispatch(requestTasks(columnId)),
   updateProject: project => dispatch(updateProject(project)),
   updateTask: task => dispatch(updateTask(task))
 });

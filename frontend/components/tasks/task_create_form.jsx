@@ -10,13 +10,8 @@ class TaskCreateForm extends React.Component {
       displayForm: false
     };
 
-    this.handleForm = this.handleForm.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.toggleInput = this.toggleInput.bind(this);
-  }
-
-  componentDidUpdate() {
-    if (this.state.displayForm) this.handleForm();
   }
 
   toggleInput() {
@@ -33,24 +28,9 @@ class TaskCreateForm extends React.Component {
     };
   }
 
-  handleForm() {
-    const input = document.getElementsByClassName("create-task")[0];
-    let that = this;
-    window.onclick = e => {
-      if (e.target.classList.value === "create-task-input") {
-        return null;
-      } else if (e.target == input) {
-        return null;
-      } else {
-        this.setState({
-          displayForm: !this.state.displayForm
-        });
-        that.handleSubmit();
-      }
-    };
-  }
-
   handleSubmit() {
+    this.toggleInput();
+
     const task = {
       name: this.state.task.name,
       column_id: this.props.column.id
@@ -58,10 +38,13 @@ class TaskCreateForm extends React.Component {
     this.setState({ task });
 
     const updatedColumn = this.props.column;
-    this.props.createTask(this.state.task).then(result => {
-      updatedColumn.task.unshift(result.task.id);
-      this.props.updateColumn(updatedColumn);
-    });
+    this.props
+      .createTask(task)
+      .then(result => {
+        updatedColumn.task.unshift(result.task.id);
+        this.props.updateColumn(updatedColumn);
+      })
+      .then(() => this.forceUpdate());
   }
 
   render() {
@@ -76,6 +59,8 @@ class TaskCreateForm extends React.Component {
             value={this.state.task.name}
             onChange={this.handleInput("name")}
             onSubmit={this.handleSubmit}
+            onBlur={this.handleSubmit}
+            autoFocus
           />
         </form>
       );

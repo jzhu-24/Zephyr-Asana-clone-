@@ -6,7 +6,9 @@ import merge from "lodash/merge";
 class Nav extends React.Component {
 
   componentDidMount() {
-    this.props.requestWorkspace(this.props.match.params.workspaceId);
+    if (this.props.match.params.workspaceId > 0) {
+      this.props.requestWorkspace(this.props.match.params.workspaceId);
+    }
   }
 
   render() {

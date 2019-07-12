@@ -7,25 +7,18 @@ import {
   updateTask,
   createTask
 } from '../../actions/task_actions';
-
-const mapStateToProps = (state, ownProps) => {  
-  return {
-    column: state.entities.columns[ownProps.column.id],
-    tasks: state.entities.tasks,
-    tasksArray: ownProps.column.task
-  };
-};
+import { openModal } from "../../actions/modal_actions";
 
 const mapDispatchToProps = dispatch => ({
   requestTasks: column_id => dispatch(requestTasks(column_id)),
   requestTask: id => dispatch(requestTask(id)),
-  createTask: (column_id, task) =>
-    dispatch(createTask((column_id, task))),
+  createTask: (column_id, task) => dispatch(createTask((column_id, task))),
   updateTask: task => dispatch(updateTask(task)),
-  deleteTask: id => dispatch(deleteTask(id))
+  deleteTask: id => dispatch(deleteTask(id)),
+  editTask: () => dispatch(openModal("editTask"))
 });
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(TaskIndex);

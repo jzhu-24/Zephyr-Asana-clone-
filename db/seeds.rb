@@ -27,10 +27,12 @@ ActiveRecord::Base.transaction do
   Task.create(name: "Build user profiles", creator_id: User.first.id, column_id: Column.first.id)
   Task.create(name: "Setup Jira", creator_id: User.first.id, column_id: Column.first.id)
   Task.create(name: "Hire more senior devs", creator_id: User.first.id, column_id: Column.first.id)
+  Task.create(name: "Fix this bug", creator_id: User.first.id, column_id: Column.first.id)
   Project.first.add_column(Column.all[0].id)
   Project.first.add_column(Column.all[1].id)
   Project.first.add_column(Column.all[2].id)
   Column.first.add_task(Task.all[0].id)
   Column.first.add_task(Task.all[1].id)
   Column.second.add_task(Task.all[2].id)
+  Column.second.add_task(Task.all[3].id)
 end

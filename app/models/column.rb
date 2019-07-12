@@ -15,5 +15,4 @@ class Column < ApplicationRecord
     self.task.insert(new_idx, self.task.delete_at(old_idx))
     self.save
   end
-
 end

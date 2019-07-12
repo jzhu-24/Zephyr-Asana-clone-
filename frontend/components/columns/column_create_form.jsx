@@ -48,7 +48,7 @@ class ColumnCreateForm extends React.Component {
     const updatedProject = this.props.project;
     this.props.createColumn(this.state.column).then(result => {
       updatedProject.column.push(result.column.id);
-      this.props.updateProject(updatedProject);
+      this.props.updateProject(updatedProject).then(() => this.forceUpdate());
     });
   }
 
