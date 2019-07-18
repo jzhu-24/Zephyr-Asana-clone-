@@ -6,71 +6,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 
 class ColumnIndexItem extends React.Component {
-  constructor(props) {
-    super(props);
-    const name = this.props.column.name
-
-    this.state = {
-      column: { name },
-      displayEditForm: false
-    };
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
-    this.toggleInput = this.toggleInput.bind(this);
-  }
-
-  // componentDidUpdate(prevProps) {
-  //   if (prevProps.columns !== this.props.columns) {
-  //     this.setState(this.state, () => this.forceUpdate());
-  //     this.forceUpdate();
-  //   }
-  // }
-
-  toggleInput() {
-    this.setState({displayEditForm: !this.state.displayEditForm});
-  }
-
-  handleInput(type) {
-    return e => {
-      this.setState({
-        column: {
-          [type]: e.target.value
-        }
-      });
-    };
-  }
-
-  handleSubmit() {
-    const column = {
-      name: this.state.column.name,
-      id: this.props.column.id,
-    }
-
-    this.toggleInput();
-    this.props.updateColumn(column).then(() => this.forceUpdate());
-  }
-
-  handleDelete() {
-    const updatedProject = this.props.project;
-    const index = updatedProject.column.indexOf(this.props.column.id);
-
-    this.props
-      .deleteColumn(this.props.column.id)
-      .then(() => {
-        updatedProject.column.splice(index, 1);
-        this.props.updateProject(updatedProject);
-      })
-      .then(() => this.setState(this.state));
-  }
-
   render() {
     let editForm;
+    let {
+      column,
+      columnId,
+      index,
+      tasks,
+      displayEditForm,
+      handleDeleteColumn,
+      toggleEditColumn,
+      handleEditColumn,
+      handleEditColumnSubmit
+    } = this.props;
 
-    if (this.state.displayEditForm === false) {
+    if (displayEditForm[columnId] === false) {
       editForm = (
-        <p className="column-name" onClick={this.toggleInput}>
-          {this.props.column.name}
+        <p className="column-name" onClick={() => toggleEditColumn(columnId)}>
+          {column.name}
         </p>
       );
     } else {
@@ -79,10 +32,10 @@ class ColumnIndexItem extends React.Component {
           <input
             className="edit-column-input"
             type="text"
-            value={this.state.column.name}
-            onChange={this.handleInput("name")}
-            onSubmit={this.handleSubmit}
-            onBlur={this.handleSubmit}
+            value={column.name}
+            onChange={handleEditColumn(columnId)}
+            onSubmit={() => handleEditColumnSubmit(columnId)}
+            onBlur={() => handleEditColumnSubmit(columnId)}
             autoFocus
           />
         </form>
@@ -90,7 +43,10 @@ class ColumnIndexItem extends React.Component {
     }
 
     return (
-      <Draggable draggableId={this.props.column.id} index={this.props.index}>
+      <Draggable
+        draggableId={columnId}
+        index={index}
+      >
         {provided => (
           <div
             className="column-draggable"
@@ -103,12 +59,12 @@ class ColumnIndexItem extends React.Component {
                 <FontAwesomeIcon
                   className="column-delete-button"
                   icon={faTrash}
-                  onClick={this.handleDelete}
+                  onClick={() => handleDeleteColumn(columnId)}
                 />
               </div>
-              <TaskCreateFormContainer column={this.props.column} />
+              <TaskCreateFormContainer column={column} />
 
-              <Droppable droppableId={this.props.column.id} type="task">
+              <Droppable droppableId={columnId} type="task">
                 {provided => (
                   <div
                     className="column-droppable"
@@ -116,8 +72,8 @@ class ColumnIndexItem extends React.Component {
                     {...provided.droppableProps}
                   >
                     <TaskIndexContainer
-                      column={this.props.column}
-                      tasks={this.props.tasks}
+                      column={column}
+                      tasks={tasks}
                     />
                     {provided.placeholder}
                   </div>

@@ -22,10 +22,11 @@ class Api::ColumnsController < ApplicationController
   def update
     @column = Column.find_by(id: params[:id])
     @column.task_will_change!
-
-    @column.task = @column.task.uniq
-
+    task = params[:column][:task]
+    
     if @column.update_attributes(column_params)
+      @column.task = task
+      @column.save
       render :update
     else
       render json: @column.errors.full_messages, status: 422

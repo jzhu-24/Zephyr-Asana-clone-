@@ -46,10 +46,15 @@ class ColumnCreateForm extends React.Component {
 
   handleSubmit() {
     const updatedProject = this.props.project;
+
+    this.setState(this.state);
+
     this.props.createColumn(this.state.column).then(result => {
       updatedProject.column.push(result.column.id);
-      this.props.updateProject(updatedProject).then(() => this.forceUpdate());
-    });
+      this.props.updateProject(updatedProject);
+    }).then(() => this.forceUpdate());
+
+    this.setState(this.state);
   }
 
   toggleInput() {

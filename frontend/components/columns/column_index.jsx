@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
-import ColumnIndexItemContainer from "./column_index_item_container";
+import ColumnIndexItem from './column_index_item'
 import ColumnCreateContainer from "./column_create_form_container";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
@@ -9,40 +9,83 @@ class ColumnIndex extends React.Component {
     super(props);
 
     this.state = {
-      project: this.props.project,
-      columnsArray: this.props.columnsArray,
-      columns: this.props.columns
+      project: {},
+      columnsArray: [],
+      columns: {},
+      tasks: {},
+      displayEditForm: {}
     };
 
     this.onDragEnd = this.onDragEnd.bind(this);
+    this.handleDeleteColumn = this.handleDeleteColumn.bind(this);
+    this.toggleEditColumn = this.toggleEditColumn.bind(this);
+    this.handleEditColumn = this.handleEditColumn.bind(this);
+    this.handleEditColumnSubmit = this.handleEditColumnSubmit.bind(this);
   }
 
   componentDidMount() {
-    this.props.requestProject(this.props.match.params.projectId);
-    this.props.requestColumns(this.props.match.params.projectId);
-    this.props.requestTasks(1);
+    this.props
+      .requestProject(this.props.match.params.projectId)
+      .then(result => {
+        this.setState({ project: result.project });
+        this.setState({ columnsArray: result.project.column });
+
+        // initialize displayEditForm
+        const displayEditForm = {}
+        for (const columnId of result.project.column) {
+          displayEditForm[columnId] = false;
+        }
+        this.setState({ displayEditForm });
+      });
+
+    this.props
+      .requestColumns(this.props.match.params.projectId)
+      .then(result => {
+        this.setState({ columns: result.columns });
+        this.props
+          .requestTasks(Object.keys(result.columns)[0])
+          .then(result => this.setState({ tasks: result.tasks }));
+      });
   }
 
-  // componentDidUpdate(prevState) {
-  //   if (prevState !== this.state) {
-  //     this.props
-  //       .requestColumns(this.props.match.params.projectId)
-  //       .then(() => this.forceUpdate());
-  //   }
-  // }
+  handleDeleteColumn(columnId) {
+    const updatedProject = this.state.project;
+    const index = updatedProject.column.indexOf(columnId);
+    updatedProject.column.splice(index, 1);
 
-  // componentWillUnmount() {
-    // if (Object.keys(this.state.columns).length !== 0) {
-    //   const columns = this.state.columns;
-    //   this.state.columnsArray.forEach(columnId => {
-    //     let columnTask = columns[columnId].task;
-    //     this.props.updateColumn({id: columnId, task: columnTask})
-    //     // columnTask.forEach(taskId => {
-    //     //   this.props.updateTask({id: taskId, column_id: columnId})
-    //     // })
-    //   });
-    // }
-  // }
+    this.setState({ project: updatedProject }, () => {
+      this.props.updateProject(updatedProject).then(() => {
+        this.props.deleteColumn(columnId);
+      });
+    });
+  }
+
+  // ??? copy -> modify -> setState
+  toggleEditColumn(columnId) {
+    const displayEditForm = this.state.displayEditForm;
+    displayEditForm[columnId] = !this.state.displayEditForm[columnId];
+    this.setState({displayEditForm});
+  }
+
+  handleEditColumn(columnId) {
+    return e => {
+      this.setState({
+        ...this.state,
+        columns: {
+          ...this.state.columns,
+          [columnId]: {
+            ...this.state.columns[columnId],
+            name: e.target.value
+          }
+        }
+      });
+    };
+  }
+
+  handleEditColumnSubmit(columnId) {
+    this.toggleEditColumn(columnId);
+    this.props.updateColumn(this.state.columns[columnId]);
+  }
 
   onDragEnd = result => {
     const { destination, source, draggableId, type } = result;
@@ -59,14 +102,16 @@ class ColumnIndex extends React.Component {
     }
 
     if (type === "column") {
-      const newColumnOrder = this.props.columnsArray;
+      const newColumnOrder = this.state.columnsArray;
       newColumnOrder.splice(source.index, 1);
       newColumnOrder.splice(destination.index, 0, draggableId);
 
-      const newProject = this.props.project;
+      const newProject = this.state.project;
       newProject.column = newColumnOrder;
-      this.setState(Object.assign(this.state, {columnsArray: newColumnOrder}));
-      this.props.updateProject(newProject);
+      this.setState(
+        Object.assign(this.state, { columnsArray: newColumnOrder })
+      );
+      this.state.updateProject(newProject);
       return;
     }
 
@@ -121,7 +166,7 @@ class ColumnIndex extends React.Component {
         [newFinish.id]: newFinish
       }
     };
-  
+
     this.setState(newState);
 
     this.props.updateTask({
@@ -131,15 +176,12 @@ class ColumnIndex extends React.Component {
     Object.values(this.state.columns).forEach(column => {
       this.props.updateColumn(column);
     });
-    // this.forceUpdate();
+
     return;
   };
 
   render() {
-    if (this.props.columnsArray.length === 0) return null;
-    if (Object.keys(this.props.columns).length === 0) return null;
-    if (this.state.columnsArray.length === 0) return null;
-    if (Object.keys(this.state.columns).length === 0) return null;
+    if (Object.keys(this.state.tasks).length === 0) return null;
 
     return (
       <div>
@@ -157,17 +199,16 @@ class ColumnIndex extends React.Component {
                   ref={provided.innerRef}
                 >
                   {this.state.columnsArray.map((columnId, index) => (
-                    <ColumnIndexItemContainer
-                      updateColumn={this.props.updateColumn}
+                    <ColumnIndexItem
                       key={columnId}
-                      column={this.props.columns[columnId]}
-                      columns={this.props.columns}
-                      requestColumn={this.props.requestColumn}
-                      updateProject={this.props.updateProject}
-                      deleteColumn={this.props.deleteColumn}
-                      project={this.props.project}
+                      {...this.state}
+                      columnId={columnId}
+                      column={this.state.columns[columnId]}
+                      handleDeleteColumn={this.handleDeleteColumn}
+                      toggleEditColumn={this.toggleEditColumn}
+                      handleEditColumn={this.handleEditColumn}
+                      handleEditColumnSubmit={this.handleEditColumnSubmit}
                       index={index}
-                      tasks={this.props.tasks}
                     />
                   ))}
                   {provided.placeholder}
@@ -177,8 +218,8 @@ class ColumnIndex extends React.Component {
           </DragDropContext>
           <ColumnCreateContainer
             match={this.props.match}
-            project={this.props.project}
-            column={this.props.column}
+            project={this.state.project}
+            column={this.state.columns[Object.keys(this.state.columns)[0]]}
           />
         </div>
       </div>
