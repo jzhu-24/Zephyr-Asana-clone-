@@ -6,6 +6,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 
 class ColumnIndexItem extends React.Component {
+  
+  constructor(props) {
+    super(props);
+    this.enterPressed = this.enterPressed.bind(this);
+  }
+
+  enterPressed = e => {
+    if (e.charCode === 13) {
+      this.props.handleEditColumnSubmit(this.props.columnId);
+    }
+  }
+
   render() {
     let editForm;
     let {
@@ -34,7 +46,7 @@ class ColumnIndexItem extends React.Component {
             type="text"
             value={column.name}
             onChange={handleEditColumn(columnId)}
-            onSubmit={() => handleEditColumnSubmit(columnId)}
+            onKeyPress={this.enterPressed}
             onBlur={() => handleEditColumnSubmit(columnId)}
             autoFocus
           />

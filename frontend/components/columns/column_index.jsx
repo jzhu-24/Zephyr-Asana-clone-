@@ -84,7 +84,6 @@ class ColumnIndex extends React.Component {
 
   handleEditColumnSubmit(columnId) {
     this.toggleEditColumn(columnId);
-    debugger
     this.props.updateColumn(this.state.columns[columnId]);
   }
 
