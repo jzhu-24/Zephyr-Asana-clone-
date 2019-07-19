@@ -6,7 +6,6 @@ class Api::ColumnsController < ApplicationController
 
   def create
     @column = Column.new(column_params)
-    @column.project_id = @column.project_id
 
     if @column.save
       render :show

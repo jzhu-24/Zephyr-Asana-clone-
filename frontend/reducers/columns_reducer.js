@@ -12,11 +12,7 @@ const columnsReducer = (state = {}, action) => {
     case RECEIVE_COLUMNS:
       return merge({}, state, action.columns);
     case RECEIVE_COLUMN:
-      console.log("current action: ", action.column);
-      let task = merge({}, action.column.task);
-      let newState2 = merge({}, state, { [action.column.id]: action.column });
-      newState2.task = task;
-      return newState2;
+      return merge({}, state, { [action.column.id]: action.column });
     case REMOVE_COLUMN:
       const newState = merge({}, state);
       delete newState[action.columnId];

@@ -1,9 +1,9 @@
-import React from "react";
-import TaskIndexContainer from "../tasks/task_index_container";
-import TaskCreateFormContainer from "../tasks/task_create_form_container";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Droppable, Draggable } from "react-beautiful-dnd";
+import React from 'react';
+import TaskIndexContainer from '../tasks/task_index_container';
+import TaskCreateFormContainer from '../tasks/task_create_form_container';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Droppable, Draggable } from 'react-beautiful-dnd';
 
 class ColumnIndexItem extends React.Component {
   
@@ -14,7 +14,7 @@ class ColumnIndexItem extends React.Component {
 
   enterPressed = e => {
     if (e.charCode === 13) {
-      this.props.handleEditColumnSubmit(this.props.columnId);
+      this.props.handleColumnSubmit('EDIT', this.props.columnId);
     }
   }
 
@@ -27,14 +27,17 @@ class ColumnIndexItem extends React.Component {
       tasks,
       displayEditForm,
       handleDeleteColumn,
-      toggleEditColumn,
-      handleEditColumn,
-      handleEditColumnSubmit
+      toggleColumnForm,
+      handleColumnInput,
+      handleColumnSubmit
     } = this.props;
 
-    if (displayEditForm[columnId] === false) {
+    if (!displayEditForm[columnId]) {
       editForm = (
-        <p className="column-name" onClick={() => toggleEditColumn(columnId)}>
+        <p
+          className="column-name"
+          onClick={() => toggleColumnForm("EDIT", columnId)}
+        >
           {column.name}
         </p>
       );
@@ -45,9 +48,9 @@ class ColumnIndexItem extends React.Component {
             className="edit-column-input"
             type="text"
             value={column.name}
-            onChange={handleEditColumn(columnId)}
+            onChange={handleColumnInput("EDIT", columnId)}
             onKeyPress={this.enterPressed}
-            onBlur={() => handleEditColumnSubmit(columnId)}
+            onBlur={() => handleColumnSubmit("EDIT", columnId)}
             autoFocus
           />
         </form>
@@ -61,25 +64,25 @@ class ColumnIndexItem extends React.Component {
       >
         {provided => (
           <div
-            className="column-draggable"
+            className='column-draggable'
             {...provided.draggableProps}
             ref={provided.innerRef}
           >
-            <div className="column">
-              <div className="column-header" {...provided.dragHandleProps}>
+            <div className='column'>
+              <div className='column-header' {...provided.dragHandleProps}>
                 {editForm}
                 <FontAwesomeIcon
-                  className="column-delete-button"
+                  className='column-delete-button'
                   icon={faTrash}
                   onClick={() => handleDeleteColumn(columnId)}
                 />
               </div>
               <TaskCreateFormContainer column={column} />
 
-              <Droppable droppableId={columnId} type="task">
+              <Droppable droppableId={columnId} type='task'>
                 {provided => (
                   <div
-                    className="column-droppable"
+                    className='column-droppable'
                     ref={provided.innerRef}
                     {...provided.droppableProps}
                   >

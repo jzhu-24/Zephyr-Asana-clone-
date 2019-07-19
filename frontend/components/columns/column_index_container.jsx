@@ -20,8 +20,7 @@ const mapStateToProps = () => {
 const mapDispatchToProps = dispatch => ({
   requestColumns: project_id => dispatch(requestColumns(project_id)),
   requestColumn: id => dispatch(requestColumn(id)),
-  createColumn: (project_id, column) =>
-  dispatch(createColumn((project_id, column))),
+  createColumn: column => dispatch(createColumn(column)),
   updateColumn: column => dispatch(updateColumn(column)),
   deleteColumn: id => dispatch(deleteColumn(id)),
   requestProject: id => dispatch(requestProject(id)),
