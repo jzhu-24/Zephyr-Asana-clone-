@@ -11,9 +11,22 @@ import {
 import { requestProject, updateProject } from '../../actions/project_actions';
 import { updateTask, requestTasks } from "../../actions/task_actions";
 
-const mapStateToProps = () => {  
-  return {
+const mapStateToProps = (state, ownProps) => {  
+  const projectId = ownProps.match.params.projectId;
+  let columnsArray;
 
+  if (!state.entities.projects[projectId]) {
+    columnsArray = [];
+  } else {
+    columnsArray = state.entities.projects[projectId].column;
+  }
+
+  return {
+    columns: state.entities.columns,
+    projects: state.entities.projects,
+    tasks: state.entities.tasks,
+    project: state.entities.projects[projectId],
+    columnsArray
   };
 };
 
@@ -30,6 +43,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(ColumnIndex);

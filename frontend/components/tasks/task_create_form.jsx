@@ -4,62 +4,37 @@ import { Link, withRouter } from "react-router-dom";
 class TaskCreateForm extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      task: { name: "" },
-      displayForm: false
-    };
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.toggleInput = this.toggleInput.bind(this);
+    this.enterPressed = this.enterPressed.bind(this);
   }
 
-  toggleInput() {
-    this.setState({ displayForm: !this.state.displayForm })
-  }
-
-  handleInput(type) {
-    return e => {
-      this.setState({
-        task: {
-          [type]: e.target.value
-        }
-      });
-    };
-  }
-
-  handleSubmit() {
-    this.toggleInput();
-
-    const task = {
-      name: this.state.task.name,
-      column_id: this.props.column.id
-    };
-    this.setState({ task });
-
-    const updatedColumn = this.props.column;
-    this.props
-      .createTask(task)
-      .then(result => {
-        updatedColumn.task.unshift(result.task.id);
-        this.props.updateColumn(updatedColumn);
-      })
-      .then(() => this.forceUpdate());
-  }
+  enterPressed = e => {
+    if (e.charCode === 13) {
+      this.props.handleSubmit("CREATE_TASK");
+    }
+  };
 
   render() {
+    const {
+      columnId,
+      newTasks,
+      toggleForm,
+      displayCreateTaskForm,
+      handleInput,
+      handleSubmit
+    } = this.props;
+
     let createForm;
 
-    if (this.state.displayForm === true) {
+    if (displayCreateTaskForm) {
       createForm = (
         <form>
           <textarea
             className="create-task-input"
             type="text"
-            value={this.state.task.name}
-            onChange={this.handleInput("name")}
-            onSubmit={this.handleSubmit}
-            onBlur={this.handleSubmit}
+            value={newTasks[columnId].name}
+            onChange={handleInput("CREATE_TASK", columnId)}
+            onKeyPress={this.enterPressed}
+            onBlur={() => handleSubmit("CREATE_TASK", columnId)}
             autoFocus
           />
         </form>
@@ -68,7 +43,10 @@ class TaskCreateForm extends React.Component {
 
     return (
       <div>
-        <div className="create-task" onClick={this.toggleInput}>
+        <div
+          className="create-task"
+          onClick={() => toggleForm("CREATE_TASK", columnId)}
+        >
           +
         </div>
         {createForm}

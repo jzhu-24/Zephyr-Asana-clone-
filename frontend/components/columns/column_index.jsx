@@ -13,39 +13,45 @@ class ColumnIndex extends React.Component {
       columnsArray: [],
       columns: {},
       tasks: {},
-      displayEditForm: {},
-      displayCreateForm: false,
-      newColumn: { project_id: this.props.match.params.projectId }
+      displayEditColumnForm: {},
+      displayCreateColumnForm: false,
+      displayCreateTaskForm: {},
+      newColumn: { project_id: this.props.match.params.projectId },
+      newTasks: {}
     };
 
     this.onDragEnd = this.onDragEnd.bind(this);
     this.handleDeleteColumn = this.handleDeleteColumn.bind(this);
-    this.toggleColumnForm = this.toggleColumnForm.bind(this);
-    this.handleColumnInput = this.handleColumnInput.bind(this);
-    this.handleColumnSubmit = this.handleColumnSubmit.bind(this);
+    this.toggleForm = this.toggleForm.bind(this);
+    this.handleInput = this.handleInput.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
     this.props
       .requestProject(this.props.match.params.projectId)
       .then(result => {
-        this.setState({ project: result.project });
-        this.setState({ columnsArray: result.project.column });
+        const newTasks = this.state.newTasks;
+        const displayEditColumnForm = {};
 
-        // initialize displayEditForm
-        const displayEditForm = {};
         for (const columnId of result.project.column) {
-          displayEditForm[columnId] = false;
+          newTasks[columnId] = { column_id: columnId }
+          displayEditColumnForm[columnId] = false;
         }
-        this.setState({ displayEditForm });
+
+        this.setState({
+          project: result.project,
+          displayEditColumnForm,
+          newTasks,
+          columnsArray: result.project.column
+        });
       });
 
     this.props
       .requestColumns(this.props.match.params.projectId)
       .then(result => {
         this.setState({ columns: result.columns });
-        this.props
-          .requestTasks(Object.keys(result.columns)[0])
+        this.props.requestTasks(Object.keys(result.columns)[0])
           .then(result => this.setState({ tasks: result.tasks }));
       });
   }
@@ -62,38 +68,46 @@ class ColumnIndex extends React.Component {
     });
   }
 
-  // ??? copy -> modify -> setState
-  toggleColumnForm(type, columnId) {
-    if (type === 'EDIT') {
-      const displayEditForm = this.state.displayEditForm;
-      displayEditForm[columnId] = !this.state.displayEditForm[columnId];
-      this.setState({ displayEditForm });
-    } else if (type === 'CREATE') {
-      const displayCreateForm = !this.state.displayCreateForm;
-      this.setState({ displayCreateForm });      
+  toggleForm(type, columnId) {
+    if (type === 'EDIT_COLUMN') {
+      const displayEditColumnForm = this.state.displayEditColumnForm;
+      displayEditColumnForm[columnId] = !this.state.displayEditColumnForm[columnId];
+      this.setState({ displayEditColumnForm });
+    } else if (type === 'CREATE_COLUMN') {
+      this.setState({ displayCreateColumnForm: !this.state.displayCreateColumnForm });      
+    } else if (type === 'CREATE_TASK') {
+      const displayCreateTaskForm = this.state.displayCreateTaskForm;
+      displayCreateTaskForm[columnId] = !this.state.displayCreateTaskForm[columnId];
+      this.setState({ displayCreateTaskForm });      
     }
   }
 
-  handleColumnInput(type, columnId) {
+  handleInput(type, columnId) {
+    let that = this;
+
     return e => {
-      if (type === 'EDIT') {
-        const modifiedColumns = this.state.columns;
+      if (type === "EDIT_COLUMN") {
+        const modifiedColumns = that.state.columns;
         modifiedColumns[columnId].name = e.target.value;
-        this.setState({ columns: modifiedColumns });
-      } else if (type === 'CREATE') {
-        const modifiedNewColumn = this.state.newColumn;
+        that.setState({ columns: modifiedColumns });
+      } else if (type === "CREATE_COLUMN") {
+        const modifiedNewColumn = that.state.newColumn;
         modifiedNewColumn.name = e.target.value;
-        this.setState({ newColumn: modifiedNewColumn });        
+        that.setState({ newColumn: modifiedNewColumn });
+      } else if (type === "CREATE_TASK") {
+        const modifiedNewTasks = that.state.newTasks;
+        modifiedNewTasks[columnId].name = e.target.value;
+        that.setState({ newTasks: modifiedNewTasks });
       }
     };
   }
 
-  handleColumnSubmit(type, columnId) {
-    if (type === 'EDIT') {
-      this.toggleColumnForm('EDIT', columnId);
+  handleSubmit(type, columnId) {
+    if (type === 'EDIT_COLUMN') {
+      this.toggleForm('EDIT_COLUMN', columnId);
       this.props.updateColumn(this.state.columns[columnId]);
-    } else if (type === 'CREATE' && this.state.newColumn.name !== '') {
-      this.toggleColumnForm('CREATE');
+    } else if (type === 'CREATE_COLUMN' && this.state.newColumn.name !== '') {
+      this.toggleForm('CREATE_COLUMN');
       this.props.createColumn(this.state.newColumn).then(result => {        
         // update columns state
         const updatedColumns = this.state.columns;
@@ -105,16 +119,17 @@ class ColumnIndex extends React.Component {
         this.props.updateProject(updatedProject);
 
         this.setState({
-          columns: updatedColumns,
-          project: updatedProject,
+          // columns: updatedColumns,
+          // project: updatedProject,
           newColumn: {
             name: '',
             project_id: this.state.project.id
           }
         });
       })
+    } else if (type === 'CREATE_TASK' && this.state.newTasks[columnId].name !== '') {
+      this.toggleForm("CREATE_TASK", columnId);
     }
-    // FETCH COLUMNS?
   }
 
   onDragEnd = result => {
@@ -212,6 +227,8 @@ class ColumnIndex extends React.Component {
   };
 
   render() {
+    if (Object.keys(this.state.newTasks).length === 0) return null;
+    if (Object.keys(this.state.columns).length === 0) return null;
     if (Object.keys(this.state.tasks).length === 0) return null;
 
     return (
@@ -236,9 +253,9 @@ class ColumnIndex extends React.Component {
                       columnId={columnId}
                       column={this.state.columns[columnId]}
                       handleDeleteColumn={this.handleDeleteColumn}
-                      toggleColumnForm={this.toggleColumnForm}
-                      handleColumnInput={this.handleColumnInput}
-                      handleColumnSubmit={this.handleColumnSubmit}
+                      toggleForm={this.toggleForm}
+                      handleInput={this.handleInput}
+                      handleSubmit={this.handleSubmit}
                       index={index}
                     />
                   ))}
@@ -249,10 +266,10 @@ class ColumnIndex extends React.Component {
           </DragDropContext>
           <ColumnCreateForm
             newColumn={this.state.newColumn}
-            toggleColumnForm={this.toggleColumnForm}
-            displayCreateForm={this.state.displayCreateForm}
-            handleColumnInput={this.handleColumnInput}
-            handleColumnSubmit={this.handleColumnSubmit}
+            toggleForm={this.toggleForm}
+            displayCreateColumnForm={this.state.displayCreateColumnForm}
+            handleInput={this.handleInput}
+            handleSubmit={this.handleSubmit}
           />
         </div>
       </div>

@@ -8,25 +8,25 @@ class ColumnCreateForm extends React.Component {
 
   enterPressed = e => {
     if (e.charCode === 13) {
-      this.props.handleColumnSubmit('CREATE');
+      this.props.handleSubmit('CREATE_COLUMN');
     }
   };
 
   render() {
     const {
       newColumn,
-      toggleColumnForm,
-      handleColumnInput,
-      displayCreateForm,
-      handleColumnSubmit
+      toggleForm,
+      handleInput,
+      displayCreateColumnForm,
+      handleSubmit
     } = this.props;
 
     let createForm;
-    if (displayCreateForm === false) {
+    if (!displayCreateColumnForm) {
       createForm = (
         <label
           className="add-column-button"
-          onClick={() => toggleColumnForm("CREATE")}
+          onClick={() => toggleForm("CREATE_COLUMN")}
         >
           + Add column
         </label>
@@ -40,9 +40,9 @@ class ColumnCreateForm extends React.Component {
             type="text"
             placeholder="New Column"
             value={newColumn.name}
-            onChange={handleColumnInput("CREATE")}
+            onChange={handleInput("CREATE_COLUMN")}
             onKeyPress={this.enterPressed}
-            onBlur={() => handleColumnSubmit('CREATE')}
+            onBlur={() => handleSubmit('CREATE_COLUMN')}
             autoFocus
           />
         </form>
