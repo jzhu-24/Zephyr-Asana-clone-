@@ -112,7 +112,8 @@ class ColumnIndex extends React.Component {
       this.setState(
         Object.assign(this.state, { columnsArray: newColumnOrder })
       );
-      this.state.updateProject(newProject);
+      console.log(newProject);
+      this.props.updateProject(newProject);
       return;
     }
 
@@ -183,8 +184,6 @@ class ColumnIndex extends React.Component {
 
   render() {
     if (Object.keys(this.state.tasks).length === 0) return null;
-
-    console.log(this.state.columns);
     
     return (
       <div>
