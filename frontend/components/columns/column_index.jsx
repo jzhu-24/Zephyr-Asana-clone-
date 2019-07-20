@@ -48,8 +48,7 @@ class ColumnIndex extends React.Component {
       });
 
     this.props
-      .requestColumns(this.props.match.params.projectId)
-      .then(result => {
+      .requestColumns(this.props.match.params.projectId).then(result => {
         this.setState({ columns: result.columns });
         this.props.requestTasks(Object.keys(result.columns)[0])
           .then(result => this.setState({ tasks: result.tasks }));
@@ -60,11 +59,9 @@ class ColumnIndex extends React.Component {
     const updatedProject = this.state.project;
     const index = updatedProject.column.indexOf(columnId);
     updatedProject.column.splice(index, 1);
-
     this.setState({ project: updatedProject }, () => {
-      this.props.updateProject(updatedProject).then(() => {
-        this.props.deleteColumn(columnId);
-      });
+      this.props.deleteColumn(columnId);
+      this.props.updateProject(updatedProject);
     });
   }
 
@@ -129,6 +126,20 @@ class ColumnIndex extends React.Component {
       })
     } else if (type === 'CREATE_TASK' && this.state.newTasks[columnId].name !== '') {
       this.toggleForm("CREATE_TASK", columnId);
+
+      this.props.createTask(this.state.newTasks[columnId]).then(result => {
+        const updatedColumns = this.state.columns;
+        updatedColumns[columnId].task.unshift(result.task.id);
+        this.props.updateColumn(updatedColumns[columnId]);
+        
+        const updatedNewTasks = this.state.newTasks;
+        updatedNewTasks[columnId] = { column_id: columnId }; 
+
+        this.setState({
+          columns: updatedColumns,
+          updatedNewTasks
+        }, () => this.forceUpdate());
+      })
     }
   }
 
@@ -156,7 +167,6 @@ class ColumnIndex extends React.Component {
       this.setState(
         Object.assign(this.state, { columnsArray: newColumnOrder })
       );
-      console.log(newProject);
       this.props.updateProject(newProject);
       return;
     }
@@ -191,6 +201,8 @@ class ColumnIndex extends React.Component {
 
     const startTaskIds = start.task;
     startTaskIds.splice(source.index, 1);
+    if (!startTaskIds) startTaskIds = [];
+
     const newStart = {
       ...start,
       task: startTaskIds
@@ -213,17 +225,18 @@ class ColumnIndex extends React.Component {
       }
     };
 
-    this.setState(newState);
+    // debugger
 
-    this.props.updateTask({
-      id: draggableId,
-      column_id: destination.droppableId
-    });
-    Object.values(this.state.columns).forEach(column => {
-      this.props.updateColumn(column);
-    });
+    this.setState(newState, () => {
+      this.props.updateTask({
+        id: draggableId,
+        column_id: destination.droppableId
+      });
+      Object.values(this.state.columns).forEach(column => {
+        this.props.updateColumn(column);
+      });
 
-    return;
+    });
   };
 
   render() {
