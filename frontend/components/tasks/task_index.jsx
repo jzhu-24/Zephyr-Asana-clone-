@@ -3,6 +3,10 @@ import { Link, withRouter } from "react-router-dom";
 import { Draggable } from "react-beautiful-dnd";
  
 class TaskIndex extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     let { column, tasks, editTask } = this.props;
 

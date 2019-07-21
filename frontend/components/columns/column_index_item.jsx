@@ -93,7 +93,10 @@ class ColumnIndexItem extends React.Component {
                     ref={provided.innerRef}
                     {...provided.droppableProps}
                   >
-                    <TaskIndexContainer column={column} tasks={tasks} />
+                    <TaskIndexContainer 
+                      column={column} 
+                      tasks={tasks} 
+                    />
                     {provided.placeholder}
                   </div>
                 )}

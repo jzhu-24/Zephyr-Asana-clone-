@@ -9,6 +9,13 @@ import {
 } from '../../actions/task_actions';
 import { openModal } from "../../actions/modal_actions";
 
+const mapStateToProps = (state, ownProps) => {
+  return {
+    column: ownProps.column,
+    tasks: ownProps.tasks,
+  };
+};
+
 const mapDispatchToProps = dispatch => ({
   requestTasks: column_id => dispatch(requestTasks(column_id)),
   requestTask: id => dispatch(requestTask(id)),
@@ -19,6 +26,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(TaskIndex);

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
-import ColumnIndexItem from './column_index_item'
-import ColumnCreateForm from './column_create_form'
+import ColumnIndexItem from "./column_index_item";
+import ColumnCreateForm from "./column_create_form";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 class ColumnIndex extends React.Component {
@@ -35,7 +35,7 @@ class ColumnIndex extends React.Component {
         const displayEditColumnForm = {};
 
         for (const columnId of result.project.column) {
-          newTasks[columnId] = { column_id: columnId }
+          newTasks[columnId] = { column_id: columnId };
           displayEditColumnForm[columnId] = false;
         }
 
@@ -48,9 +48,11 @@ class ColumnIndex extends React.Component {
       });
 
     this.props
-      .requestColumns(this.props.match.params.projectId).then(result => {
+      .requestColumns(this.props.match.params.projectId)
+      .then(result => {
         this.setState({ columns: result.columns });
-        this.props.requestTasks(Object.keys(result.columns)[0])
+        this.props
+          .requestTasks(Object.keys(result.columns)[0])
           .then(result => this.setState({ tasks: result.tasks }));
       });
   }
@@ -66,16 +68,22 @@ class ColumnIndex extends React.Component {
   }
 
   toggleForm(type, columnId) {
-    if (type === 'EDIT_COLUMN') {
+    if (type === "EDIT_COLUMN") {
       const displayEditColumnForm = this.state.displayEditColumnForm;
-      displayEditColumnForm[columnId] = !this.state.displayEditColumnForm[columnId];
+      displayEditColumnForm[columnId] = !this.state.displayEditColumnForm[
+        columnId
+      ];
       this.setState({ displayEditColumnForm });
-    } else if (type === 'CREATE_COLUMN') {
-      this.setState({ displayCreateColumnForm: !this.state.displayCreateColumnForm });      
-    } else if (type === 'CREATE_TASK') {
+    } else if (type === "CREATE_COLUMN") {
+      this.setState({
+        displayCreateColumnForm: !this.state.displayCreateColumnForm
+      });
+    } else if (type === "CREATE_TASK") {
       const displayCreateTaskForm = this.state.displayCreateTaskForm;
-      displayCreateTaskForm[columnId] = !this.state.displayCreateTaskForm[columnId];
-      this.setState({ displayCreateTaskForm });      
+      displayCreateTaskForm[columnId] = !this.state.displayCreateTaskForm[
+        columnId
+      ];
+      this.setState({ displayCreateTaskForm });
     }
   }
 
@@ -100,46 +108,60 @@ class ColumnIndex extends React.Component {
   }
 
   handleSubmit(type, columnId) {
-    if (type === 'EDIT_COLUMN') {
-      this.toggleForm('EDIT_COLUMN', columnId);
+    if (type === "EDIT_COLUMN") {
+      this.toggleForm("EDIT_COLUMN", columnId);
       this.props.updateColumn(this.state.columns[columnId]);
-    } else if (type === 'CREATE_COLUMN' && this.state.newColumn.name !== '') {
-      this.toggleForm('CREATE_COLUMN');
-      this.props.createColumn(this.state.newColumn).then(result => {        
-        // update columns state
-        const updatedColumns = this.state.columns;
-        updatedColumns[result.column.id] = result.column;
+    } else if (type === "CREATE_COLUMN") {
+      this.toggleForm("CREATE_COLUMN");
 
-        // update project state + backend
-        const updatedProject = this.state.project;
-        updatedProject.column.push(result.column.id)
-        this.props.updateProject(updatedProject);
+      if (this.state.newColumn.name && this.state.newColumn.name !== "") {
+        this.props.createColumn(this.state.newColumn).then(result => {
+          // update columns state
+          const updatedColumns = this.state.columns;
+          updatedColumns[result.column.id] = result.column;
 
-        this.setState({
-          // columns: updatedColumns,
-          // project: updatedProject,
-          newColumn: {
-            name: '',
-            project_id: this.state.project.id
-          }
+          // update project state + backend
+          const updatedProject = this.state.project;
+          updatedProject.column.push(result.column.id);
+          this.props.updateProject(updatedProject);
+
+          this.setState({
+            // columns: updatedColumns,
+            // project: updatedProject,
+            newColumn: {
+              name: "",
+              project_id: this.state.project.id
+            }
+          });
         });
-      })
-    } else if (type === 'CREATE_TASK' && this.state.newTasks[columnId].name !== '') {
+      }
+    } else if (type === "CREATE_TASK") {
       this.toggleForm("CREATE_TASK", columnId);
 
-      this.props.createTask(this.state.newTasks[columnId]).then(result => {
-        const updatedColumns = this.state.columns;
-        updatedColumns[columnId].task.unshift(result.task.id);
-        this.props.updateColumn(updatedColumns[columnId]);
-        
-        const updatedNewTasks = this.state.newTasks;
-        updatedNewTasks[columnId] = { column_id: columnId }; 
+      if (
+        this.state.newTasks[columnId].name &&
+        this.state.newTasks[columnId].name !== ""
+      ) {
+        this.props.createTask(this.state.newTasks[columnId]).then(result => {
+          const columns = this.state.columns;
+          columns[columnId].task.unshift(result.task.id);
+          const tasks = Object.assign(this.state.tasks, {
+            [result.task.id]: result.task
+          });
+          const newTasks = Object.assign(this.state.newTasks, {
+            [columnId]: { column_id: columnId }
+          });
 
-        this.setState({
-          columns: updatedColumns,
-          updatedNewTasks
-        }, () => this.forceUpdate());
-      })
+          this.setState(
+            {
+              columns,
+              tasks,
+              newTasks
+            },
+            () => this.props.updateColumn(columns[columnId])
+          );
+        });
+      }
     }
   }
 
@@ -225,8 +247,6 @@ class ColumnIndex extends React.Component {
       }
     };
 
-    // debugger
-
     this.setState(newState, () => {
       this.props.updateTask({
         id: draggableId,
@@ -235,12 +255,10 @@ class ColumnIndex extends React.Component {
       Object.values(this.state.columns).forEach(column => {
         this.props.updateColumn(column);
       });
-
     });
   };
 
   render() {
-    if (Object.keys(this.state.newTasks).length === 0) return null;
     if (Object.keys(this.state.columns).length === 0) return null;
     if (Object.keys(this.state.tasks).length === 0) return null;
 
