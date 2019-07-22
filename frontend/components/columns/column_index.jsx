@@ -25,9 +25,20 @@ class ColumnIndex extends React.Component {
     this.toggleForm = this.toggleForm.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.initialLoad = this.initialLoad.bind(this);
   }
 
   componentDidMount() {
+    this.initialLoad();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params.projectId !== this.props.match.params.projectId) {
+      this.initialLoad();
+    }
+  }
+
+  initialLoad() {
     this.props
       .requestProject(this.props.match.params.projectId)
       .then(result => {
@@ -59,12 +70,24 @@ class ColumnIndex extends React.Component {
 
   handleDeleteColumn(columnId) {
     const updatedProject = this.state.project;
-    const index = updatedProject.column.indexOf(columnId);
-    updatedProject.column.splice(index, 1);
-    this.setState({ project: updatedProject }, () => {
-      this.props.deleteColumn(columnId);
-      this.props.updateProject(updatedProject);
-    });
+
+    if (updatedProject.column.length === 1) {
+      updatedProject.column = [];
+    } else {
+      const index = updatedProject.column.indexOf(columnId);
+      updatedProject.column.splice(index, 1);
+    }
+
+    this.setState(
+      {
+        project: updatedProject,
+        columnsArray: updatedProject.column
+      },
+      () => {
+        this.props.deleteColumn(columnId);
+        this.props.updateProject(updatedProject);
+      }
+    );
   }
 
   toggleForm(type, columnId) {
@@ -125,13 +148,16 @@ class ColumnIndex extends React.Component {
           updatedProject.column.push(result.column.id);
           this.props.updateProject(updatedProject);
 
+          const newTasks = Object.assign(this.state.newTasks, {
+            [result.column.id]: { column_id: result.column.id }
+          });
+
           this.setState({
-            // columns: updatedColumns,
-            // project: updatedProject,
             newColumn: {
               name: "",
               project_id: this.state.project.id
-            }
+            },
+            newTasks
           });
         });
       }
@@ -259,9 +285,6 @@ class ColumnIndex extends React.Component {
   };
 
   render() {
-    if (Object.keys(this.state.columns).length === 0) return null;
-    if (Object.keys(this.state.tasks).length === 0) return null;
-
     return (
       <div>
         <div className="column-index">
@@ -281,12 +304,14 @@ class ColumnIndex extends React.Component {
                     <ColumnIndexItem
                       key={columnId}
                       {...this.state}
+                      tasks={this.props.tasks}
                       columnId={columnId}
                       column={this.state.columns[columnId]}
                       handleDeleteColumn={this.handleDeleteColumn}
                       toggleForm={this.toggleForm}
                       handleInput={this.handleInput}
                       handleSubmit={this.handleSubmit}
+                      editTask={this.props.editTask}
                       index={index}
                     />
                   ))}

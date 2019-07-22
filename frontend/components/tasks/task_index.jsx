@@ -5,10 +5,20 @@ import { Draggable } from "react-beautiful-dnd";
 class TaskIndex extends React.Component {
   constructor(props) {
     super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(taskId) {
+    const workspaceId = this.props.match.params.workspaceId;
+    const projectId = this.props.match.params.projectId;
+    this.props.history.push(`/${workspaceId}/${projectId}/${taskId}`);
+    this.props.editTask(this.props.tasks[taskId])
   }
 
   render() {
-    let { column, tasks, editTask } = this.props;
+    let { column, tasks } = this.props;
+
+    if (Object.keys(tasks).length === 0 || !column) return null;
 
     return (
       <div className="task-index">
@@ -20,7 +30,10 @@ class TaskIndex extends React.Component {
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
               >
-                <div className="task" onClick={editTask}>
+                <div
+                  className="task"
+                  onClick={() => this.handleClick(taskId)}
+                >
                   <p className="task-name">{tasks[taskId].name}</p>
                 </div>
               </div>

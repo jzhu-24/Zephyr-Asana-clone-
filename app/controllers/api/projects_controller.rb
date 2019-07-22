@@ -1,7 +1,7 @@
 class Api::ProjectsController < ApplicationController
 
   def index
-    # @projects = Project.all
+    # ??? .includes for performance?
     @projects = Project.includes(columns: [:tasks])
   end
 
@@ -20,6 +20,7 @@ class Api::ProjectsController < ApplicationController
   def update
     @project = Project.find_by(id: params[:id])
     @project.column_will_change!
+    project_params[:column] = [] unless project_params[:column]
     @project.update_attributes(project_params)
     render :update
   end

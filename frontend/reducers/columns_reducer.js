@@ -12,7 +12,6 @@ const columnsReducer = (state = {}, action) => {
     case RECEIVE_COLUMNS:
       return Object.assign({}, state, action.columns);
     case RECEIVE_COLUMN:
-      debugger
       return Object.assign({}, state, { [action.column.id]: action.column });
     case REMOVE_COLUMN:
       const newState = Object.assign({}, state);

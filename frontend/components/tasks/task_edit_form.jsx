@@ -6,24 +6,17 @@ class TaskEditForm extends React.Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
 
-    this.state = {
-      name: '',
-      description: '',
-      owner_id: '',
-      completed: '',
-      due_date: ''
-    }
+    this.state = this.props.task;
+
+    this.handleInput = this.handleInput.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.closeModalEsc = this.closeModalEsc.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   componentDidMount() {
-    this.props.requestTask(this.props.taskId).then(task => this.setState(task));
     this.closeModalEsc();
-
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps !== this.props) {
-    }
   }
 
   handleInput(type) {
@@ -33,43 +26,48 @@ class TaskEditForm extends React.Component {
   }
 
   handleSubmit() {
-    this.props
-      .updateWorkspace(this.state)
-      .then(result => this.props.history.push(`/${result["workspace"].id}`))
-      .then(this.props.closeModal);
+    this.props.updateTask(this.state);
   }
 
   closeModalEsc() {
-    const closeModal = this.props.closeModal;
-    $(document).keydown(function(e) {
+    $(document).keydown(e => {
       if (e.keyCode == 27) {
-        closeModal();
+        this.props.closeModal();
       }
     });
   }
 
+  closeModal() {
+    const workspaceId = this.props.match.params.workspaceId;
+    const projectId = this.props.match.params.projectId;
+    this.props.history.push(`/${workspaceId}/${projectId}`);
+    this.props.closeModal();
+  }
+
   render() {
-    if (this.props.task === undefined) return null;
+    const { closeModal } = this.props;
 
     return (
       <div className="task-edit-form">
         <div className="task-edit-top">
           <div className="task-edit-mark-complete">Mark Complete</div>
-          <div onClick={this.props.closeModal} className="workspace-form-cross">
+          <div onClick={closeModal} className="workspace-form-cross">
             ×
           </div>
         </div>
         <input
           type="text"
-          value={this.props.task.name}
+          value={this.state.name}
           onChange={this.handleInput("name")}
+          onBlur={() => this.handleSubmit()}
         />
         <div>Assigned To</div>
         <div>Due Date</div>
         <textarea
           type="text"
-          value={this.props.task.name}
+          value={this.state.description}
           onChange={this.handleInput("description")}
+          onBlur={() => this.handleSubmit()}
         />
       </div>
     );

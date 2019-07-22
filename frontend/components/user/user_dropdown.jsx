@@ -56,7 +56,6 @@ class UserDropdown extends React.Component {
       );
     });
 
-    // ??? modalbnb
     return (
       <div>
         <div className="user-dropdown" >

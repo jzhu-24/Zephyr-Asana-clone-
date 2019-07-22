@@ -1,4 +1,5 @@
 import React from 'react';
+import TaskIndex from '../tasks/task_index';
 import TaskIndexContainer from '../tasks/task_index_container';
 import TaskCreateFormContainer from '../tasks/task_create_form_container';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -34,30 +35,32 @@ class ColumnIndexItem extends React.Component {
     } = this.props;
     
     let editForm;
-
-    if (!displayEditColumnForm[columnId]) {
-      editForm = (
-        <p
-          className="column-name"
-          onClick={() => toggleForm("EDIT_COLUMN", columnId)}
-        >
-          {column.name}
-        </p>
-      );
-    } else {
-      editForm = (
-        <form>
-          <input
-            className="edit-column-input"
-            type="text"
-            value={column.name}
-            onChange={handleInput("EDIT_COLUMN", columnId)}
-            onKeyPress={this.enterPressed}
-            onBlur={() => handleSubmit("EDIT_COLUMN", columnId)}
-            autoFocus
-          />
-        </form>
-      );
+    
+    if (column !== undefined) {
+      if (!displayEditColumnForm[columnId]) {
+        editForm = (
+          <p
+            className="column-name"
+            onClick={() => toggleForm("EDIT_COLUMN", columnId)}
+          >
+            {column.name}
+          </p>
+        );
+      } else {
+        editForm = (
+          <form>
+            <input
+              className="edit-column-input"
+              type="text"
+              value={column.name}
+              onChange={handleInput("EDIT_COLUMN", columnId)}
+              onKeyPress={this.enterPressed}
+              onBlur={() => handleSubmit("EDIT_COLUMN", columnId)}
+              autoFocus
+            />
+          </form>
+        );
+      }
     }
 
     return (
@@ -93,9 +96,10 @@ class ColumnIndexItem extends React.Component {
                     ref={provided.innerRef}
                     {...provided.droppableProps}
                   >
-                    <TaskIndexContainer 
-                      column={column} 
-                      tasks={tasks} 
+                    <TaskIndex
+                      column={column}
+                      tasks={tasks}
+                      editTask={this.props.editTask}
                     />
                     {provided.placeholder}
                   </div>

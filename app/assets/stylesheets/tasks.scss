@@ -3,8 +3,10 @@
 }
 
 .task {
+  max-height: 200px;
+  min-height: 80px;
   margin: 10px;
-  padding: 10px 0px 10px 0px;
+  padding: 10px 8px 10px 0px;
   font-size: 13px;
   line-height: normal;
   background: white;
@@ -14,7 +16,8 @@
   position: relative;
   top: 0;
   transition: top ease 0.2s;
-  min-height: 80px;
+  overflow: hidden;
+  overflow-wrap: break-word;
 }
 
 .task:hover {

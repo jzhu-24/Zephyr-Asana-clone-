@@ -7,33 +7,33 @@ import TaskEditFormContainer from "./tasks/task_edit_form_container";
 
 // ??? understand how this works in relation to loading states (?)
 
-function Modal({ modal, closeModal, currentWorkspace, taskId }) {
-  if (!modal) {
+function Modal(props) {
+  if (!props.modal) {
     return null;
   }
 
   let component;
 
-  switch (modal) {
+  switch (props.modal) {
     case "createWorkspace":
       component = <WorkspaceCreateFormContainer />;
       break;
     case "editWorkspace":
       component = (
         <WorkspaceEditFormContainer
-          currentWorkspace={currentWorkspace}
+          currentWorkspace={props.currentWorkspace}
         />
       );
       break;
     case "editTask":
-      component = <TaskEditFormContainer taskId={taskId}/>;
+      component = <TaskEditFormContainer taskId={props.taskId} />;
       break;
     default:
       return null;
   }
 
   return (
-    <div className="modal-background" onClick={closeModal}>
+    <div className="modal-background" onClick={props.closeModal}>
       <div className="modal-child" onClick={e => e.stopPropagation()}>
         {component}
       </div>
@@ -43,6 +43,7 @@ function Modal({ modal, closeModal, currentWorkspace, taskId }) {
 
 const mapStateToProps = (state, { match }) => {
   return {
+    tasks: state.entities.tasks,
     taskId: match.params.taskId,
     currentWorkspace: state.entities.workspaces[match.params.workspaceId],
     modal: state.ui.modal
