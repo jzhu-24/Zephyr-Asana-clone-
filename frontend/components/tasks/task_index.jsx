@@ -25,7 +25,7 @@ class TaskIndex extends React.Component {
     return (
       <div className="task-index">
         {column.task.map((taskId, index) => (
-          <Draggable draggableId={taskId} index={index}>
+          <Draggable draggableId={taskId} index={index} key={taskId}>
             {provided => (
               <div
                 ref={provided.innerRef}
@@ -33,14 +33,12 @@ class TaskIndex extends React.Component {
                 {...provided.dragHandleProps}
               >
                 <div
-                  className={ tasks[taskId].completed === true ? "completed task" : "task"}
+                  className={ tasks[taskId].completed ? "completed task" : "task"}
                   onClick={() => this.handleClick(taskId)}
                 >
                   {tasks[taskId].completed === true ? (
                     <FontAwesomeIcon icon={faCheckCircle} className="task-check" />
-                  ) : (
-                    <div></div>
-                  )}
+                  ) : (<div></div>)}
                   <p className="task-name">{tasks[taskId].name}</p>
                 </div>
               </div>

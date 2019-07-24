@@ -11,8 +11,8 @@ class ProjectIndex extends React.Component {
   render() {  
     const projects = this.props.projects.map(project => {
       return (
-        <div className="nav-project-row">
-          <Link className to={`/${project.workspace_id}/${project.id}`}>
+        <div className="nav-project-row" key={project.id}>
+          <Link to={`/${project.workspace_id}/${project.id}`}>
             <div>{project.name}</div>
           </Link>
         </div>
