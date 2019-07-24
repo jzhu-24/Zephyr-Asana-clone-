@@ -18,6 +18,18 @@
   transition: top ease 0.2s;
   overflow: hidden;
   overflow-wrap: break-word;
+  display: flex;
+  justify-content: left;
+}
+
+.completed {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.task-check {
+  padding: 0px 0px 0px 10px;
+  font-size: 16px;
+  color: #25e8c8;
 }
 
 .task:hover {
@@ -37,10 +49,9 @@
   background: white;
   border-radius: 5px;
   box-shadow: 0 1px 3px 0 rgba(21,27,38,.15);
-  box-sizing: border-box;
   position: relative;
-  top: 0;
   transition: top ease 0.2s;
+  padding: 0px 0px 3px 0px;
 }
 
 .create-task:hover {
@@ -59,7 +70,7 @@
   padding-left: 10px;
   box-sizing: border-box;
   width: 230px;
-  min-height: 70px;
+  height: 81px;
   resize: none;
   overflow: hidden;
 }

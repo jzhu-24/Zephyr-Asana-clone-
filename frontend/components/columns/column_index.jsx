@@ -244,7 +244,6 @@ class ColumnIndex extends React.Component {
 
       this.props.updateColumn(newColumn);
       this.setState(newState);
-      return;
     }
 
     const startTaskIds = start.task;

@@ -1,7 +1,9 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { Draggable } from "react-beautiful-dnd";
- 
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; 
+
 class TaskIndex extends React.Component {
   constructor(props) {
     super(props);
@@ -31,9 +33,14 @@ class TaskIndex extends React.Component {
                 {...provided.dragHandleProps}
               >
                 <div
-                  className="task"
+                  className={ tasks[taskId].completed === true ? "completed task" : "task"}
                   onClick={() => this.handleClick(taskId)}
                 >
+                  {tasks[taskId].completed === true ? (
+                    <FontAwesomeIcon icon={faCheckCircle} className="task-check" />
+                  ) : (
+                    <div></div>
+                  )}
                   <p className="task-name">{tasks[taskId].name}</p>
                 </div>
               </div>
