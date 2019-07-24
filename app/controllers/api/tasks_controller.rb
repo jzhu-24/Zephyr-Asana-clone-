@@ -1,8 +1,7 @@
 class Api::TasksController < ApplicationController
 
   def index
-    @tasks = Task.all
-    # @tasks = Column.find_by(id: params[:column_id]).tasks
+    @tasks = Column.find_by(id: params[:column_id]).project.tasks
   end
 
   def create

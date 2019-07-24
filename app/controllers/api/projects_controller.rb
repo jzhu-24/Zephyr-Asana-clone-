@@ -1,7 +1,7 @@
 class Api::ProjectsController < ApplicationController
 
   def index
-    # @projects = Project.all
+    # ??? .includes for performance?
     @projects = Project.includes(columns: [:tasks])
   end
 
@@ -9,12 +9,8 @@ class Api::ProjectsController < ApplicationController
     # ??? must add IDs from params
     @project = Project.new(project_params)
     @project.workspace_id = params[:workspace_id]
-
-    if @project.save
-      render :show
-    else
-      render json: @project.errors.full_messages, status: 401
-    end
+    @project.save
+    render :show
   end
 
   def show
@@ -24,11 +20,9 @@ class Api::ProjectsController < ApplicationController
   def update
     @project = Project.find_by(id: params[:id])
     @project.column_will_change!
-    if @project.update_attributes(project_params)
-      render :update
-    else
-      render json: @project.errors.full_messages, status: 422
-    end
+    project_params[:column] = [] unless project_params[:column]
+    @project.update_attributes(project_params)
+    render :update
   end
 
   def destroy

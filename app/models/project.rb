@@ -4,6 +4,7 @@ class Project < ApplicationRecord
   
   belongs_to :workspace
   has_many :columns
+  has_many :tasks, through: :columns
 
   attr_writer :columns
 

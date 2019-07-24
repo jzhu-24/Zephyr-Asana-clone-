@@ -9,45 +9,40 @@ import {
 } from '../../actions/column_actions';
 
 import { requestProject, updateProject } from '../../actions/project_actions';
-import { updateTask, requestTasks } from "../../actions/task_actions";
+import { createTask, updateTask, requestTasks } from "../../actions/task_actions";
+import { openModal } from "../../actions/modal_actions";
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state, ownProps) => {  
   const projectId = ownProps.match.params.projectId;
-  
-  // better way to handle undfined?
-  let columnsArray
-  if (state.entities.projects[projectId] === undefined) {
+  let columnsArray;
+
+  if (!state.entities.projects[projectId]) {
     columnsArray = [];
   } else {
     columnsArray = state.entities.projects[projectId].column;
-  };
-
-  // let tasksArray
-  // if (Object.keys(state.entities.columns).length === 0) {
-  //   tasksArray = [];
-  // } else {
-  //   tasksArray = Object.keys(columnsArray).map(columnId => state.entities.columns[columnId].task);
-  // }
+  }
 
   return {
-    project: state.entities.projects[projectId],
     columns: state.entities.columns,
-    columnsArray,
+    projects: state.entities.projects,
     tasks: state.entities.tasks,
+    project: state.entities.projects[projectId],
+    columnsArray
   };
 };
 
 const mapDispatchToProps = dispatch => ({
   requestColumns: project_id => dispatch(requestColumns(project_id)),
   requestColumn: id => dispatch(requestColumn(id)),
-  createColumn: (project_id, column) =>
-    dispatch(createColumn((project_id, column))),
+  createColumn: column => dispatch(createColumn(column)),
   updateColumn: column => dispatch(updateColumn(column)),
   deleteColumn: id => dispatch(deleteColumn(id)),
   requestProject: id => dispatch(requestProject(id)),
   requestTasks: columnId => dispatch(requestTasks(columnId)),
   updateProject: project => dispatch(updateProject(project)),
-  updateTask: task => dispatch(updateTask(task))
+  updateTask: task => dispatch(updateTask(task)),
+  createTask: task => dispatch(createTask(task)),
+  editTask: () => dispatch(openModal("editTask"))
 });
 
 export default connect(

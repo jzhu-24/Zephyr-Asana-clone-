@@ -17,6 +17,7 @@
 
 .column {
   min-width: 250px;
+  max-width: 250px;
   position: relative;
   border: 1px solid transparent;
   border-radius: 5px;
@@ -31,10 +32,14 @@
 }
 
 .column-name {
-  padding-left: 10px;
+  padding-left: 15px;
   font-size: 16px;
   font-weight: 500;
   line-height: 30px;
+  max-width: 210px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
 }
 
 .add-column-container {
@@ -86,6 +91,7 @@
 }
 
 .column-header {
+  margin: 5px 0px 0px 0px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -93,8 +99,9 @@
 }
 
 .column-delete-button {
-  margin-right: 12px;
-  height: 16px;
+  position: absolute;
+  right: 5px;
+  padding: 10px;
   color: grey;
   transition-property: color;
   transition-duration: .2s;

@@ -4,25 +4,18 @@ import ProjectIndexItem from "./project_index_item";
 
 class ProjectIndex extends React.Component {
   
-  
   componentDidMount() {
     this.props.requestProjects();
   }
 
-  render() {
-    if (this.props.projects.length === 0) {
-      return (
-        <div>
-          Home
-        </div>
-      )
-    };
-  
+  render() {  
     const projects = this.props.projects.map(project => {
       return (
-        <ProjectIndexItem
-          key={project.id}
-          project={project} />
+        <div className="nav-project-row" key={project.id}>
+          <Link to={`/${project.workspace_id}/${project.id}`}>
+            <div>{project.name}</div>
+          </Link>
+        </div>
       );
     });
 

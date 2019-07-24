@@ -8,11 +8,9 @@ import ColumnIndexContainer from "../components/columns/column_index_container";
 
 import { ProtectedRoute } from "../util/route_util";
 
-
-// ??? optional param via ?
 export default () => (
   <div className="protected" id="logged-in-view">
-    <ProtectedRoute path="/:workspaceId" component={Modal} />
+    <ProtectedRoute path="/:workspaceId?/:projectId?/:taskId?" component={Modal} />
     <ProtectedRoute path="/:workspaceId" component={NavContainer} />
     <div className="main-container">
       <div className="header-container">

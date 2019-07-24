@@ -11,12 +11,13 @@ export const fetchColumn = id =>
     url: `api/columns/${id}`
   });
 
-export const postColumn = column =>
-  $.ajax({
+export const postColumn = column => {
+  return $.ajax({
     method: `POST`,
     url: `api/projects/${column.project_id}/columns`,
     data: { column }
   });
+}
 
 export const patchColumn = column =>
   $.ajax({

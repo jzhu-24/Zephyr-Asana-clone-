@@ -24,7 +24,9 @@ export const createColumn = column => dispatch =>
   );
 
 export const updateColumn = column => dispatch =>
-  patchColumn(column).then(column => dispatch(receiveColumn(column)));
+  patchColumn(column).then(column => {
+    dispatch(receiveColumn(column))
+  });
 
 export const deleteColumn = id => dispatch =>
   destroyColumn(id).then(column => dispatch(removeColumn(id)));
