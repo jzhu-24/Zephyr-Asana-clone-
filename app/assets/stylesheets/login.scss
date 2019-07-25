@@ -1,0 +1,138 @@
+// ??? why are height/background needed here?
+
+html {
+  background: linear-gradient(to top right, #2367c7 30%, #00a09b 80%, #1efff8 110%) fixed;
+  height: 100%;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  font-family: -apple-system,BlinkMacSystemFont;
+}
+
+.logo {
+  margin: 20px auto 30px auto;
+  cursor: pointer;
+}
+
+.logo-image {
+  height: 35px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  margin: 0px auto;
+  padding: 50px 75px 50px 75px;
+  border-radius: 5px;
+  background: white;
+  width: 400px;
+}
+
+.login-form > h2 {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 400;
+  padding-bottom: 20px;
+}
+
+.login-form > label {
+  display: flex;
+  flex-direction: column;
+  color: #848f99;
+  font-size: 12px;
+  font-weight: 500;
+  margin-top: 30px;
+}
+
+.login-form > label > input {
+  border: none;
+  border: 1px solid rgb(218, 218, 218);
+  margin-top: 10px;
+  padding: 5px;
+  font-size: 14px;
+  font-weight: 325;
+  border-radius: 4px;
+  transition-property: border, box-shadow;
+  transition-duration: .3s;
+  transition-timing-function: ease-out, ease-out, ease-out, ease-out;
+}
+
+.login-form > label > input:focus {
+  outline: none;
+  border: 1px solid rgb(193, 193, 193);
+  box-shadow: 0 0 3px #9ecaed;
+}
+
+.login-form-button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.login-form-button {
+  background-color: #14aaf5;
+  border-color: #14aaf5;
+  color: white;
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 8px;
+  margin-top: 50px;
+  margin-right: 10px;
+  transition-property: background, border;
+  transition-duration: .2s;
+  transition-timing-function: ease-out, ease-out, ease-out, ease-out;
+}
+
+.login-form-button:hover {
+  background-color: #1591cf;
+}
+
+.login-form-button:focus {
+  outline: none;
+}
+
+.login-form-button:active {
+  background-color: #0f6894;
+}
+
+.login-footer {
+  display: flex;
+  align-items: center;
+  margin: 5px auto;
+  margin-bottom: 50px;
+  padding: 15px;
+  font-size: 14px;
+  color: white;
+}
+
+.login-footer-button {
+  background: none;
+  color: white;
+  border-radius: 4px;
+  margin-left: 10px;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 7px 9px 7px 9px;
+  cursor: pointer;
+  transition-property: background, border;
+  transition-duration: .2s;
+  transition-timing-function: ease-out, ease-out, ease-out, ease-out;
+}
+
+.login-footer-button:hover {
+  background-color: white;
+  border-color: white;
+  color: #1f395c;
+}
+
+.errors {
+  background-color: #ffdbdf;
+  font-size: 14px;
+  font-weight: 325;
+  border-radius: 4px;
+  padding: 15px;
+  text-align: center;
+  color: #5b5b5b;
+}

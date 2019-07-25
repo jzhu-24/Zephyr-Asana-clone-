@@ -1,0 +1,143 @@
+.task-edit-form {
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  min-height: 190px;
+  position: absolute;
+  top: 32%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #0000003a;
+  background: white;
+  z-index: 3;
+  border-radius: 4px;
+  width: 700px;
+  display: flex;
+  flex-direction: column;
+}
+
+.task-edit-form > * {
+  padding: 10px 30px 10px 30px;
+}
+
+.task-edit-top {
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  border-radius: 4px;
+  font-size: 13px;
+  padding: 5px 10px;
+  transition-property: background-color;
+  transition-duration: .2s;
+  transition-timing-function: ease-out, ease-out, ease-out, ease-out;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.task-edit-incomplete {
+  color: #646f79;
+}
+
+.task-edit-incomplete:hover {
+  background-color: rgb(232, 232, 232);
+  border-color: #535d66;
+  color: #535d66;
+}
+
+.task-edit-check {
+  padding: 2px 5px 0px 0px;
+}
+
+.task-edit-complete {
+  color: white;
+  background-color: #25e8c8;
+  border-color: #25e8c8;
+}
+
+.task-edit-complete:hover {
+  background-color: #1daf97;
+  border-color: #1daf97;
+}
+
+.task-edit-cross {
+  font-size: 30px;
+  color: rgb(215, 215, 215);
+  cursor: pointer;
+  transition-property: color;
+  transition-duration: .15s;
+  transition-timing-function: ease-out, ease-out, ease-out, ease-out;
+}
+
+.task-edit-cross:hover {
+  color: #14aaf5;
+}
+
+.task-edit-name {
+  width: calc(100% - 15px);
+  padding: 8px;
+  font-size: 24px;
+  border:none;
+  transition-property: box-shadow;
+  transition-duration: .2s;
+  transition-timing-function: ease-out, ease-out, ease-out, ease-out;
+  border-radius: 4px;
+}
+
+.task-edit-name::placeholder {
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.task-edit-name:focus {
+  outline: none;
+}
+
+.task-edit-name:hover {
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+}
+
+.task-edit-header-sub {
+  display: flex;
+  padding: 10px;
+}
+
+.task-edit-border {
+  margin: 0px 30px 0px 30px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0px 0px 0px 0px;
+}
+
+.task-edit-description-container {
+  margin: 5px 0px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.task-edit-description {
+  width: calc(100% - 50px);
+  height: 100px;
+  padding: 8px;
+  font-size: 14px;
+  border-width: 0px;
+  border: none;
+  box-shadow: none;
+  border-radius: 4px;
+  overflow: auto;
+  resize: none;
+  transition-property: box-shadow;
+  transition-duration: .2s;
+  transition-timing-function: ease-out, ease-out, ease-out, ease-out;
+}
+
+.task-edit-description:focus {
+  outline: none;
+}
+
+.task-edit-description:hover {
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+}

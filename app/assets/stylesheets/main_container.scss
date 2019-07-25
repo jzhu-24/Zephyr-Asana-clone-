@@ -1,0 +1,12 @@
+#root {
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  background: #f6f8f9;
+  width: calc(100vw - 244px);
+}

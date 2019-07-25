@@ -1,0 +1,62 @@
+import React from "react";
+import { closeModal } from "../actions/modal_actions";
+import { connect } from "react-redux";
+import WorkspaceCreateFormContainer from "./workspaces/workspace_create_form_container";
+import WorkspaceEditFormContainer from "./workspaces/workspace_edit_form_container";
+import TaskEditFormContainer from "./tasks/task_edit_form_container";
+
+// ??? understand how this works in relation to loading states (?)
+
+function Modal(props) {
+  if (!props.modal) {
+    return null;
+  }
+
+  let component;
+
+  switch (props.modal) {
+    case "createWorkspace":
+      component = <WorkspaceCreateFormContainer />;
+      break;
+    case "editWorkspace":
+      component = (
+        <WorkspaceEditFormContainer
+          currentWorkspace={props.currentWorkspace}
+        />
+      );
+      break;
+    case "editTask":
+      component = <TaskEditFormContainer taskId={props.taskId} />;
+      break;
+    default:
+      return null;
+  }
+
+  return (
+    <div className="modal-background" onClick={props.closeModal}>
+      <div className="modal-child" onClick={e => e.stopPropagation()}>
+        {component}
+      </div>
+    </div>
+  );
+}
+
+const mapStateToProps = (state, { match }) => {
+  return {
+    tasks: state.entities.tasks,
+    taskId: match.params.taskId,
+    currentWorkspace: state.entities.workspaces[match.params.workspaceId],
+    modal: state.ui.modal
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    closeModal: () => dispatch(closeModal())
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Modal);
