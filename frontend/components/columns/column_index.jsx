@@ -208,7 +208,7 @@ class ColumnIndex extends React.Component {
     if (type === "column") {
       const newColumnOrder = this.state.columnsArray;
       newColumnOrder.splice(source.index, 1);
-      newColumnOrder.splice(destination.index, 0, draggableId);
+      newColumnOrder.splice(destination.index, 0, draggableId - 1000000);
 
       const newProject = this.state.project;
       newProject.column = newColumnOrder;
@@ -244,6 +244,7 @@ class ColumnIndex extends React.Component {
 
       this.props.updateColumn(newColumn);
       this.setState(newState);
+      return;
     }
 
     const startTaskIds = start.task;

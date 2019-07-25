@@ -11,8 +11,8 @@ class ColumnIndexItem extends React.Component {
   constructor(props) {
     super(props);
     this.enterPressed = this.enterPressed.bind(this);
-  }
-
+  
+}
   enterPressed = e => {
     if (e.charCode === 13) {
       this.props.handleSubmit('EDIT_COLUMN', this.props.columnId);
@@ -64,7 +64,7 @@ class ColumnIndexItem extends React.Component {
     }
 
     return (
-      <Draggable draggableId={columnId} index={index}>
+      <Draggable draggableId={columnId + 1000000} index={index}>
         {provided => (
           <div
             className="column-draggable"
