@@ -5,12 +5,12 @@ import {
   requestColumns,
   deleteColumn,
   updateColumn,
-  createColumn
+  createColumn,
 } from '../../actions/column_actions';
 
 import { requestProject, updateProject } from '../../actions/project_actions';
-import { createTask, updateTask, requestTasks } from "../../actions/task_actions";
-import { openModal } from "../../actions/modal_actions";
+import { createTask, updateTask, requestTasks } from '../../actions/task_actions';
+import { openModal } from '../../actions/modal_actions';
 
 const mapStateToProps = (state, ownProps) => {  
   const projectId = ownProps.match.params.projectId;
@@ -27,7 +27,7 @@ const mapStateToProps = (state, ownProps) => {
     projects: state.entities.projects,
     tasks: state.entities.tasks,
     project: state.entities.projects[projectId],
-    columnsArray
+    columnsArray,
   };
 };
 
@@ -42,10 +42,10 @@ const mapDispatchToProps = dispatch => ({
   updateProject: project => dispatch(updateProject(project)),
   updateTask: task => dispatch(updateTask(task)),
   createTask: task => dispatch(createTask(task)),
-  editTask: () => dispatch(openModal("editTask"))
+  editTask: () => dispatch(openModal('editTask')),
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(ColumnIndex);

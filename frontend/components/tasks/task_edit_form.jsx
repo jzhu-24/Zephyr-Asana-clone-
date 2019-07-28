@@ -42,8 +42,6 @@ class TaskEditForm extends React.Component {
       const task = this.state.task;
       task[type] = e.target.value;
 
-      debugger
-
       this.setState({ task }, () => {
         this.handleSubmit();
       });
@@ -53,8 +51,6 @@ class TaskEditForm extends React.Component {
   selectDate = date => {
     const task = this.state.task;
     task[due_date] = date;
-
-    debugger
 
     this.setState(task, () => {
       this.handleSubmit();

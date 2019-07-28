@@ -15,7 +15,7 @@ ActiveRecord::Base.transaction do
 
 
   User.create(first_name: "Demo", last_name: "User", email: "demo_user@gmail.com", password: "password")
-  User.create(first_name: "Julian", last_name: "Zhu", email: "julian_zhu90@gmail.com", password: "password")
+  User.create(first_name: "Julian", last_name: "Zhu", email: "julian.zhu90@gmail.com", password: "password")
   Workspace.create(name: "Engineering")
   Workspace.create(name: "Customer Success")
   Workspace.create(name: "Product")
