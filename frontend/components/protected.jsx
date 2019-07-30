@@ -1,12 +1,12 @@
-import React from "react";
-import Modal from "./modal";
-import NavContainer from "../components/nav/nav_container";
-import HeaderContainer from "../components/header/header_container";
-import Home from "../components/home"
-import UserDropdownContainer from "../components/user/user_dropdown_container"
-import ColumnIndexContainer from "../components/columns/column_index_container";
+import React from 'react';
+import Modal from './modal';
+import NavContainer from './nav/nav_container';
+import HeaderContainer from './header/header_container';
+import Home from './home';
+import UserDropdownContainer from './user/user_dropdown_container'
+import ColumnIndexContainer from './columns/column_index_container';
 
-import { ProtectedRoute } from "../util/route_util";
+import { ProtectedRoute } from '../util/route_util';
 
 export default () => (
   <div className="protected" id="logged-in-view">

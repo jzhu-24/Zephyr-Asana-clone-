@@ -14,6 +14,24 @@ class Api::UsersController < ApplicationController
     end
   end
 
+  def show
+    @user = User.find_by(id: params[:id])
+  end
+
+  def update
+    @user = User.find_by(id: params[:id])
+    if @user.update_attributes(user_params)
+      render :update
+    else
+      render json: @user.errors.full_messages, status: 422
+    end
+  end
+
+  def destroy
+    @user = User.find_by(id: params[:id])
+    @task.destroy
+  end
+
   private
 
   # ??? add any used properties to params.require

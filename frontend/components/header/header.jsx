@@ -1,6 +1,5 @@
-import React from "react";
-import { Link, withRouter } from "react-router-dom";
-import UserDropdownContainer from "../../components/user/user_dropdown_container";
+import React from 'react';
+import { withRouter } from 'react-router-dom';
 
 class Header extends React.Component {
   componentDidMount() {
@@ -8,9 +7,9 @@ class Header extends React.Component {
   }
 
   render() {
-    const title = this.props.currentProject
-      ? this.props.currentProject.name
-      : "Home";
+    const { currentProject } = this.props;
+
+    const title = currentProject ? currentProject.name : 'Home';
     return (
       <div className="header">
         <p className="workspace-nav-title">{title}</p>

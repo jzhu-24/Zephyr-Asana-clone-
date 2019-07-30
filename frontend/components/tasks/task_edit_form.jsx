@@ -3,13 +3,18 @@ import { Link, withRouter } from "react-router-dom";
 import { faGripLines } from "@fortawesome/free-solid-svg-icons";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Calendar from 'react-calendar';
 
 class TaskEditForm extends React.Component {
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
 
-    this.state = this.props.task;
+    this.state = {
+      showCalendar: false,
+      task: {
+        ...this.props.task
+      }
+    }
 
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -18,6 +23,8 @@ class TaskEditForm extends React.Component {
     this.closeModal = this.closeModal.bind(this);
     this.toggleCompleted = this.toggleCompleted.bind(this);
     this.enterPressed = this.enterPressed.bind(this);
+    this.toggleShowCalendar = this.toggleShowCalendar.bind(this);
+    this.selectDate = this.selectDate.bind(this);
   }
 
   componentDidMount() {
@@ -32,14 +39,26 @@ class TaskEditForm extends React.Component {
 
   handleInput(type) {
     return e => {
-      this.setState({ [type]: e.target.value }, () => {
+      const task = this.state.task;
+      task[type] = e.target.value;
+
+      this.setState({ task }, () => {
         this.handleSubmit();
       });
     };
   }
 
+  selectDate = date => {
+    const task = this.state.task;
+    task[due_date] = date;
+
+    this.setState(task, () => {
+      this.handleSubmit();
+    })
+  }
+
   handleSubmit() {
-    this.props.updateTask(this.state);
+    this.props.updateTask(this.state.task);
   }
 
   closeModalEsc() {
@@ -58,17 +77,23 @@ class TaskEditForm extends React.Component {
   }
 
   toggleCompleted() {
-    this.state;
-    this.setState({ completed: !this.state.completed }, () => {
+    const task = this.state.task;
+    task[completed] = !this.state.task.completed;
+
+    this.setState({ task }, () => {
       this.handleSubmit();
     });
+  }
+
+  toggleShowCalendar() {
+    this.setState({ showCalendar: !this.state.showCalendar })
   }
 
   render() {
     const { closeModal } = this.props;
     let completed;
 
-    if (this.state.completed === false) {
+    if (this.state.task.completed === false) {
       completed = (
         <button
           className="btn task-edit-incomplete"
@@ -102,7 +127,7 @@ class TaskEditForm extends React.Component {
           <input
             className="task-edit-name"
             type="text"
-            value={this.state.name}
+            value={this.state.task.name}
             placeholder="Write a task name"
             onChange={this.handleInput("name")}
             onBlur={() => this.handleSubmit()}
@@ -110,7 +135,9 @@ class TaskEditForm extends React.Component {
           />
           <div className="task-edit-header-sub">
             <div>Assigned To</div>
-            <div>Due Date</div>
+            <div onClick={this.toggleShowCalendar}>Due Date {this.state.task.due_date}
+              {this.state.showCalendar ? <Calendar onChange={this.selectDate} value={this.state.task.due_date} className='calendar'/> : null }
+            </div>
           </div>
         </div>
         <div className="task-edit-border" />
@@ -122,7 +149,7 @@ class TaskEditForm extends React.Component {
           <textarea
             className="task-edit-description"
             type="text"
-            value={this.state.description || ""}
+            value={this.state.task.description || ""}
             onChange={this.handleInput("description")}
             onBlur={() => this.handleSubmit()}
           />

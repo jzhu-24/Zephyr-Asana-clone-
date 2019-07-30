@@ -10,7 +10,7 @@
 
     <!-- ??? must set window.currentUser to current_user to maintain session after refresh -->
     <% if current_user %>
-    <script> window.currentUser = <%= current_user.id %> </script>
+      <script> window.currentUser = <%= current_user.id %> </script>
     <% end %>
   </head>
 

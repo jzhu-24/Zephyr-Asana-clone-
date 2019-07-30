@@ -17,7 +17,15 @@ module.exports = {
                         'plugins': ['@babel/plugin-proposal-class-properties']
                     }]
                 }
-            }
+            },
+            {
+                test: /\.css$/i,
+				loader: 'style-loader',
+            },
+            {
+                test: /\.css$/i,
+                use: 'css-loader',
+            },
         ]
     },
     devtool: 'inline-source-map',
