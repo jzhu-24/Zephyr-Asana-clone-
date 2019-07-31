@@ -23,6 +23,7 @@
     transition-duration: .3s;
     transition-timing-function: ease-out;
     border-radius: 20px;
+    position: relative;
 }
 
 .project:hover {
@@ -38,8 +39,6 @@
     line-height: 20px;
 }
 
-
-
 .project-index {
     display: flex;
     flex-direction: row;
@@ -51,6 +50,15 @@
     width: 120px;
     background-color: red;
     border-radius: 20px;
+}
+
+.project-favorite {
+    color: grey;
+    padding: 10px;
+    font-size: 18px;
+    z-index: 2;
+    position: absolute;
+    left: 15px;
 }
 
 .project-name {
@@ -75,7 +83,6 @@
     height: 120px;
     width: 120px;
     align-items: center;
-    background: #fff;
     border: 2px dashed;
     -moz-box-sizing: border-box;
     box-sizing: border-box;

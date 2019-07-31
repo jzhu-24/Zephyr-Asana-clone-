@@ -1,5 +1,7 @@
 class User < ApplicationRecord
-
+  has_many :project_favorites
+  has_many :favorite_projects, through: :project_favorites, source: :project
+  
   attr_reader :password
 
   validates :email, presence: true, uniqueness: true

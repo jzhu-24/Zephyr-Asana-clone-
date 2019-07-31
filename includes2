@@ -1,0 +1,136 @@
+tarted GET "/" for ::1 at 2019-07-30 23:27:28 -0700
+Processing by StaticPagesController#root as HTML
+  Rendering static_pages/root.html.erb within layouts/application
+  Rendered static_pages/root.html.erb within layouts/application (1.8ms)
+  User Load (0.4ms)  SELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2  [["session_token", "lmrokeISSw3YA-ElqtpGPw"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:19
+Completed 200 OK in 39ms (Views: 37.5ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/api/workspaces/13" for ::1 at 2019-07-30 23:27:28 -0700
+Started GET "/api/workspaces/13/projects" for ::1 at 2019-07-30 23:27:28 -0700
+Started GET "/api/workspaces/undefined/projects" for ::1 at 2019-07-30 23:27:28 -0700
+Started GET "/api/workspaces" for ::1 at 2019-07-30 23:27:28 -0700
+Started GET "/api/users" for ::1 at 2019-07-30 23:27:28 -0700
+Processing by Api::WorkspacesController#show as JSON
+Processing by Api::WorkspacesController#index as JSON
+  Parameters: {"id"=>"13"}
+Processing by Api::ProjectsController#index as JSON
+Processing by Api::ProjectsController#index as JSON
+  Parameters: {"workspace_id"=>"undefined"}
+  Workspace Load (1.6ms)  SELECT  "workspaces".* FROM "workspaces" WHERE "workspaces"."id" = $1 LIMIT $2  [["id", 13], ["LIMIT", 1]]
+  ↳ app/controllers/api/workspaces_controller.rb:21
+Processing by Api::UsersController#index as JSON
+  Parameters: {"workspace_id"=>"13"}
+  Workspace Load (8.0ms)  SELECT  "workspaces".* FROM "workspaces" WHERE "workspaces"."id" = $1 LIMIT $2  [["id", 0], ["LIMIT", 1]]
+  Rendering api/workspaces/index.json.jbuilder
+  Workspace Load (4.3ms)  SELECT  "workspaces".* FROM "workspaces" WHERE "workspaces"."id" = $1 LIMIT $2  [["id", 13], ["LIMIT", 1]]
+  Rendering api/workspaces/show.json.jbuilder
+  ↳ app/controllers/api/projects_controller.rb:4
+  Rendering api/users/index.json.jbuilder
+Completed 500 Internal Server Error in 23ms (ActiveRecord: 8.0ms)
+
+
+  Workspace Load (5.0ms)  SELECT "workspaces".* FROM "workspaces"
+
+NoMethodError (undefined method `projects' for nil:NilClass):
+
+app/controllers/api/projects_controller.rb:4:in `index'
+  ↳ app/controllers/api/projects_controller.rb:4
+  Rendering api/projects/index.json.jbuilder
+  Rendered api/workspaces/_workspace.json.jbuilder (0.3ms)
+  User Load (3.3ms)  SELECT "users".* FROM "users"
+  ↳ app/views/api/users/index.json.jbuilder:1
+  ↳ app/views/api/workspaces/index.json.jbuilder:1
+  Project Load (0.9ms)  SELECT "projects".* FROM "projects" WHERE "projects"."workspace_id" = $1  [["workspace_id", 13]]
+  Rendered api/users/_user.json.jbuilder (0.4ms)
+  Project Load (0.7ms)  SELECT "projects".* FROM "projects" WHERE "projects"."workspace_id" IN ($1, $2)  [["workspace_id", 13], ["workspace_id", 17]]
+  Rendered api/users/_user.json.jbuilder (0.0ms)
+  ↳ app/views/api/projects/index.json.jbuilder:1
+  ↳ app/views/api/workspaces/index.json.jbuilder:1
+  Rendered api/workspaces/show.json.jbuilder (38.1ms)
+Completed 200 OK in 62ms (Views: 50.5ms | ActiveRecord: 1.6ms)
+
+
+  Column Load (1.0ms)  SELECT "columns".* FROM "columns" WHERE "columns"."project_id" IN ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)  [["project_id", 10], ["project_id", 9], ["project_id", 11], ["project_id", 12], ["project_id", 13], ["project_id", 14], ["project_id", 15], ["project_id", 16], ["project_id", 17], ["project_id", 18]]
+  ↳ app/views/api/workspaces/index.json.jbuilder:1
+Started GET "/api/projects/9/columns" for ::1 at 2019-07-30 23:27:28 -0700
+  Rendered api/users/index.json.jbuilder (31.7ms)
+  Task Load (1.1ms)  SELECT "tasks".* FROM "tasks" WHERE "tasks"."column_id" IN ($1, $2, $3, $4)  [["column_id", 14], ["column_id", 16], ["column_id", 15], ["column_id", 13]]
+  ↳ app/views/api/workspaces/index.json.jbuilder:1
+Completed 200 OK in 59ms (Views: 43.2ms | ActiveRecord: 3.3ms)
+
+
+  Column Load (2.6ms)  SELECT "columns".* FROM "columns" WHERE "columns"."project_id" IN ($1, $2, $3, $4, $5, $6, $7, $8, $9)  [["project_id", 9], ["project_id", 10], ["project_id", 11], ["project_id", 12], ["project_id", 13], ["project_id", 14], ["project_id", 15], ["project_id", 16], ["project_id", 18]]
+  Rendered api/workspaces/_workspace.json.jbuilder (0.5ms)
+  ↳ app/views/api/projects/index.json.jbuilder:1
+Processing by Api::ColumnsController#index as JSON
+  Parameters: {"project_id"=>"9"}
+  Rendered api/workspaces/_workspace.json.jbuilder (0.1ms)
+  Task Load (1.4ms)  SELECT "tasks".* FROM "tasks" WHERE "tasks"."column_id" IN ($1, $2, $3, $4)  [["column_id", 14], ["column_id", 16], ["column_id", 15], ["column_id", 13]]
+  Rendered api/workspaces/index.json.jbuilder (54.0ms)
+Completed 200 OK in 75ms (Views: 62.1ms | ActiveRecord: 7.7ms)
+
+
+  Project Load (1.2ms)  SELECT  "projects".* FROM "projects" WHERE "projects"."id" = $1 LIMIT $2  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/api/columns_controller.rb:4
+  ↳ app/views/api/projects/index.json.jbuilder:1
+  Rendering api/columns/index.json.jbuilder
+  Rendered api/projects/_project.json.jbuilder (0.4ms)
+  Rendered api/projects/_project.json.jbuilder (0.2ms)
+  Column Load (1.5ms)  SELECT "columns".* FROM "columns" WHERE "columns"."project_id" = $1  [["project_id", 9]]
+  Rendered api/projects/_project.json.jbuilder (0.1ms)
+  ↳ app/views/api/columns/index.json.jbuilder:1
+  Rendered api/projects/_project.json.jbuilder (0.1ms)
+  Rendered api/columns/_column.json.jbuilder (0.4ms)
+  Rendered api/projects/_project.json.jbuilder (0.1ms)
+  Rendered api/projects/_project.json.jbuilder (0.1ms)
+  Rendered api/projects/_project.json.jbuilder (0.1ms)
+  Rendered api/columns/_column.json.jbuilder (0.0ms)
+  Rendered api/projects/_project.json.jbuilder (0.1ms)
+  Rendered api/columns/_column.json.jbuilder (0.0ms)
+  Rendered api/columns/_column.json.jbuilder (0.1ms)
+  Rendered api/projects/_project.json.jbuilder (0.1ms)
+  Rendered api/columns/index.json.jbuilder (13.3ms)
+Completed 200 OK in 24ms (Views: 17.3ms | ActiveRecord: 2.7ms)
+
+
+  Rendered api/projects/index.json.jbuilder (65.8ms)
+Completed 200 OK in 88ms (Views: 65.5ms | ActiveRecord: 9.2ms)
+
+
+Started GET "/api/columns/13/tasks" for ::1 at 2019-07-30 23:27:28 -0700
+Processing by Api::TasksController#index as JSON
+  Parameters: {"column_id"=>"13"}
+  Column Load (1.1ms)  SELECT  "columns".* FROM "columns" WHERE "columns"."id" = $1 LIMIT $2  [["id", 13], ["LIMIT", 1]]
+  ↳ app/controllers/api/tasks_controller.rb:4
+  Project Load (0.3ms)  SELECT  "projects".* FROM "projects" WHERE "projects"."id" = $1 LIMIT $2  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/api/tasks_controller.rb:4
+  Rendering api/tasks/index.json.jbuilder
+  Task Load (0.5ms)  SELECT "tasks".* FROM "tasks" INNER JOIN "columns" ON "tasks"."column_id" = "columns"."id" WHERE "columns"."project_id" = $1  [["project_id", 9]]
+  ↳ app/views/api/tasks/index.json.jbuilder:1
+  Rendered api/tasks/_task.json.jbuilder (0.4ms)
+  Rendered api/tasks/_task.json.jbuilder (0.1ms)
+  Rendered api/tasks/_task.json.jbuilder (0.1ms)
+  Rendered api/tasks/_task.json.jbuilder (0.1ms)
+  Rendered api/tasks/_task.json.jbuilder (0.1ms)
+  Rendered api/tasks/_task.json.jbuilder (0.1ms)
+  Rendered api/tasks/_task.json.jbuilder (0.1ms)
+  Rendered api/tasks/_task.json.jbuilder (0.1ms)
+  Rendered api/tasks/_task.json.jbuilder (0.1ms)
+  Rendered api/tasks/_task.json.jbuilder (0.1ms)
+  Rendered api/tasks/_task.json.jbuilder (0.1ms)
+  Rendered api/tasks/_task.json.jbuilder (0.1ms)
+  Rendered api/tasks/index.json.jbuilder (9.3ms)
+Completed 200 OK in 17ms (Views: 11.9ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/api/projects/9" for ::1 at 2019-07-30 23:27:29 -0700
+Processing by Api::ProjectsController#show as JSON
+  Parameters: {"id"=>"9"}
+  Project Load (0.3ms)  SELECT  "projects".* FROM "projects" WHERE "projects"."id" = $1 LIMIT $2  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/api/projects_controller.rb:15
+  Rendering api/projects/show.json.jbuilder
+  Rendered api/projects/_project.json.jbuilder (0.3ms)
+  Rendered api/projects/show.json.jbuilder (1.1ms)
+Completed 200 OK in 7ms (Views: 4.6ms | ActiveRecord: 0.3ms)

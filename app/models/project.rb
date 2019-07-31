@@ -1,14 +1,11 @@
 class Project < ApplicationRecord
-
   validates :name, :creator_id, presence: true
   
   belongs_to :workspace
   has_many :columns
   has_many :tasks, through: :columns
-
-  attr_writer :columns
-
-  # model.array_will_change!
+  has_many :project_favorites
+  has_many :favorited_users, through: :project_favorites, source: :user
 
   def add_column(column_id)
     self.column_will_change!

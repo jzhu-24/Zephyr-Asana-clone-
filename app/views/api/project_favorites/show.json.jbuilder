@@ -1,0 +1,1 @@
+json.partial! 'project_favorite', project_favorite: @project_favorite

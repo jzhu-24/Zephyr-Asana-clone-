@@ -3,8 +3,7 @@ class Api::WorkspacesController < ApplicationController
   # ??? status codes?
 
   def index
-    # @workspaces = Workspace.all
-    @workspaces = Workspace.includes(projects: [{ columns: [:tasks] }])
+    @workspaces = Workspace.all
   end
 
   def create

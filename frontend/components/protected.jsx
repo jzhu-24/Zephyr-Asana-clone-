@@ -16,7 +16,7 @@ export default () => (
     <div className="main-container">
       <div className="header-container">
         <ProtectedRoute
-          path="/:workspaceId"
+          path="/:workspaceId/:projectId"
           component={HeaderContainer}
         />
         <ProtectedRoute

@@ -5,15 +5,16 @@ import ProjectIndex from '../projects/project_index';
 class Nav extends React.Component {
 
   componentDidMount() {
-    const { requestWorkspace, requestProjects } = this.props;
+    const { requestWorkspace, requestProjects, requestProjectFavorites } = this.props;
     const { workspaceId } = this.props.match.params;
 
     if (workspaceId > 0) requestWorkspace(workspaceId);
     requestProjects(workspaceId);
+    requestProjectFavorites(workspaceId);
   }
 
   render() {
-    const { currentWorkspace, match, projects } = this.props;
+    const { currentWorkspace, match, projects, favoritedProjects } = this.props;
 
     if (currentWorkspace === undefined) {
       return (
@@ -32,7 +33,7 @@ class Nav extends React.Component {
         </div>
       );
     }
-    
+
     return (
       <div className="nav">
         <img src={window.images.logo} alt="logo" className="nav-logo" />
@@ -41,6 +42,7 @@ class Nav extends React.Component {
         </div>
         <div className="nav-favorites">
           <p className="nav-favorites-title">Favorites</p>
+          <ProjectIndex match={match} projects={favoritedProjects} />
         </div>
         <Link to={`/${currentWorkspace.id}`} className="nav-workspace">{currentWorkspace.name}</Link>
         <ProjectIndex match={match} projects={projects} />

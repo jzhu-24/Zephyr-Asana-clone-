@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     resources :users
     resource :session, only: [:create, :destroy]
+    resources :project_favorites
     resources :workspaces do
       resources :projects, shallow: true do
         resources :columns, shallow: true do

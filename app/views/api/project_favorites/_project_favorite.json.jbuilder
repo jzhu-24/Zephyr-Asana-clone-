@@ -1,0 +1,1 @@
+json.extract! project_favorite, :id, :project_id, :user_id
