@@ -1,19 +1,19 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import ProjectIndexContainer from '../projects/project_index_container';
-import merge from "lodash/merge";
+import ProjectIndex from '../projects/project_index';
 
 class Nav extends React.Component {
 
   componentDidMount() {
-    const { requestWorkspace } = this.props;
+    const { requestWorkspace, requestProjects } = this.props;
     const { workspaceId } = this.props.match.params;
 
     if (workspaceId > 0) requestWorkspace(workspaceId);
+    requestProjects(workspaceId);
   }
 
   render() {
-    const { currentWorkspace, match } = this.props;
+    const { currentWorkspace, match, projects } = this.props;
 
     if (currentWorkspace === undefined) {
       return (
@@ -43,7 +43,7 @@ class Nav extends React.Component {
           <p className="nav-favorites-title">Favorites</p>
         </div>
         <Link to={`/${currentWorkspace.id}`} className="nav-workspace">{currentWorkspace.name}</Link>
-        <ProjectIndexContainer match={match} />
+        <ProjectIndex match={match} projects={projects} />
       </div>
     )
   }

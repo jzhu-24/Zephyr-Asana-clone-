@@ -68,3 +68,9 @@
   font-weight: 300;
   font-size: 13px;
 }
+
+.nav-project-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 180px;
+}

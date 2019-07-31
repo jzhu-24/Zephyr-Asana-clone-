@@ -57,14 +57,16 @@ class ColumnIndex extends React.Component {
           columnsArray: result.project.column
         });
       });
-
+    
     this.props
       .requestColumns(this.props.match.params.projectId)
       .then(result => {
         this.setState({ columns: result.columns });
-        this.props
-          .requestTasks(Object.keys(result.columns)[0])
-          .then(result => this.setState({ tasks: result.tasks }));
+        if (Object.keys(result.columns).length !== 0) {
+          this.props
+            .requestTasks(Object.keys(result.columns)[0])
+            .then(result => this.setState({ tasks: result.tasks }));
+        }
       });
   }
 
