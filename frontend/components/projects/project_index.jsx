@@ -1,11 +1,10 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
-import ProjectIndexItem from "./project_index_item";
 
 class ProjectIndex extends React.Component {
   
   componentDidMount() {
-    this.props.requestProjects();
+    this.props.requestProjects(this.props.match.params.workspaceId);
   }
 
   render() {  
@@ -20,7 +19,7 @@ class ProjectIndex extends React.Component {
     });
 
     return (
-      <div className="project-index">
+      <div className="nav-project-index">
         {projects}
       </div>
     );

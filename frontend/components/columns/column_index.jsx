@@ -286,7 +286,7 @@ class ColumnIndex extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="column-container">
         <div className="column-index">
           <DragDropContext onDragEnd={this.onDragEnd}>
             <Droppable

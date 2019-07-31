@@ -33,7 +33,7 @@
   padding: 5px 10px;
   transition-property: background-color;
   transition-duration: .2s;
-  transition-timing-function: ease-out, ease-out, ease-out, ease-out;
+  transition-timing-function: ease-out;
 }
 
 .btn:focus {
@@ -71,7 +71,7 @@
   cursor: pointer;
   transition-property: color;
   transition-duration: .15s;
-  transition-timing-function: ease-out, ease-out, ease-out, ease-out;
+  transition-timing-function: ease-out;
 }
 
 .task-edit-cross:hover {
@@ -85,7 +85,7 @@
   border:none;
   transition-property: box-shadow;
   transition-duration: .2s;
-  transition-timing-function: ease-out, ease-out, ease-out, ease-out;
+  transition-timing-function: ease-out;
   border-radius: 4px;
 }
 
@@ -131,7 +131,7 @@
   resize: none;
   transition-property: box-shadow;
   transition-duration: .2s;
-  transition-timing-function: ease-out, ease-out, ease-out, ease-out;
+  transition-timing-function: ease-out;
 }
 
 .task-edit-description:focus {

@@ -45,7 +45,7 @@
   cursor: pointer;
   transition-property: color;
   transition-duration: .15s;
-  transition-timing-function: ease-out, ease-out, ease-out, ease-out;
+  transition-timing-function: ease-out;
 }
 
 .workspace-form-cross:hover {
@@ -84,7 +84,7 @@
   font-weight: 400;
   transition-property: border;
   transition-duration: .1s;
-  transition-timing-function: ease-out, ease-out, ease-out, ease-out;
+  transition-timing-function: ease-out;
 }
 
 .workspace-form label input:hover {
@@ -112,7 +112,7 @@
   right: 0px;
   transition-property: background-color, border;
   transition-duration: .2s;
-  transition-timing-function: ease-out, ease-out, ease-out, ease-out;
+  transition-timing-function: ease-out;
 }
 
 .workspace-form-button:hover {

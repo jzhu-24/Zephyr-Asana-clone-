@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import TaskIndex from './task_index';
-import { openModal } from "../../actions/modal_actions";
+import { openModal } from '../../actions/modal_actions';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -9,10 +9,10 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  editTask: () => dispatch(openModal("editTask"))
+  editTask: () => dispatch(openModal('editTask')),
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(TaskIndex);

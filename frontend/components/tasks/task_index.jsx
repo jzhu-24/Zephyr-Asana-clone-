@@ -14,7 +14,7 @@ class TaskIndex extends React.Component {
     const workspaceId = this.props.match.params.workspaceId;
     const projectId = this.props.match.params.projectId;
     this.props.history.push(`/${workspaceId}/${projectId}/${taskId}`);
-    this.props.editTask(this.props.tasks[taskId])
+    this.props.editTask(this.props.tasks[taskId]);
   }
 
   render() {

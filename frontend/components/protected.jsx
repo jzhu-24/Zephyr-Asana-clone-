@@ -2,10 +2,11 @@ import React from 'react';
 import Modal from './modal';
 import NavContainer from './nav/nav_container';
 import HeaderContainer from './header/header_container';
+import ProjectHome from './projects/project_home_container';
 import Home from './home';
 import UserDropdownContainer from './user/user_dropdown_container'
 import ColumnIndexContainer from './columns/column_index_container';
-
+import { Switch } from "react-router-dom";
 import { ProtectedRoute } from '../util/route_util';
 
 export default () => (
@@ -23,13 +24,14 @@ export default () => (
           component={UserDropdownContainer}
         />
       </div>
-      <ProtectedRoute path="/0" component={Home} />
-      <div className="column-container">
+      <Switch>
         <ProtectedRoute
           path="/:workspaceId/:projectId"
           component={ColumnIndexContainer}
         />
-      </div>
+        <ProtectedRoute path="/:workspaceId" component={ProjectHome} />
+        <ProtectedRoute path="/0" component={Home} />
+      </Switch>
     </div>
   </div>
 );

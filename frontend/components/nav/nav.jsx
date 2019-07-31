@@ -6,13 +6,16 @@ import merge from "lodash/merge";
 class Nav extends React.Component {
 
   componentDidMount() {
-    if (this.props.match.params.workspaceId > 0) {
-      this.props.requestWorkspace(this.props.match.params.workspaceId);
-    }
+    const { requestWorkspace } = this.props;
+    const { workspaceId } = this.props.match.params;
+
+    if (workspaceId > 0) requestWorkspace(workspaceId);
   }
 
   render() {
-    if (this.props.currentWorkspace === undefined) {
+    const { currentWorkspace, match } = this.props;
+
+    if (currentWorkspace === undefined) {
       return (
         <div className="nav">
           <img src={window.images.logo} alt="logo" className="nav-logo" />
@@ -39,9 +42,8 @@ class Nav extends React.Component {
         <div className="nav-favorites">
           <p className="nav-favorites-title">Favorites</p>
         </div>
-        <p className='nav-workspace'>{this.props.currentWorkspace.name}</p>
-        <ProjectIndexContainer 
-          match={this.props.match}/>
+        <Link to={`/${currentWorkspace.id}`} className="nav-workspace">{currentWorkspace.name}</Link>
+        <ProjectIndexContainer match={match} />
       </div>
     )
   }

@@ -56,7 +56,7 @@ html {
   border-radius: 4px;
   transition-property: border, box-shadow;
   transition-duration: .3s;
-  transition-timing-function: ease-out, ease-out, ease-out, ease-out;
+  transition-timing-function: ease-out;
 }
 
 .login-form > label > input:focus {
@@ -82,7 +82,7 @@ html {
   margin-right: 10px;
   transition-property: background, border;
   transition-duration: .2s;
-  transition-timing-function: ease-out, ease-out, ease-out, ease-out;
+  transition-timing-function: ease-out;
 }
 
 .login-form-button:hover {
@@ -118,7 +118,7 @@ html {
   cursor: pointer;
   transition-property: background, border;
   transition-duration: .2s;
-  transition-timing-function: ease-out, ease-out, ease-out, ease-out;
+  transition-timing-function: ease-out;
 }
 
 .login-footer-button:hover {

@@ -23,7 +23,7 @@
   border-radius: 5px;
   transition-property: border;
   transition-duration: .2s;
-  transition-timing-function: ease-out, ease-out, ease-out, ease-out;
+  transition-timing-function: ease-out;
   height: calc(100vh - 110px);
 }
 
@@ -51,7 +51,7 @@
   cursor: pointer;
   transition-property: color;
   transition-duration: .2s;
-  transition-timing-function: ease-out, ease-out, ease-out, ease-out;
+  transition-timing-function: ease-out;
 }
 
 .add-column-button:hover {
@@ -105,7 +105,7 @@
   color: grey;
   transition-property: color;
   transition-duration: .2s;
-  transition-timing-function: ease-out, ease-out, ease-out, ease-out;
+  transition-timing-function: ease-out;
 }
 
 .column-delete-button:hover {

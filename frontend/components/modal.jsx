@@ -3,6 +3,7 @@ import { closeModal } from "../actions/modal_actions";
 import { connect } from "react-redux";
 import WorkspaceCreateFormContainer from "./workspaces/workspace_create_form_container";
 import WorkspaceEditFormContainer from "./workspaces/workspace_edit_form_container";
+import ProjectCreateFormContainer from "./projects/project_create_form_container";
 import TaskEditFormContainer from "./tasks/task_edit_form_container";
 
 // ??? understand how this works in relation to loading states (?)
@@ -27,6 +28,9 @@ function Modal(props) {
       break;
     case "editTask":
       component = <TaskEditFormContainer taskId={props.taskId} />;
+      break;
+    case "createProject":
+      component = <ProjectCreateFormContainer currentWorkspace={props.currentWorkspace} />;
       break;
     default:
       return null;

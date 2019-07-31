@@ -5,10 +5,10 @@ import TaskCreateForm from './task_create_form';
 
 const mapDispatchToProps = dispatch => ({
   createTask: task => dispatch(createTask(task)),
-  updateColumn: column_id => dispatch(updateColumn(column_id))
+  updateColumn: column_id => dispatch(updateColumn(column_id)),
 });
 
 export default connect(
   null,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(TaskCreateForm);

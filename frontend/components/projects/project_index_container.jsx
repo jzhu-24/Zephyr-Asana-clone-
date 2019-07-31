@@ -5,28 +5,23 @@ import {
   requestProjects,
   deleteProject,
   updateProject,
-  createProject
+  createProject,
 } from '../../actions/project_actions';
 
-// ??? why can't I export/import?
-// ??? send extra params to backend or filter here?
-
 const selectProjects = ({ projects }, workspaceId) => {
-  return Object.values(projects).filter(
-    project => project.workspace_id === parseInt(workspaceId)
-  );
+  return Object.values(projects).filter(project => project.workspace_id === parseInt(workspaceId));
 };
 
 const mapStateToProps = (state, ownProps) => {
   const currentWorkspaceId = ownProps.match.params.workspaceId;
 
   return {
-    projects: selectProjects(state.entities, currentWorkspaceId)
+    projects: selectProjects(state.entities, currentWorkspaceId),
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-  requestProjects: () => dispatch(requestProjects()),
+  requestProjects: workspace_id => dispatch(requestProjects(workspace_id)),
   requestProject: id => dispatch(requestProject(id)),
   createProject: (workspace_id, project) =>
     dispatch(createProject((workspace_id, project))),

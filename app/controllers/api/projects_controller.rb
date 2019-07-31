@@ -1,14 +1,12 @@
 class Api::ProjectsController < ApplicationController
 
   def index
-    # ??? .includes for performance?
-    @projects = Project.includes(columns: [:tasks])
+    @projects = Workspace.find_by(id: params[:workspace_id]).projects
   end
 
   def create
-    # ??? must add IDs from params
     @project = Project.new(project_params)
-    @project.workspace_id = params[:workspace_id]
+    @project.creator_id = current_user.id
     @project.save
     render :show
   end
@@ -33,7 +31,6 @@ class Api::ProjectsController < ApplicationController
   private
 
   def project_params
-    # needed to allow arrays lol
     params.require(:project).permit!
   end
 end
