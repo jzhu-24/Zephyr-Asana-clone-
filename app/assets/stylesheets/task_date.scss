@@ -1,0 +1,54 @@
+.task-date {
+	margin-left: 10px;
+	padding: 10px;
+	display: flex;
+    flex-direction: row;
+    position: fixed;
+}
+
+.task-date-icon {
+	font-size: 16px;
+	margin-top: 6px;
+}
+
+.task-date-icon-border {
+	border: 1px solid black;
+	border-radius: 50%;
+	width: 30px;
+	height: 30px;
+	text-align: center;
+}
+
+.task-date:hover {
+    border: 1px solid black;
+	border-radius: 20px;
+	background: rgb(245, 245, 245);
+}
+
+.task-due-date-container {
+    margin-left: 8px;
+}
+
+.task-due-date-text {
+	font-size: 14px;
+}
+
+.task-calendar-show {
+	margin-left: 10px;
+	padding: 10px 70px 10px 10px;
+	display: flex;
+    flex-direction: row;
+    position: fixed;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.task-calendar-date {
+    margin-left: 10px;
+    margin-top: 6px;
+}
+
+.task-calendar {
+    margin-top: 40px;
+	position: fixed;
+}
