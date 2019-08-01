@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
+import Calendar from 'react-calendar';
 
 function ProjectIndex(props) {  
   if (!props || props.projects.length === 0 || !props.projects[0]) return null;
