@@ -86,7 +86,6 @@ GEM
     ffi (1.11.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
-    growl (1.0.3)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
     io-like (0.3.0)
@@ -152,7 +151,6 @@ GEM
       ffi (~> 1.0)
     regexp_parser (1.6.0)
     ruby_dep (1.5.0)
-    ruby_gntp (0.3.4)
     rubyzip (1.2.3)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
@@ -213,14 +211,12 @@ DEPENDENCIES
   capybara (>= 2.15)
   chromedriver-helper
   coffee-rails (~> 4.2)
-  growl
   jbuilder (~> 2.5)
   jquery-rails
   listen (>= 3.0.5, < 3.2)
   pg (>= 0.18, < 2.0)
   puma (~> 3.11)
   rails (~> 5.2.3)
-  ruby_gntp
   sass-rails (~> 5.0)
   selenium-webdriver
   spring
