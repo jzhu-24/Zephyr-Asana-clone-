@@ -14,7 +14,7 @@ class Nav extends React.Component {
   }
 
   render() {
-    const { currentWorkspace, match, projects, favoritedProjects } = this.props;
+    let { currentWorkspace, match, projects, favoritedProjects } = this.props;
 
     if (currentWorkspace === undefined) {
       return (

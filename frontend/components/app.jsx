@@ -8,12 +8,11 @@ import { AuthRoute, ProtectedRoute } from "../util/route_util";
 
 export default () => (
   <div>
-    <ProtectedRoute path="/:workspaceId" component={Protected} />
     <Switch>
       <AuthRoute exact path="/login" component={LoginContainer} />
       <AuthRoute exact path="/signup" component={SignupContainer} />
       <AuthRoute path="/" component={SignupContainer} />
-      <Redirect to="/signup" />
     </Switch>
+    <ProtectedRoute path="/:workspaceId" component={Protected} />
   </div>
 );
