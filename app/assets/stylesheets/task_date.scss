@@ -2,8 +2,8 @@
 	margin-left: 10px;
 	padding: 10px;
 	display: flex;
-    flex-direction: row;
-    position: fixed;
+	flex-direction: row;
+	position: fixed;
 }
 
 .task-date-icon {
@@ -51,4 +51,12 @@
 .task-calendar {
     margin-top: 40px;
 	position: fixed;
+}
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
 }

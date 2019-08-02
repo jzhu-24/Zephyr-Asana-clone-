@@ -3,6 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import { Draggable } from "react-beautiful-dnd";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; 
+import TaskDate from './task_date';
 
 class TaskIndex extends React.Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class TaskIndex extends React.Component {
   }
 
   render() {
-    let { column, tasks } = this.props;
+    let { column, tasks, updateTask } = this.props;
 
     if (Object.keys(tasks).length === 0 || !column) return null;
 
@@ -40,6 +41,7 @@ class TaskIndex extends React.Component {
                     <FontAwesomeIcon icon={faCheckCircle} className="task-check" />
                   ) : (<div></div>)}
                   <p className="task-name">{tasks[taskId].name}</p>
+                  <TaskDate updateTask={updateTask} task={tasks[taskId]} />
                 </div>
               </div>
             )}

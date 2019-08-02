@@ -1,18 +1,15 @@
 // ??? fix height % wtf
 
 .column-container {
-  height: 90%;
   cursor: pointer;
-  overflow: visible;
+  overflow-x: scroll;
 }
 
 .column-index {
   display: flex;
   flex-direction: row;
-  padding: 10px;
+  padding: 10px 10px 0px 10px;
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Helvetica,Arial,sans-serif;
-  height: 100%;
-  overflow: auto;
 }
 
 .column {
@@ -24,7 +21,6 @@
   transition-property: border;
   transition-duration: .2s;
   transition-timing-function: ease-out;
-  height: calc(100vh - 110px);
 }
 
 .column:hover {
@@ -113,7 +109,8 @@
 }
 
 .column-droppable {
-  height: 300px;
+  overflow: hidden;
+  height: calc(100vh - 160px);
 }
 
 .index-droppable {
