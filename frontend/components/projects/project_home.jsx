@@ -26,8 +26,6 @@ class ProjectHome extends React.Component {
     // if (prevProps.favoritedProjects.length !== favoritedProjects.length) {
     //   requestProjectFavorites(workspaceId);
     // }
-
-    // debugger
   }
 
   showLiked(project) {

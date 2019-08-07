@@ -32,7 +32,7 @@ class TaskIndexDate extends React.Component {
   closeCalendar(event) {
     if (!event.target.classList[0]) return;
     if (this.state.showCalendar && event.target.classList[0].slice(0,14) !== 'react-calendar') {
-      this.toggleShowCalendar();
+      this.toggleShowCalendar(event);
     }
   }
 
@@ -63,7 +63,7 @@ class TaskIndexDate extends React.Component {
 
   toggleShowCalendar(e) {
     this.setState({ showCalendar: !this.state.showCalendar });
-    e.stopPropagation();
+    e && e.stopPropagation();
   }
 
   convertShortDate(date) {
@@ -100,17 +100,18 @@ class TaskIndexDate extends React.Component {
   }
 
   render() {
-    const { task } = this.props;
+    const { task, updateTask } = this.props;
     const { showCalendar } = this.state;
 
     let date;
     let calendar;
 
     calendar = (
-      <div className='task-index-calendar-container'>
+      // stopPropagation to prevent clicking calendar from loading task
+      <div className='task-index-calendar-container' onClick={e => e.stopPropagation()}>
         <Calendar
           onClickDay={this.selectDate} 
-          value={task.due_date ? new Date(task.due_date) : null} 
+          value={task.due_date && new Date(task.due_date)} 
           className='task-calendar'/>
       </div>
     );
@@ -134,7 +135,7 @@ class TaskIndexDate extends React.Component {
         <div onClick={this.toggleShowCalendar}>
           {date}
         </div>
-        {this.state.showCalendar && calendar}
+        {showCalendar && calendar}
       </div>
     )
   }

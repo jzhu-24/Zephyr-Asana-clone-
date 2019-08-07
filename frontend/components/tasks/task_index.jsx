@@ -26,7 +26,6 @@ class TaskIndex extends React.Component {
     column.task.forEach(taskId => {
       if (!tasks[taskId]) {
         return null;
-        console.log('hi');
       }
     });
 
