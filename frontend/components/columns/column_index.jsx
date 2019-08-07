@@ -287,6 +287,11 @@ class ColumnIndex extends React.Component {
   };
 
   render() {
+    const { taskId } = this.props.match.params;
+    const { editTask } = this.props;
+    
+    if (taskId) editTask(taskId);
+
     return (
       <div className="column-container">
         <div className="column-index">

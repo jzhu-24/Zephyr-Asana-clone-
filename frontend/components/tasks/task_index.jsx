@@ -43,7 +43,7 @@ class TaskIndex extends React.Component {
                   <div>
                     <div className="task-header">
                       {(tasks[taskId] && tasks[taskId].completed) && <FontAwesomeIcon icon={faCheckCircle} className="task-check" />}
-                      <p className="task-name">{tasks[taskId] && tasks[taskId].name}</p>
+                      <p className={tasks[taskId] && tasks[taskId].completed ? 'task-name-completed' : 'task-name'}>{tasks[taskId] && tasks[taskId].name}</p>
                     </div>
                   </div>
                   {tasks[taskId] && <TaskIndexDate updateTask={updateTask} task={tasks[taskId]} />}
