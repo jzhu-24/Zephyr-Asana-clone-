@@ -314,6 +314,7 @@ class ColumnIndex extends React.Component {
                       handleInput={this.handleInput}
                       handleSubmit={this.handleSubmit}
                       editTask={this.props.editTask}
+                      updateTask={this.props.updateTask}
                       index={index}
                     />
                   ))}

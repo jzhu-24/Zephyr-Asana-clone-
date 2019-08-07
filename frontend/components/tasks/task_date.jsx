@@ -118,7 +118,7 @@ class TaskDate extends React.Component {
         <div className='task-calendar-container'>
           <Calendar
             onClickDay={this.selectDate} 
-            value={task.due_date ? new Date(task.due_date) : null} 
+            value={task.due_date && new Date(task.due_date)} 
             className='task-calendar'/>
         </div>
       );

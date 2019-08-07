@@ -1,6 +1,5 @@
 import React from 'react';
 import TaskIndex from '../tasks/task_index';
-import TaskIndexContainer from '../tasks/task_index_container';
 import TaskCreateFormContainer from '../tasks/task_create_form_container';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -100,6 +99,7 @@ class ColumnIndexItem extends React.Component {
                       column={column}
                       tasks={tasks}
                       editTask={this.props.editTask}
+                      updateTask={this.props.updateTask}
                     />
                     {provided.placeholder}
                   </div>
