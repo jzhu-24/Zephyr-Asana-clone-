@@ -1,10 +1,10 @@
 .task-index {
-
+  overflow: auto;
+  height: calc(100vh - 150px);
 }
 
 .task {
   max-height: 200px;
-  min-height: 80px;
   margin: 10px;
   padding: 10px 8px 10px 0px;
   font-size: 13px;
@@ -13,13 +13,14 @@
   border-radius: 5px;
   box-shadow: 0 1px 3px 0 rgba(21,27,38,.15);
   box-sizing: border-box;
-  position: relative;
-  top: 0;
   transition: top ease 0.2s;
-  overflow: hidden;
-  overflow-wrap: break-word;
+  width: 230px;
+  color: transparent;
+}
+
+.task-header {
   display: flex;
-  justify-content: left;
+  color: rgb(240, 240, 240);
 }
 
 .completed {
@@ -35,10 +36,16 @@
 .task:hover {
   top: -1px;
   box-shadow: 0 2px 6px 0 rgba(21,27,38,.15);
+  color: rgba(135, 135, 135, 0.5);
+  border-color: rgba(135, 135, 135, 0.5);
 }
 
 .task-name {
+  overflow: hidden;
+  overflow-wrap: break-word;
+  color: black;
   padding-left: 10px;
+  width: 190px;
 }
 
 .create-task {

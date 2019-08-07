@@ -3,6 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import { Draggable } from "react-beautiful-dnd";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; 
+import TaskIndexDate from './task_index_date';
 
 class TaskIndex extends React.Component {
   constructor(props) {
@@ -18,9 +19,16 @@ class TaskIndex extends React.Component {
   }
 
   render() {
-    let { column, tasks } = this.props;
+    let { column, tasks, updateTask } = this.props;
 
     if (Object.keys(tasks).length === 0 || !column) return null;
+
+    column.task.forEach(taskId => {
+      if (!tasks[taskId]) {
+        return null;
+        console.log('hi');
+      }
+    });
 
     return (
       <div className="task-index">
@@ -32,14 +40,14 @@ class TaskIndex extends React.Component {
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
               >
-                <div
-                  className={ tasks[taskId].completed ? "completed task" : "task"}
-                  onClick={() => this.handleClick(taskId)}
-                >
-                  {tasks[taskId].completed === true ? (
-                    <FontAwesomeIcon icon={faCheckCircle} className="task-check" />
-                  ) : (<div></div>)}
-                  <p className="task-name">{tasks[taskId].name}</p>
+                <div className={tasks[taskId] && tasks[taskId].completed ? 'completed task' : 'task'}>
+                  <div onClick={() => this.handleClick(taskId)}>
+                    <div className="task-header">
+                      {(tasks[taskId] && tasks[taskId].completed) && <FontAwesomeIcon icon={faCheckCircle} className="task-check" />}
+                      <p className="task-name">{tasks[taskId] && tasks[taskId].name}</p>
+                    </div>
+                  </div>
+                  {tasks[taskId] && <TaskIndexDate updateTask={updateTask} task={tasks[taskId]} />}
                 </div>
               </div>
             )}
