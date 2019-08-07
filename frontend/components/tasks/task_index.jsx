@@ -40,8 +40,8 @@ class TaskIndex extends React.Component {
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
               >
-                <div className={tasks[taskId] && tasks[taskId].completed ? 'completed task' : 'task'}>
-                  <div onClick={() => this.handleClick(taskId)}>
+                <div onClick={() => this.handleClick(taskId)} className={tasks[taskId] && tasks[taskId].completed ? 'completed task' : 'task'}>
+                  <div>
                     <div className="task-header">
                       {(tasks[taskId] && tasks[taskId].completed) && <FontAwesomeIcon icon={faCheckCircle} className="task-check" />}
                       <p className="task-name">{tasks[taskId] && tasks[taskId].name}</p>

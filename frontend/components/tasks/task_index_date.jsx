@@ -61,8 +61,9 @@ class TaskIndexDate extends React.Component {
     updateTask(task);
   }
 
-  toggleShowCalendar() {
+  toggleShowCalendar(e) {
     this.setState({ showCalendar: !this.state.showCalendar });
+    e.stopPropagation();
   }
 
   convertShortDate(date) {
