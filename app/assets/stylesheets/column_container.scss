@@ -1,7 +1,6 @@
-// ??? fix height % wtf
-
 .column-container {
   cursor: pointer;
+  overflow-y: hidden;
   overflow-x: scroll;
 }
 
@@ -13,8 +12,7 @@
 }
 
 .column {
-  min-width: 250px;
-  max-width: 250px;
+  width: 250px;
   position: relative;
   border: 1px solid transparent;
   border-radius: 5px;
@@ -32,7 +30,6 @@
   font-size: 16px;
   font-weight: 500;
   line-height: 30px;
-  max-width: 210px;
   overflow: hidden;
   text-overflow: ellipsis;
   width: 100%;
@@ -109,12 +106,11 @@
 }
 
 .column-droppable {
-  overflow: hidden;
+  overflow: scroll;
   height: calc(100vh - 160px);
 }
 
 .index-droppable {
-  
   display: flex;
 }
 

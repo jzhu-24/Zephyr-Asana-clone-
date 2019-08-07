@@ -120,7 +120,6 @@ class TaskEditForm extends React.Component {
             onKeyPress={this.enterPressed}
           />
           <div className="task-edit-header-sub">
-            <div>Assigned To</div>
             <TaskDate {...this.props} task={this.state.task} updateTask={updateTask} />
           </div>
         </div>

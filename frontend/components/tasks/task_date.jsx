@@ -18,6 +18,7 @@ class TaskDate extends React.Component {
     this.selectDate = this.selectDate.bind(this);
     this.convertShortDate = this.convertShortDate.bind(this);
     this.convertNumericDate = this.convertNumericDate.bind(this);
+    this.dueDateClasses = this.dueDateClasses.bind(this);
   }
   
   componentDidMount() {
@@ -47,26 +48,39 @@ class TaskDate extends React.Component {
     this.setState({ showCalendar: !this.state.showCalendar });
   }
 
+  dueDateClasses() {
+    const { task } = this.props;
+
+    const currDate = new Date();
+    const newDate = new Date(task.due_date);
+    const diffDays = this.convertShortDate(task.due_date);
+    const diffDaysNum = Math.floor((currDate.getTime() - newDate.getTime())/(24*60*60*1000));
+    
+    return classNames(
+      {
+        'green': ['Tomorrow', 'Today'].includes(diffDays),
+        'red': (diffDays === 'Yesterday' || diffDaysNum > 1),
+      }
+    );
+  }
+
   convertShortDate(date) {
     if (!date) return;
 
+    const engDate = {
+      [-1]: 'Tomorrow',
+      0: 'Today',
+      1: 'Yesterday',
+    }
     const newDate = new Date(date);
     const currDate = new Date();
 
     const diffDays = Math.floor((currDate.getTime() - newDate.getTime())/(24*60*60*1000));
 
-    switch(diffDays) {
-      case -1:
-        return 'Tomorrow';
-        break;
-      case 0:
-        return 'Today';
-        break;
-      case 1:
-        return 'Yesterday';
-        break;
-      default:
-        return `${newDate.toLocaleString('default', { month: 'short'})} ${newDate.getDate()}`
+    if (engDate[diffDays]) {
+      return engDate[diffDays];
+    } else {
+      return `${newDate.toLocaleString('default', { month: 'short'})} ${newDate.getDate()}`
     }
   }
 
@@ -90,17 +104,6 @@ class TaskDate extends React.Component {
 
     let date;
     let calendar;
-    const currDate = new Date();
-    const newDate = new Date(task.due_date);
-    const diffDays = this.convertShortDate(task.due_date);
-    const diffDaysNum = Math.floor((currDate.getTime() - newDate.getTime())/(24*60*60*1000));
-    const dueDateClasses = classNames(
-      'task-due-date',
-      {
-        'green': ['Tomorrow', 'Today'].includes(diffDays),
-        'red': (diffDays === 'Yesterday' || diffDaysNum > 1),
-      }
-    )
 
     if (showCalendar) {
       date = (
@@ -127,7 +130,7 @@ class TaskDate extends React.Component {
           </div>
           <div className="task-due-date-container">
             <div className="task-due-date-text">Due Date</div>  
-            <div className={dueDateClasses}>{this.convertShortDate(task.due_date)}</div>
+            <div className={this.dueDateClasses()}>{this.convertShortDate(task.due_date)}</div>
           </div>
         </div>
       );
