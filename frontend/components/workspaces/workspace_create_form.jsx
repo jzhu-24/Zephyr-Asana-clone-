@@ -6,7 +6,7 @@ class WorkspaceCreateForm extends React.Component {
     super(props);
 
     this.state = {
-      name: ""
+      name: '',
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);

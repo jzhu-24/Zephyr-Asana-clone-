@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import WorkspaceIndexItem from '../workspaces/workspace_index_item';
 
 class UserDropdown extends React.Component {
@@ -56,18 +56,25 @@ class UserDropdown extends React.Component {
   }
 
   render() {    
-    // ??? how do I ensure state is fully updated before rendering? loading screen? conditional
-    if (!this.props.workspaces || this.props.match.params.workspaceId === undefined) return null
-    const { logout } = this.props;
-     
-    const workspaces = this.props.workspaces.map(workspace => {
+    const { workspaces, logout, createForm, editForm } = this.props;
+    const { workspaceId } = this.props.match.params;
+
+    if (!workspaces || workspaceId === undefined) return null;
+
+    const workspaceItems = workspaces.map(workspace => {
       return (
         <WorkspaceIndexItem
           key={workspace.id}
           workspace={workspace}
-          currentWorkspaceId={this.props.match.params.workspaceId} />
+          currentWorkspaceId={workspaceId} />
       );
     });
+
+    const deleteForm = (
+      <p onClick={this.handleDelete} className="user-dropdown-row">
+        Delete Current Workspace
+      </p>
+    )
 
     return (
       <div>
@@ -75,14 +82,12 @@ class UserDropdown extends React.Component {
           <div onClick={this.toggleDropdown} className="user-dropdown-button">{this.displayInitials()}</div>
           <div className="user-dropdown-container">
             <div className="user-dropdown-workspaces">
-              {workspaces}
+              {workspaceItems}
             </div>
             <div>
-              {this.props.createForm}
-              {this.props.editForm}
-              <p onClick={this.handleDelete} className="user-dropdown-row">
-                Delete Current Workspace
-              </p>
+              {createForm}
+              {editForm}
+              {workspaces.length > 1 && deleteForm}
             </div>
             <div>
               <p onClick={logout} className="user-dropdown-row">Log Out</p>

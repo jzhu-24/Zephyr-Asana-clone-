@@ -10,6 +10,7 @@ const mapStateToProps = state => {
   if (Object.keys(state.entities.workspaces).length === 0) return {};
 
   return {
+    workspaceIds: Object.keys(state.entities.workspaces),
     workspaces: Object.values(state.entities.workspaces),
     users: state.entities.users,
     currentUser: state.session.currentUser,
