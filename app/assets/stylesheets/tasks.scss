@@ -1,10 +1,11 @@
 .task-index {
   overflow: auto;
-  height: calc(100vh - 150px);
+  height: calc(100vh - 165px);
 }
 
 .task {
   max-height: 200px;
+  min-height: 90px;
   margin: 10px;
   padding: 10px 8px 10px 0px;
   font-size: 13px;
@@ -21,10 +22,6 @@
 .task-header {
   display: flex;
   color: rgb(240, 240, 240);
-}
-
-.completed {
-  color: rgba(0, 0, 0, 0.6);
 }
 
 .task-check {
