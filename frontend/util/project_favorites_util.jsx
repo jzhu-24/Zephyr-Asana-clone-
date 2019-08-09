@@ -6,6 +6,13 @@ export const fetchProjectFavorites = workspace_id => {
   });
 }
 
+export const fetchProjectFavorite = id => {
+  return $.ajax({
+    method: 'GET',
+    url: `api/project_favorites/${id}`,
+  });
+}
+
 export const postProjectFavorite = project_id => (
   $.ajax({
     method: 'POST',

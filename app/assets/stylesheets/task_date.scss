@@ -42,7 +42,8 @@
 
 .task-index-calendar-container {
 	position: absolute;
-	// margin: -10px -20px;
+	margin-top: 40px;
+	z-index: 10;
 }
 
 .task-date {
@@ -93,11 +94,6 @@
 .task-calendar-date {
 	margin-left: 10px;
 	margin-top: 6px;
-}
-
-.task-calendar {
-	margin-top: 40px;
-	position: fixed;
 }
 
 .green {

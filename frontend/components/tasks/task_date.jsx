@@ -132,6 +132,9 @@ class TaskDate extends React.Component {
             <div className="task-due-date-text">Due Date</div>  
             <div className={this.dueDateClasses()}>{this.convertShortDate(task.due_date)}</div>
           </div>
+          <div className="task-due-date-cancel-container" onClick={e => e.stopPropagation()}>
+            {task.due_date && <div className="task-due-date-cancel" onClick={() => this.selectDate('')}>x</div>}
+          </div>
         </div>
       );
       calendar = null;
