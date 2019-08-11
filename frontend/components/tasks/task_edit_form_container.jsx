@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { deleteTask, updateTask } from '../../actions/task_actions';
+import { createTask, deleteTask, updateTask } from '../../actions/task_actions';
 import TaskEditForm from './task_edit_form'
 import { closeModal } from '../../actions/modal_actions';
 
@@ -14,11 +14,13 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     task,
+    tasks: state.entities.tasks,
   };
 };
 
 const mapDispatchToProps = dispatch => ({
   updateTask: task => dispatch(updateTask(task)),
+  createTask: task => dispatch(createTask(task)),
   deleteTask: id => dispatch(deleteTask(id)),
   closeModal: () => dispatch(closeModal()),
 });

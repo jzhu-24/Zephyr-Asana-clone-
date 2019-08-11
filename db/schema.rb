@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_01_035027) do
+ActiveRecord::Schema.define(version: 2019_08_09_230652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 2019_08_01_035027) do
     t.text "description"
     t.integer "creator_id", null: false
     t.integer "owner_id"
-    t.integer "column_id", null: false
+    t.integer "column_id"
     t.integer "task_id"
     t.integer "subtask", default: [], array: true
     t.boolean "completed", default: false

@@ -1,5 +1,6 @@
 .react-calendar {
 	z-index: 2;
+	// position: fixed;
 }
 
 .task-index-date {
@@ -36,64 +37,91 @@
 }
 
 .task-index-date-text {
-	color: rgba(0, 0, 0, 0.5);
+	color: rgba(0, 0, 0, 0.6);
 	padding: 5px;
 }
 
 .task-index-calendar-container {
-	position: absolute;
+	position: fixed;
 	margin-top: 40px;
 	z-index: 10;
 }
 
 .task-date {
-	margin-left: 10px;
-	padding: 10px;
+	padding: 7px 10px;
 	display: flex;
 	flex-direction: row;
+	position: fixed;
+	color: grey;
+	width: 120px;
+	cursor: pointer;
+	border: 1px dashed transparent;
+}
+
+.task-date:hover {
+	border: 1px solid rgba(0, 0, 0, 0.5);
+	border-radius: 25px;
+	background: rgb(245, 245, 245);
+	border-style: solid;
 	position: fixed;
 }
 
 .task-date-icon {
 	font-size: 16px;
 	margin-top: 6px;
+	color: grey;
 }
 
 .task-date-icon-border {
-	border: 1px solid black;
+	border: 1px grey;
+	border-style: inherit;
 	border-radius: 50%;
 	width: 30px;
 	height: 30px;
 	text-align: center;
 }
 
-.task-date:hover {
-	border: 1px solid black;
-	border-radius: 20px;
-	background: rgb(245, 245, 245);
-}
-
 .task-due-date-container {
 	margin-left: 8px;
 }
 
+.task-due-date-header {
+	font-size: 13px;
+}
+
 .task-due-date-text {
-	font-size: 14px;
+	margin-top: 4px;
+	font-size: 15px;
+}
+
+.task-due-date-cancel {
+	margin: 5px 0px 0px 8px;
+	color: lightgrey;
+}
+
+.task-due-date-cancel:hover {
+	color: rgb(113, 113, 113);
+}
+
+.task-calendar-container {
+	position: fixed;
+	margin: 55px 0px 0px 10px;
 }
 
 .task-calendar-show {
 	margin-left: 10px;
-	padding: 10px 70px 10px 10px;
+	padding: 7px 70px 7px 10px;
 	display: flex;
 	flex-direction: row;
 	position: fixed;
-	border: 1px solid black;
+	border: 1px solid rgba(0, 0, 0, 0.5);
 	border-radius: 10px;
 }
 
 .task-calendar-date {
-	margin-left: 10px;
-	margin-top: 6px;
+	margin: 8px 16px;
+	width: 50px;
+	font-size: 15px;
 }
 
 .green {

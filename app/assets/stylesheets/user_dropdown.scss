@@ -29,6 +29,10 @@
   overflow-y: scroll;
 }
 
+.user-dropdown-check {
+  padding-left: 15px;
+}
+
 .user-dropdown-button {
   border: 1px solid rgba(0, 0, 0, 0.322);
   border-radius: 50%;
@@ -47,10 +51,14 @@
 
 .user-dropdown-row {
   color: black;
-  padding: 20px 40px;
+  padding: 20px 20px 20px 40px;
   text-decoration: none;
-  display: block;
+  display: flex;
   cursor: pointer;
+}
+
+.user-dropdown-workspace {
+  padding-left: 0px;
 }
 
 .user-dropdown-row:hover {
@@ -61,13 +69,7 @@
   display: block;
 }
 
-.user-dropdown-workspace {
-  display: flex;
-  justify-content: left;
-}
-
-.user-dropdown-check {
-  position: absolute;
-  left: 15px;
+.user-dropdown-check-container {
+  width: 40px;
 }
 

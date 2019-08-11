@@ -1,7 +1,9 @@
 .column-container {
   cursor: pointer;
-  overflow: hidden;
   height: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  
 }
 
 .column-index {
@@ -107,7 +109,7 @@
 
 .column-droppable {
   height: calc(100vh - 160px);
-  overflow: hidden;
+  // overflow: hidden;
 }
 
 .index-droppable {

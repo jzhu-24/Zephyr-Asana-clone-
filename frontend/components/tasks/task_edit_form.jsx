@@ -13,7 +13,8 @@ class TaskEditForm extends React.Component {
       showCalendar: false,
       task: {
         ...this.props.task
-      }
+      },
+      subtask: {}
     }
 
     this.handleInput = this.handleInput.bind(this);
@@ -26,6 +27,7 @@ class TaskEditForm extends React.Component {
 
   componentDidMount() {
     this.closeModalEsc();
+    
   }
 
   enterPressed = e => {
