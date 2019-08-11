@@ -1,13 +1,14 @@
 .task-index {
-  overflow: auto;
   height: calc(100vh - 165px);
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .task {
   max-height: 200px;
   min-height: 90px;
   margin: 10px;
-  padding: 10px 8px 10px 0px;
+  padding: 15px 8px 15px 0px;
   font-size: 13px;
   line-height: normal;
   background: white;
@@ -19,13 +20,30 @@
   color: transparent;
 }
 
+.task-name {
+  overflow: hidden;
+  overflow-wrap: break-word;
+  color: black;
+  padding: 5px 15px 0px 15px;
+  width: 200px;
+}
+
+.task-name-completed {
+  overflow: hidden;
+  overflow-wrap: break-word;
+  color: black;
+  padding: 10px 15px 0px 15px;
+  width: 200px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
 .task-header {
-  display: flex;
   color: rgb(240, 240, 240);
 }
 
 .task-check {
-  padding: 0px 0px 0px 10px;
+  display: block;
+  padding: 0px 0px 0px 15px;
   font-size: 16px;
   color: #25e8c8;
 }
@@ -35,14 +53,6 @@
   box-shadow: 0 2px 6px 0 rgba(21,27,38,.15);
   color: rgba(135, 135, 135, 0.5);
   border-color: rgba(135, 135, 135, 0.5);
-}
-
-.task-name {
-  overflow: hidden;
-  overflow-wrap: break-word;
-  color: black;
-  padding-left: 10px;
-  width: 190px;
 }
 
 .create-task {

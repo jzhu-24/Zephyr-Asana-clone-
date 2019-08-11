@@ -36,11 +36,12 @@ class TaskDate extends React.Component {
     }
   }
 
-  selectDate = date => {
+  selectDate = (date, e) => {
+    e && e.stopPropagation();
     const { task, updateTask } = this.props;
     task.due_date = date;
 
-    this.toggleShowCalendar();
+    if (this.state.showCalendar) this.toggleShowCalendar();
     updateTask(task);
   }
 
@@ -57,6 +58,7 @@ class TaskDate extends React.Component {
     const diffDaysNum = Math.floor((currDate.getTime() - newDate.getTime())/(24*60*60*1000));
     
     return classNames(
+      'task-due-date-text',
       {
         'green': ['Tomorrow', 'Today'].includes(diffDays),
         'red': (diffDays === 'Yesterday' || diffDaysNum > 1),
@@ -129,8 +131,11 @@ class TaskDate extends React.Component {
             <FontAwesomeIcon icon={faCalendar} className="task-date-icon" />
           </div>
           <div className="task-due-date-container">
-            <div className="task-due-date-text">Due Date</div>  
+            <div className="task-due-date-header">Due Date</div>  
             <div className={this.dueDateClasses()}>{this.convertShortDate(task.due_date)}</div>
+          </div>
+          <div className="task-due-date-cancel-container">
+            {task.due_date && <div className="task-due-date-cancel" onClick={(e) => this.selectDate('', e)}>×</div>}
           </div>
         </div>
       );

@@ -21,8 +21,9 @@ export const createTask = task => dispatch =>
     dispatch(receiveTask(task))
   );
 
-export const updateTask = task => dispatch =>
+export const updateTask = task => dispatch => {
   patchTask(task).then(task => dispatch(receiveTask(task)));
+}
 
 export const deleteTask = id => dispatch =>
   destroyTask(id).then(task => dispatch(removeTask(id)));

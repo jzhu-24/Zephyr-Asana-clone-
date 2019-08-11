@@ -1,4 +1,4 @@
-import { fetchProjectFavorites, postProjectFavorite, destroyProjectFavorite } from '../util/project_favorites_util';
+import { fetchProjectFavorites, fetchProjectFavorite, postProjectFavorite, destroyProjectFavorite } from '../util/project_favorites_util';
 
 export const RECEIVE_PROJECT_FAVORITES = 'RECEIVE_PROJECT_FAVORITES';
 export const RECEIVE_PROJECT_FAVORITE = 'RECEIVE_PROJECT_FAVORITE';
@@ -22,6 +22,11 @@ const removeProjectFavorite = projectFavoriteId => ({
 export const requestProjectFavorites = workspaceId => dispatch => (fetchProjectFavorites(workspaceId)
   .then(projectFavorites => {
     return dispatch(receiveProjectFavorites(projectFavorites))
+  }));
+
+export const requestProjectFavorite = projectId => dispatch => (fetchProjectFavorite(projectId)
+  .then(projectFavorite => {
+    return dispatch(receiveProjectFavorite(projectFavorite))
   }));
 
 export const createProjectFavorite = projectId => dispatch => (postProjectFavorite(projectId))

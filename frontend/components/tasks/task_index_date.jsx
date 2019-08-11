@@ -100,7 +100,7 @@ class TaskIndexDate extends React.Component {
   }
 
   render() {
-    const { task, updateTask } = this.props;
+    const { task } = this.props;
     const { showCalendar } = this.state;
 
     let date;

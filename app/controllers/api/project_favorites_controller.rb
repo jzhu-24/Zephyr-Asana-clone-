@@ -11,6 +11,10 @@ class Api::ProjectFavoritesController < ApplicationController
         render :show
     end
 
+    def show
+        @project_favorite = ProjectFavorite.find_by(id: params[:id])
+    end
+
     def destroy
         @project_favorite = ProjectFavorite.find_by(id: params[:id])
         @project_favorite.destroy
