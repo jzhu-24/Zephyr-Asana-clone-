@@ -1,9 +1,10 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { faGripLines } from "@fortawesome/free-solid-svg-icons";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faTasks } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TaskDate from './task_date';
+import SubtaskIndex from './subtask_index';
 
 class TaskEditForm extends React.Component {
   constructor(props) {
@@ -76,9 +77,10 @@ class TaskEditForm extends React.Component {
   }
 
   render() {
-    const { closeModal, updateTask } = this.props;
-    const { task, showCalendar } = this.state;
+    const { closeModal, updateTask, tasks } = this.props;
+    const { task } = this.state;
     let completed;
+    let subtasks;
 
     // task.completed -> move to separate component
     if (task.completed === false) {
@@ -107,8 +109,13 @@ class TaskEditForm extends React.Component {
       <div className="task-edit-form">
         <div className="task-edit-top">
           {completed}
-          <div onClick={closeModal} className="task-edit-cross">
-            ×
+          <div className="task-edit-top-right">
+            <div>
+              <FontAwesomeIcon icon={faTasks} className="task-edit-new-subtask" />
+            </div>
+            <div onClick={closeModal} className="task-edit-cross">
+              ×
+            </div>
           </div>
         </div>
         <div className="task-edit-header">
@@ -125,6 +132,7 @@ class TaskEditForm extends React.Component {
             <TaskDate {...this.props} task={this.state.task} updateTask={updateTask} />
           </div>
         </div>
+        <SubtaskIndex task={task} tasks={tasks} updateTask={updateTask} />
         <div className="task-edit-border" />
         <div className="task-edit-description-container">
           <FontAwesomeIcon

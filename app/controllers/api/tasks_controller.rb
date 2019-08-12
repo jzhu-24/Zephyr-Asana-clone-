@@ -22,11 +22,9 @@ class Api::TasksController < ApplicationController
 
   def update
     @task = Task.find_by(id: params[:id])
-    if @task.update_attributes(task_params)
-      render :update
-    else
-      render json: @task.errors.full_messages, status: 422
-    end
+    @task.subtask_will_change!
+    @task.update_attributes(task_params)
+    render :update
   end
 
   def destroy

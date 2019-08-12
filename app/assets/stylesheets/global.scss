@@ -1,0 +1,15 @@
+.btn {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  border-radius: 4px;
+  font-size: 13px;
+  padding: 5px 10px;
+  transition-property: background-color;
+  transition-duration: .2s;
+  transition-timing-function: ease-out;
+}
+
+.btn:focus {
+  outline: none;
+}
