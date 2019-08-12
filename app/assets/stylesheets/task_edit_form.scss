@@ -24,20 +24,8 @@
   justify-content: space-between;
 }
 
-.btn {
-  cursor: pointer;
+.task-edit-top-right {
   display: flex;
-  flex-direction: row;
-  border-radius: 4px;
-  font-size: 13px;
-  padding: 5px 10px;
-  transition-property: background-color;
-  transition-duration: .2s;
-  transition-timing-function: ease-out;
-}
-
-.btn:focus {
-  outline: none;
 }
 
 .task-edit-incomplete {
@@ -63,6 +51,16 @@
 .task-edit-complete:hover {
   background-color: #1daf97;
   border-color: #1daf97;
+}
+
+.task-edit-new-subtask {
+  font-size: 17px;
+  margin: 8px;
+  color: rgb(215, 215, 215);
+}
+
+.task-edit-new-subtask:hover {
+  color: #1daf97;
 }
 
 .task-edit-cross {
