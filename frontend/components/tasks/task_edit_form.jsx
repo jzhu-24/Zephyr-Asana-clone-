@@ -8,7 +8,11 @@ import SubtaskIndex from './subtask_index';
 
 class TaskEditForm extends React.Component {
   constructor(props) {
+    
     super(props);
+    this.state = {
+      task: { ...this.props.task },
+    };
 
     this.handleInput = this.handleInput.bind(this);
     this.createSubtask = this.createSubtask.bind(this);
@@ -23,11 +27,17 @@ class TaskEditForm extends React.Component {
 
   handleInput(type) {
     return e => {
-      const {task, updateTask } = this.props;
-      const updatedTask = task;
-      updatedTask[type] = e.target.value;
-      updateTask(updatedTask);
+      const task = this.state.task;
+      task[type] = e.target.value;
+
+      this.setState({ task }, () => {
+        this.handleSubmit();
+      });
     };
+  }
+
+  handleSubmit() {
+    this.props.updateTask(this.state.task);
   }
 
   createSubtask() {
@@ -68,7 +78,8 @@ class TaskEditForm extends React.Component {
   }
 
   render() {
-    const { task, closeModal, updateTask, tasks } = this.props;
+    const { closeModal, updateTask, tasks } = this.props;
+    const { task } = this.state;
     let completed;
 
     // task.completed -> move to separate component

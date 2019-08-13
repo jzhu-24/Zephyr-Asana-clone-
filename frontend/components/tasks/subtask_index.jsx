@@ -8,9 +8,21 @@ class SubtaskIndex extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      task: this.props.task,
+      tasks: { ...this.props.tasks },
+    };
+
     this.onDragEnd = this.onDragEnd.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.toggleCompleted = this.toggleCompleted.bind(this);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (Object.keys(prevProps.tasks).length !== Object.keys(this.props.tasks).length) {
+      const { task, tasks } = this.props;
+      this.setState({ task, tasks });
+    }
   }
 
   onDragEnd = result => {
@@ -37,7 +49,15 @@ class SubtaskIndex extends React.Component {
       subtask: newSubaskIds
     };
 
-    updateTask(newTask);
+    const newState = {
+      ...this.state,
+      tasks: {
+        ...this.state.tasks,
+        [newTask.id]: newTask
+      }
+    };
+
+    this.setState({ newState }, () => updateTask(newTask));
   }
 
   enterPressed = e => {
@@ -49,10 +69,11 @@ class SubtaskIndex extends React.Component {
   handleInput(id) {
     // combine handleInput and toggleCompleted?
     return e => {
-      const { tasks, updateTask } = this.props;
-      const subtask = tasks[id];
-      subtask.name = e.target.value;
-      updateTask(subtask)
+      const { updateTask } = this.props;
+      const { tasks } = this.state;
+      tasks[id].name = e.target.value;
+
+      this.setState({ tasks }, () => updateTask(tasks[id]));
     };
   }
 
@@ -64,10 +85,10 @@ class SubtaskIndex extends React.Component {
   }
 
   render() {
-    const { task, tasks } = this.props;
+    const { task, tasks } = this.state;
 
     let subtasks = task.subtask.map((subtaskId, index) => {
-      return (
+      if (tasks[subtaskId]) return (
         <Draggable draggableId={subtaskId} index={index} key={subtaskId}>
             {provided => (
               <div
