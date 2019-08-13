@@ -12,44 +12,41 @@ class TaskEditForm extends React.Component {
 
     this.state = {
       showCalendar: false,
-      task: {
-        ...this.props.task
-      },
-      subtask: {}
     }
 
     this.handleInput = this.handleInput.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.createSubtask = this.createSubtask.bind(this);
     this.closeModalEsc = this.closeModalEsc.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.toggleCompleted = this.toggleCompleted.bind(this);
-    this.enterPressed = this.enterPressed.bind(this);
   }
 
   componentDidMount() {
     this.closeModalEsc();
-    
   }
-
-  enterPressed = e => {
-    if (e.charCode === 13) {
-      this.props.handleSubmit();
-    }
-  };
 
   handleInput(type) {
     return e => {
-      const task = this.state.task;
-      task[type] = e.target.value;
-
-      this.setState({ task }, () => {
-        this.handleSubmit();
-      });
+      const {task, updateTask } = this.props;
+      const updatedTask = task;
+      updatedTask[type] = e.target.value;
+      updateTask(updatedTask);
     };
   }
 
-  handleSubmit() {
-    this.props.updateTask(this.state.task);
+  createSubtask() {
+    const { task, createTask, updateTask } = this.props;
+    const subtask = {
+      name: '',
+      column_id: task.column_id,
+    };
+
+    createTask(subtask).then(result => {
+      const subtask = result.task;
+      const updatedTask = task;
+      updatedTask.subtask.unshift(subtask.id);
+      updateTask(updatedTask);
+    })
   }
 
   closeModalEsc() {
@@ -68,19 +65,15 @@ class TaskEditForm extends React.Component {
   }
 
   toggleCompleted() {
-    const task = this.state.task;
-    task.completed = !this.state.task.completed;
-
-    this.setState({ task }, () => {
-      this.handleSubmit();
-    });
+    const { task, updateTask } = this.props;
+    const updatedTask = task;
+    updatedTask.completed = !task.completed;
+    updateTask(updatedTask);
   }
 
   render() {
-    const { closeModal, updateTask, tasks } = this.props;
-    const { task } = this.state;
+    const { task, closeModal, updateTask, tasks } = this.props;
     let completed;
-    let subtasks;
 
     // task.completed -> move to separate component
     if (task.completed === false) {
@@ -111,7 +104,10 @@ class TaskEditForm extends React.Component {
           {completed}
           <div className="task-edit-top-right">
             <div>
-              <FontAwesomeIcon icon={faTasks} className="task-edit-new-subtask" />
+              <FontAwesomeIcon 
+                icon={faTasks}
+                className="task-edit-new-subtask"
+                onClick={() => this.createSubtask()} />
             </div>
             <div onClick={closeModal} className="task-edit-cross">
               ×
@@ -125,11 +121,9 @@ class TaskEditForm extends React.Component {
             value={task.name}
             placeholder="Write a task name"
             onChange={this.handleInput("name")}
-            onBlur={() => this.handleSubmit()}
-            onKeyPress={this.enterPressed}
           />
           <div className="task-edit-header-sub">
-            <TaskDate {...this.props} task={this.state.task} updateTask={updateTask} />
+            <TaskDate {...this.props} task={task} updateTask={updateTask} />
           </div>
         </div>
         <SubtaskIndex task={task} tasks={tasks} updateTask={updateTask} />
@@ -144,7 +138,6 @@ class TaskEditForm extends React.Component {
             type="text"
             value={task.description || ""}
             onChange={this.handleInput("description")}
-            onBlur={() => this.handleSubmit()}
           />
         </div>
       </div>
