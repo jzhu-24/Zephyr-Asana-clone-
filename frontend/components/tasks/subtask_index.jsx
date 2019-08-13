@@ -8,12 +8,36 @@ class SubtaskIndex extends React.Component {
   constructor(props) {
     super(props);
 
+    this.onDragEnd = this.onDragEnd.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.toggleCompleted = this.toggleCompleted.bind(this);
   }
 
   onDragEnd = result => {
+    const { destination, source, draggableId } = result;
+    const { task, updateTask } = this.props;
 
+    if (!destination) {
+      return;
+    }
+
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return;
+    }
+
+    const newSubaskIds = task.subtask;
+    newSubaskIds.splice(source.index, 1);
+    newSubaskIds.splice(destination.index, 0, draggableId);
+
+    const newTask = {
+      ...task,
+      subtask: newSubaskIds
+    };
+
+    updateTask(newTask);
   }
 
   enterPressed = e => {
@@ -51,7 +75,7 @@ class SubtaskIndex extends React.Component {
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
               >
-                <div className="subtask" key={subtaskId}>
+                <div className="task-edit-subtask" key={subtaskId}>
                   <div className="task-edit-subtask-drag">
                     <FontAwesomeIcon icon={faEllipsisV} className="task-edit-subtask-dragger" />
                     <FontAwesomeIcon icon={faEllipsisV} className="task-edit-subtask-dragger" />
@@ -65,7 +89,7 @@ class SubtaskIndex extends React.Component {
                     onChange={this.handleInput(subtaskId)}
                     type="text" 
                     value={tasks[subtaskId].name} 
-                    className={tasks[subtaskId].completed ? 'task-edit-subtask-name-completed' : 'task-edit-subtask-name' }/>
+                    className={tasks[subtaskId].completed ? 'task-edit-subtask-name completed' : 'task-edit-subtask-name' }/>
                 </div>
               </div>
             )}

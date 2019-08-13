@@ -22,6 +22,7 @@ export const createTask = task => dispatch =>
   );
 
 export const updateTask = task => dispatch => {
+  dispatch(receiveTask(task));
   patchTask(task).then(task => dispatch(receiveTask(task)));
 }
 

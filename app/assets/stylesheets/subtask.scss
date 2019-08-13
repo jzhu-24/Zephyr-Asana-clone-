@@ -1,39 +1,56 @@
-.subtasks {
-
+.task-edit-subtasks {
+  margin-bottom: -10px;
 }
 
-.subtask {
+.task-edit-subtask {
   display: flex;
   margin: -0px -30px -0px -30px;
   padding: 10px;
-  border-bottom: 1px solid transparent;
-  border-top: 1px solid transparent;
+  border-bottom: 0.5px solid transparent;
+  border-top: 0.5px solid transparent;
   height: 20px;
-
+  color: transparent;
 }
 
-.subtask:hover {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-  border-top: 1px solid rgba(0, 0, 0, 0.25);
+.task-edit-subtask:hover {
+  color: grey;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.25);
+  border-top: 0.5px solid rgba(0, 0, 0, 0.25);
+}
+
+.task-edit-subtask-drag {
+  color: inherit;
+  margin-right: 10px;
+  font-size: 14px;
 }
 
 .task-edit-subtask-complete {
-  // color: white;
-  // background-color: #25e8c8;
-  border-color: #25e8c8;
+  font-size: 20px;
+  color: #25e8c8;
 }
 
 .task-edit-subtask-incomplete {
+  font-size: 20px;
   color: rgba(0, 0, 0, 0.25);
 }
 
 .task-edit-subtask-incomplete:hover {
-  border-color: #25e8c8;
-  background-color: #9de6d9;
+  color: #25e8c8;
+  border-color: #9de6d9;
 }
 
 .task-edit-subtask-name {
+  width: 90%;
   border: none;
+  margin-left: 10px;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 20px;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.completed {
+  color: lightgrey;
 }
 
 .task-edit-subtask-name-completed {
@@ -42,5 +59,6 @@
 }
 
 .task-edit-subtask-name:focus {
+  // outline: 1px solid blue;
   outline: none;
 }
