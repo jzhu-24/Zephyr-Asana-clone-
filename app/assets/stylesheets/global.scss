@@ -1,3 +1,22 @@
+html {
+  background: linear-gradient(to top right, #2367c7 30%, #00a09b 80%, #1efff8 110%) fixed;
+  height: 100%;
+}
+
+.modal-background {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.react-calendar {
+	z-index: 5;
+}
+
 .btn {
   cursor: pointer;
   display: flex;

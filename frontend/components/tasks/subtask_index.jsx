@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 import { faEllipsisV, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import TaskIndexDate from './task_index_date';
 
 class SubtaskIndex extends React.Component {
   constructor(props) {
@@ -20,7 +21,8 @@ class SubtaskIndex extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (Object.keys(prevProps.tasks).length !== Object.keys(this.props.tasks).length) {
-      const { task, tasks } = this.props;
+      const { tasks } = this.props;
+      const task = tasks[this.props.task.id];
       this.setState({ task, tasks });
     }
   }
@@ -86,6 +88,7 @@ class SubtaskIndex extends React.Component {
 
   render() {
     const { task, tasks } = this.state;
+    const { updateTask } = this.props;
 
     let subtasks = task.subtask.map((subtaskId, index) => {
       if (tasks[subtaskId]) return (
@@ -111,6 +114,7 @@ class SubtaskIndex extends React.Component {
                     type="text" 
                     value={tasks[subtaskId].name} 
                     className={tasks[subtaskId].completed ? 'task-edit-subtask-name completed' : 'task-edit-subtask-name' }/>
+                  <TaskIndexDate updateTask={updateTask} task={tasks[subtaskId]} className="task-edit-subtask" />
                 </div>
               </div>
             )}

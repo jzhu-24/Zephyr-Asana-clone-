@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import Calendar from 'react-calendar';
 import { faCalendar } from "@fortawesome/free-regular-svg-icons";
@@ -37,7 +37,7 @@ class TaskIndexDate extends React.Component {
   }
 
   dueDateClasses() {
-    const { task } = this.props;
+    const { task, className } = this.props;
 
     const currDate = new Date();
     const newDate = new Date(task.due_date);
@@ -45,7 +45,7 @@ class TaskIndexDate extends React.Component {
     const diffDaysNum = Math.floor((currDate.getTime() - newDate.getTime())/(24*60*60*1000));
     
     return classNames(
-      'task-index-date-text',
+      `${className}-date-text`,
       {
         'green': ['Tomorrow', 'Today'].includes(diffDays),
         'red': (diffDays === 'Yesterday' || diffDaysNum > 1),
@@ -100,7 +100,7 @@ class TaskIndexDate extends React.Component {
   }
 
   render() {
-    const { task } = this.props;
+    const { task, className } = this.props;
     const { showCalendar } = this.state;
 
     let date;
@@ -108,7 +108,7 @@ class TaskIndexDate extends React.Component {
 
     calendar = (
       // stopPropagation to prevent clicking calendar from loading task
-      <div className='task-index-calendar-container' onClick={e => e.stopPropagation()}>
+      <div className={`${className}-calendar-container`} onClick={e => e.stopPropagation()}>
         <Calendar
           onClickDay={this.selectDate} 
           value={task.due_date && new Date(task.due_date)} 
@@ -118,23 +118,21 @@ class TaskIndexDate extends React.Component {
 
     if (!task.due_date) {
       date = (
-        <div className="task-index-date-icon-border">
-          <FontAwesomeIcon icon={faCalendar} className="task-index-date-icon" />
+        <div className={`${className}-date-icon-border`} onClick={this.toggleShowCalendar} >
+          <FontAwesomeIcon icon={faCalendar} className={`${className}-date-icon`} />
         </div>
       )
     } else {
       date = (
-        <div className={this.dueDateClasses()}>
+        <div className={this.dueDateClasses()} onClick={this.toggleShowCalendar} >
           {this.convertShortDate(task.due_date)}
         </div>
       )
     }
 
     return (
-      <div className="task-index-date">
-        <div onClick={this.toggleShowCalendar}>
-          {date}
-        </div>
+      <div className={`${className}-date`}>
+        {date}
         {showCalendar && calendar}
       </div>
     )

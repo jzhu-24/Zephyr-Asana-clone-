@@ -46,7 +46,7 @@ class TaskIndex extends React.Component {
                       <p className={tasks[taskId] && tasks[taskId].completed ? 'task-name-completed' : 'task-name'}>{tasks[taskId] && tasks[taskId].name}</p>
                     </div>
                   </div>
-                  {tasks[taskId] && <TaskIndexDate updateTask={updateTask} task={tasks[taskId]} />}
+                  {tasks[taskId] && <TaskIndexDate updateTask={updateTask} task={tasks[taskId]} className="task-index" />}
                 </div>
               </div>
             )}

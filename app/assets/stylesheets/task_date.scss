@@ -1,7 +1,4 @@
-.react-calendar {
-	z-index: 2;
-	// position: fixed;
-}
+
 
 .task-index-date {
 	font-size: 12px;
@@ -106,6 +103,7 @@
 .task-calendar-container {
 	position: fixed;
 	margin: 55px 0px 0px 10px;
+	z-index: 3;
 }
 
 .task-calendar-show {
