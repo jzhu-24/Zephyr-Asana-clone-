@@ -10,8 +10,7 @@ class ColumnIndexItem extends React.Component {
   constructor(props) {
     super(props);
     this.enterPressed = this.enterPressed.bind(this);
-  
-}
+  }
   enterPressed = e => {
     if (e.charCode === 13) {
       this.props.handleSubmit('EDIT_COLUMN', this.props.columnId);
@@ -30,7 +29,10 @@ class ColumnIndexItem extends React.Component {
       toggleForm,
       handleInput,
       handleSubmit,
-      newTasks
+      newTasks,
+      handleDeleteTask,
+      updateTask,
+      editTask,
     } = this.props;
     
     let editForm;
@@ -98,8 +100,9 @@ class ColumnIndexItem extends React.Component {
                     <TaskIndex
                       column={column}
                       tasks={tasks}
-                      editTask={this.props.editTask}
-                      updateTask={this.props.updateTask}
+                      updateTask={updateTask}
+                      editTask={editTask}
+                      handleDeleteTask={handleDeleteTask}
                     />
                     {provided.placeholder}
                   </div>

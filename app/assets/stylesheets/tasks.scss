@@ -18,6 +18,14 @@
   transition: top ease 0.2s;
   width: 230px;
   color: transparent;
+  position: relative;
+}
+
+.task:hover {
+  top: -1px;
+  box-shadow: 0 2px 6px 0 rgba(21,27,38,.15);
+  color: rgba(135, 135, 135, 0.5);
+  border-color: rgba(135, 135, 135, 0.5);
 }
 
 .task-name {
@@ -48,11 +56,15 @@
   color: #25e8c8;
 }
 
-.task:hover {
-  top: -1px;
-  box-shadow: 0 2px 6px 0 rgba(21,27,38,.15);
-  color: rgba(135, 135, 135, 0.5);
-  border-color: rgba(135, 135, 135, 0.5);
+.task-delete {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  padding: 5px;
+}
+
+.task-delete:hover {
+  color: rgba(208, 0, 0, 0.755);
 }
 
 .create-task {

@@ -1,7 +1,7 @@
 import React from "react";
-import { Link, withRouter } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 import { faGripLines } from "@fortawesome/free-solid-svg-icons";
-import { faCheck, faTasks } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faTasks, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TaskDate from './task_date';
 import SubtaskIndex from './subtask_index';
@@ -19,6 +19,7 @@ class TaskEditForm extends React.Component {
     this.closeModalEsc = this.closeModalEsc.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.toggleCompleted = this.toggleCompleted.bind(this);
+    this.handleDeleteTask = this.handleDeleteTask.bind(this);
   }
 
   componentDidMount() {
@@ -53,6 +54,22 @@ class TaskEditForm extends React.Component {
       updatedTask.subtask.unshift(subtask.id);
       updateTask(updatedTask);
     })
+  }
+
+  handleDeleteTask() {
+    const { task, deleteTask, updateColumn, column, closeModal, history } = this.props;
+    const { params } = this.props.match;
+
+    const updatedColumn = column;
+    const index = updatedColumn.task.indexOf(task.id);
+    updatedColumn.task.splice(index, 1);
+    updateColumn(updatedColumn).then(() => {
+      closeModal();
+      deleteTask(task.id).then(() => {
+        history.push(`/1`);
+        history.push(`/${params.workspaceId}/${params.projectId}`);
+      });
+    });
   }
 
   closeModalEsc() {
@@ -111,10 +128,18 @@ class TaskEditForm extends React.Component {
           {completed}
           <div className="task-edit-top-right">
             <div>
-              <FontAwesomeIcon 
+              <FontAwesomeIcon
+                icon={faTrash}
+                className="task-edit-delete"
+                onClick={() => this.handleDeleteTask()}
+              />
+            </div>
+            <div>
+              <FontAwesomeIcon
                 icon={faTasks}
                 className="task-edit-new-subtask"
-                onClick={() => this.createSubtask()} />
+                onClick={() => this.createSubtask()}
+              />
             </div>
             <div onClick={closeModal} className="task-edit-cross">
               ×

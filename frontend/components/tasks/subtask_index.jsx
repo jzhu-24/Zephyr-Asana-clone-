@@ -90,6 +90,8 @@ class SubtaskIndex extends React.Component {
     const { task, tasks } = this.state;
     const { updateTask } = this.props;
 
+    if (!task) return;
+
     let subtasks = task.subtask.map((subtaskId, index) => {
       if (tasks[subtaskId]) return (
         <Draggable draggableId={subtaskId} index={index} key={subtaskId}>

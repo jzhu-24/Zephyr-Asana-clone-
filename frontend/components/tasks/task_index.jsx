@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { Draggable } from "react-beautiful-dnd";
-import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; 
 import TaskIndexDate from './task_index_date';
 
@@ -19,7 +19,7 @@ class TaskIndex extends React.Component {
   }
 
   render() {
-    let { column, tasks, updateTask } = this.props;
+    let { column, tasks, updateTask, handleDeleteTask } = this.props;
 
     if (Object.keys(tasks).length === 0 || !column) return null;
 
@@ -46,6 +46,11 @@ class TaskIndex extends React.Component {
                       <p className={tasks[taskId] && tasks[taskId].completed ? 'task-name-completed' : 'task-name'}>{tasks[taskId] && tasks[taskId].name}</p>
                     </div>
                   </div>
+                  <FontAwesomeIcon
+                    className="task-delete"
+                    icon={faTrash}
+                    onClick={(e) => handleDeleteTask(tasks[taskId], e)}
+                  />
                   {tasks[taskId] && <TaskIndexDate updateTask={updateTask} task={tasks[taskId]} className="task-index" />}
                 </div>
               </div>

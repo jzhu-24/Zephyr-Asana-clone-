@@ -53,6 +53,16 @@
   border-color: #1daf97;
 }
 
+.task-edit-delete {
+  font-size: 17px;
+  margin: 8px;
+  color: rgb(215, 215, 215);
+}
+
+.task-edit-delete:hover {
+  color: red
+}
+
 .task-edit-new-subtask {
   font-size: 17px;
   margin: 8px;
@@ -60,7 +70,7 @@
 }
 
 .task-edit-new-subtask:hover {
-  color: #1daf97;
+  color: #14aaf5;
 }
 
 .task-edit-cross {

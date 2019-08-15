@@ -28,7 +28,7 @@ class TaskCreateForm extends React.Component {
     if (displayCreateTaskForm) {
       createForm = (
         <form>
-          <textarea
+          <input
             className="create-task-input"
             type="text"
             value={newTasks[columnId].name}

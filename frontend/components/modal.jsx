@@ -27,7 +27,7 @@ function Modal(props) {
       );
       break;
     case "editTask":
-      component = <TaskEditFormContainer taskId={props.taskId} />;
+      component = <TaskEditFormContainer taskId={props.match.params.taskId} columnId={props.tasks[props.match.params.taskId] && props.tasks[props.match.params.taskId].column_id} />;
       break;
     case "createProject":
       component = <ProjectCreateFormContainer currentWorkspace={props.currentWorkspace} />;
@@ -48,7 +48,6 @@ function Modal(props) {
 const mapStateToProps = (state, { match }) => {
   return {
     tasks: state.entities.tasks,
-    taskId: match.params.taskId,
     currentWorkspace: state.entities.workspaces[match.params.workspaceId],
     modal: state.ui.modal
   };

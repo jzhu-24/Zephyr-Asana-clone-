@@ -3,7 +3,6 @@ import { withRouter } from 'react-router-dom';
 import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
 import { faStar as regStar } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import ProjectFavorite from '../../components/projectFavorite/projectFavorite';
 
 class Header extends React.Component {
 

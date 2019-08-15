@@ -7,9 +7,8 @@ import {
   updateColumn,
   createColumn,
 } from '../../actions/column_actions';
-
 import { requestProject, updateProject } from '../../actions/project_actions';
-import { createTask, updateTask, requestTasks } from '../../actions/task_actions';
+import { createTask, updateTask, requestTasks, deleteTask } from '../../actions/task_actions';
 import { openModal } from '../../actions/modal_actions';
 
 const mapStateToProps = (state, ownProps) => {  
@@ -42,6 +41,7 @@ const mapDispatchToProps = dispatch => ({
   updateProject: project => dispatch(updateProject(project)),
   updateTask: task => dispatch(updateTask(task)),
   createTask: task => dispatch(createTask(task)),
+  deleteTask: id => dispatch(deleteTask(id)),
   editTask: () => dispatch(openModal('editTask')),
 });
 

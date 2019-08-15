@@ -33,7 +33,6 @@ class ProjectCreateForm extends React.Component {
     e.preventDefault();
     const { createProject, closeModal, history } = this.props;
 
-
     createProject(this.state).then(result => history.push(`/${result.project.workspace_id}/${result.project.id}`))
       .then(closeModal);
   }

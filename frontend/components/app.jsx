@@ -13,6 +13,6 @@ export default () => (
       <AuthRoute exact path="/signup" component={SignupContainer} />
       <AuthRoute path="/" component={SignupContainer} />
     </Switch>
-    <ProtectedRoute path="/:workspaceId" component={ProtectedContainer} />
+    <ProtectedRoute path="/:workspaceId?/:projectId?/:taskId?" component={ProtectedContainer} />
   </div>
 );

@@ -22,6 +22,7 @@ class ColumnIndex extends React.Component {
 
     this.onDragEnd = this.onDragEnd.bind(this);
     this.handleDeleteColumn = this.handleDeleteColumn.bind(this);
+    this.handleDeleteTask = this.handleDeleteTask.bind(this);
     this.toggleForm = this.toggleForm.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -71,14 +72,9 @@ class ColumnIndex extends React.Component {
   }
 
   handleDeleteColumn(columnId) {
-    const updatedProject = this.state.project;
-
-    if (updatedProject.column.length === 1) {
-      updatedProject.column = [];
-    } else {
-      const index = updatedProject.column.indexOf(columnId);
-      updatedProject.column.splice(index, 1);
-    }
+    const updatedProject = this.state.columns;
+    const index = updatedProject.column.indexOf(columnId);
+    updatedProject.column.splice(index, 1);
 
     this.setState(
       {
@@ -88,6 +84,25 @@ class ColumnIndex extends React.Component {
       () => {
         this.props.deleteColumn(columnId);
         this.props.updateProject(updatedProject);
+      }
+    );
+  }
+
+  handleDeleteTask(task, e) {
+    e.stopPropagation();
+    const { deleteTask, updateColumn } = this.props;
+    const { columns } = this.state;
+
+    const updatedColumn  = columns[task.column_id];
+    const updatedColumns = columns;
+
+    const index = updatedColumn.task.indexOf(task.id);
+    updatedColumn.task.splice(index, 1);
+    updatedColumns[task.column_id] = updatedColumn;
+
+    this.setState({ columns: updatedColumns }, () => {
+        updateColumn(updatedColumn);
+        deleteTask(task.id);
       }
     );
   }
@@ -288,7 +303,8 @@ class ColumnIndex extends React.Component {
 
   render() {
     const { taskId } = this.props.match.params;
-    const { editTask } = this.props;
+    const { editTask, updateTask, tasks } = this.props;
+    const { columns, newColumn, displayCreateColumnForm } = this.state;
     
     if (taskId) editTask(taskId);
 
@@ -311,15 +327,16 @@ class ColumnIndex extends React.Component {
                     <ColumnIndexItem
                       key={columnId}
                       {...this.state}
-                      tasks={this.props.tasks}
+                      tasks={tasks}
                       columnId={columnId}
-                      column={this.state.columns[columnId]}
+                      column={columns[columnId]}
                       handleDeleteColumn={this.handleDeleteColumn}
                       toggleForm={this.toggleForm}
                       handleInput={this.handleInput}
                       handleSubmit={this.handleSubmit}
-                      editTask={this.props.editTask}
-                      updateTask={this.props.updateTask}
+                      editTask={editTask}
+                      updateTask={updateTask}
+                      handleDeleteTask={this.handleDeleteTask}
                       index={index}
                     />
                   ))}
@@ -329,9 +346,9 @@ class ColumnIndex extends React.Component {
             </Droppable>
           </DragDropContext>
           <ColumnCreateForm
-            newColumn={this.state.newColumn}
+            newColumn={newColumn}
             toggleForm={this.toggleForm}
-            displayCreateColumnForm={this.state.displayCreateColumnForm}
+            displayCreateColumnForm={displayCreateColumnForm}
             handleInput={this.handleInput}
             handleSubmit={this.handleSubmit}
           />

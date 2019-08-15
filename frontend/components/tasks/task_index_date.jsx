@@ -111,7 +111,7 @@ class TaskIndexDate extends React.Component {
       <div className={`${className}-calendar-container`} onClick={e => e.stopPropagation()}>
         <Calendar
           onClickDay={this.selectDate} 
-          value={task.due_date && new Date(task.due_date)} 
+          value={(task.due_date && new Date(task.due_date)) || new Date}
           className='task-calendar'/>
       </div>
     );

@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { createTask, deleteTask, updateTask } from '../../actions/task_actions';
+import { updateColumn } from '../../actions/column_actions';
 import TaskEditForm from './task_edit_form'
 import { closeModal } from '../../actions/modal_actions';
 
@@ -11,10 +12,11 @@ const mapStateToProps = (state, ownProps) => {
   } else {
     task = state.entities.tasks[ownProps.taskId];
   }
-
+  
   return {
     task,
     tasks: state.entities.tasks,
+    column: state.entities.columns[ownProps.columnId],
   };
 };
 
@@ -22,6 +24,7 @@ const mapDispatchToProps = dispatch => ({
   updateTask: task => dispatch(updateTask(task)),
   createTask: task => dispatch(createTask(task)),
   deleteTask: id => dispatch(deleteTask(id)),
+  updateColumn: column => dispatch(updateColumn(column)),
   closeModal: () => dispatch(closeModal()),
 });
 

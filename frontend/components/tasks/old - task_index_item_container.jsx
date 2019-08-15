@@ -23,7 +23,6 @@ const mapDispatchToProps = dispatch => ({
   createTask: (column_id, task) => dispatch(createTask((column_id, task))),
   updateTask: task => dispatch(updateTask(task)),
   deleteTask: id => dispatch(deleteTask(id)),
-  editTask: () => dispatch(openModal("editTask"))
 });
 
 export default connect(
