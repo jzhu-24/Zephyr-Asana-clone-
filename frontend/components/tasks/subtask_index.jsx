@@ -99,14 +99,10 @@ class SubtaskIndex extends React.Component {
   toggleCompleted(id) {
     const { updateTask } = this.props;
     const { tasks } = this.state;
-    const subtask = tasks[id];
 
-    subtask.completed = !subtask.completed;
-    tasks[id] = subtask;
+    tasks[id].completed = !tasks[id].completed
     
-    debugger
-
-    this.setState({ tasks }, () => updateTask(subtask));
+    this.setState({ tasks }, () => updateTask(tasks[id]));
   }
 
   toggleActiveSubtask(subtaskId, direction) {
