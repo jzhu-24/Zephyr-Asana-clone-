@@ -52,7 +52,8 @@ class SubtaskIndex extends React.Component {
 
   onDragEnd = result => {
     const { destination, source, draggableId } = result;
-    const { task, updateTask } = this.props;
+    const { updateTask } = this.props;
+    const { task } = this.state;
 
     if (!destination) {
       return;

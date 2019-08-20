@@ -1,14 +1,13 @@
-import React from "react";
-import { Redirect, withRouter } from "react-router-dom";
-import { faGripLines } from "@fortawesome/free-solid-svg-icons";
-import { faCheck, faTasks, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from 'react';
+import { Redirect, withRouter } from 'react-router-dom';
+import { faGripLines } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faTasks, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import TaskDate from './task_date';
 import SubtaskIndex from './subtask_index';
 
 class TaskEditForm extends React.Component {
   constructor(props) {
-    
     super(props);
     this.state = {
       task: { ...this.props.task },
@@ -27,7 +26,7 @@ class TaskEditForm extends React.Component {
   }
 
   handleInput(type) {
-    return e => {
+    return (e) => {
       const task = this.state.task;
       task[type] = e.target.value;
 
@@ -43,31 +42,29 @@ class TaskEditForm extends React.Component {
 
   createSubtask(type) {
     const { task, createTask, updateTask } = this.props;
-    const subtask = {
+    const newSubtask = {
       name: '',
       column_id: task.column_id,
     };
 
-    createTask(subtask).then(result => {
+    createTask(newSubtask).then((result) => {
       const subtask = result.task;
       const updatedTask = task;
-      
-      if (type === "task") {
+    
+      if (type === 'task') {
         updatedTask.subtask.unshift(subtask.id);
-      } else if (type === "subtask") {
+      } else if (type === 'subtask') {
         const activeSubtaskId = Number(document.activeElement.classList[1]);
         const activeSubtaskIdIndex = updatedTask.subtask.indexOf(activeSubtaskId);
 
         updatedTask.subtask.splice(activeSubtaskIdIndex + 1, 0, subtask.id);
       }
 
-      updateTask(updatedTask);
-
-      setTimeout(() => {
-        this.setState({ task: updatedTask});
+      this.setState({ task: updatedTask }, () => {
         document.getElementsByClassName(`task-edit-subtask-name ${result.task.id}`)[0].focus();
-      }, 50);
-    })
+        updateTask(updatedTask);
+      });
+    });
   }
 
   handleDeleteTask() {
@@ -87,7 +84,7 @@ class TaskEditForm extends React.Component {
   }
 
   closeModalEsc() {
-    $(document).keydown(e => {
+    $(document).keydown((e) => {
       if (e.keyCode == 27) {
         this.props.closeModal();
       }
@@ -174,7 +171,7 @@ class TaskEditForm extends React.Component {
             <TaskDate {...this.props} task={task} updateTask={updateTask} />
           </div>
         </div>
-        <SubtaskIndex 
+        <SubtaskIndex
           task={task}
           tasks={tasks}
           updateTask={updateTask}
