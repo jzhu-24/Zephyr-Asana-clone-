@@ -1,10 +1,10 @@
 .task-edit-subtask-droppable {
   max-height: 340px;
-  overflow-y: scroll;
-  overflow-x: hidden;
 }
 
 .task-edit-subtasks {
+  overflow-y: scroll;
+  overflow-x: hidden;
   margin-bottom: -10px;
   max-height: 350px;
   width: 700px;
@@ -36,16 +36,20 @@
   color: inherit;
   margin: 3px 10px 0px 0px;
   font-size: 14px;
+  min-width: 10.5px;
+  z-index: 3;
 }
 
 .task-edit-subtask-complete {
   font-size: 20px;
   color: #25e8c8;
+  z-index: 3;
 }
 
 .task-edit-subtask-incomplete {
   font-size: 20px;
   color: rgba(0, 0, 0, 0.25);
+  z-index: 3;
 }
 
 .task-edit-subtask-incomplete:hover {
@@ -62,6 +66,17 @@
   line-height: 20px;
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Helvetica,Arial,sans-serif;
 }
+
+// .task-edit-subtask-name:focus {
+//   border: 1px solid #14aaf5;
+//   border-collapse: separate;
+//   padding: 10px 0px 10px 62px;
+//   position: relative;
+//   top: -10px;
+//   width: 700px;
+//   left: -62px;
+//   z-index: 2;
+// }
 
 .task-edit-subtask-date {
   color: inherit;

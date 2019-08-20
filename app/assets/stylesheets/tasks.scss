@@ -29,11 +29,12 @@
 }
 
 .task-name {
+  height: 21px;
   overflow: hidden;
   overflow-wrap: break-word;
   color: black;
   padding: 5px 15px 0px 15px;
-  width: 200px;
+  width: 180px;
 }
 
 .task-name-completed {

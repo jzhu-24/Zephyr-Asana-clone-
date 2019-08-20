@@ -80,6 +80,7 @@ class WorkspaceCreateForm extends React.Component {
               type="text"
               value={this.state.name}
               onChange={this.handleInput("name")}
+              autoFocus
             />
             {this.renderErrors()}
           </label>

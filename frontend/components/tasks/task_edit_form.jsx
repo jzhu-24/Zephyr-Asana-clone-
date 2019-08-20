@@ -42,6 +42,8 @@ class TaskEditForm extends React.Component {
 
   createSubtask(type) {
     const activeSubtaskId = Number(document.activeElement.classList[1]);
+
+    // prevent extra inputs
     document.activeElement.blur();
 
     const { task, createTask, updateTask } = this.props;
