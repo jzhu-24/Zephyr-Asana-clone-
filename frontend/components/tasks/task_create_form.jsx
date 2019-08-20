@@ -27,13 +27,12 @@ class TaskCreateForm extends React.Component {
 
     if (displayCreateTaskForm) {
       createForm = (
-        <form>
+        <form onSubmit={() => handleSubmit("CREATE_TASK", columnId)}>
           <input
             className="create-task-input"
             type="text"
             value={newTasks[columnId].name}
             onChange={handleInput("CREATE_TASK", columnId)}
-            onKeyPress={this.enterPressed}
             onBlur={() => handleSubmit("CREATE_TASK", columnId)}
             autoFocus
           />

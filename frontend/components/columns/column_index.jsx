@@ -182,6 +182,7 @@ class ColumnIndex extends React.Component {
       this.toggleForm("CREATE_TASK", columnId);
 
       if (
+        this.state.newTasks[columnId] &&
         this.state.newTasks[columnId].name &&
         this.state.newTasks[columnId].name !== ""
       ) {

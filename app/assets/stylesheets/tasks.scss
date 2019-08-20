@@ -88,7 +88,6 @@
   padding-bottom: 45px;
   margin: 10px 0px 0px 10px;
   font-size: 13px;
-  background: white;
   border-radius: 5px;
   border: 1px solid rgba(211, 211, 211, 0.509);
   box-shadow: 0 1px 3px 0 rgba(21, 27, 38, 0.057);
@@ -97,8 +96,11 @@
   box-sizing: border-box;
   width: 230px;
   height: 94px;
-  resize: none;
+  // resize: none;
   overflow: hidden;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-all;
 }
 
 .create-task-input:focus {
