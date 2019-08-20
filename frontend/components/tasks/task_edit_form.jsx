@@ -61,7 +61,8 @@ class TaskEditForm extends React.Component {
       }
 
       this.setState({ task: updatedTask }, () => {
-        document.getElementsByClassName(`task-edit-subtask-name ${result.task.id}`)[0].focus();
+        const newTaskElement = document.getElementsByClassName(`task-edit-subtask-name ${result.task.id}`)[0];
+        newTaskElement && newTaskElement.focus();
         updateTask(updatedTask);
       });
     });
