@@ -88,18 +88,22 @@ class SubtaskIndex extends React.Component {
   handleInput(id) {
     // combine handleInput and toggleCompleted?
     return e => {
-      const { updateTask } = this.props;
-      const { tasks } = this.state;
+      const { updateTask, tasks } = this.props;
+      // const { tasks } = this.state;
       tasks[id].name = e.target.value;
 
-      this.setState({ tasks }, () => updateTask(tasks[id]));
+      updateTask(tasks[id]);
     };
   }
 
   toggleCompleted(id) {
-    const { tasks, updateTask } = this.props;
+    const { updateTask } = this.props;
+    const { tasks } = this.state;
     const subtask = tasks[id];
+
     subtask.completed = !subtask.completed;
+    tasks[id] = subtask;
+    
     updateTask(subtask);
   }
 
@@ -134,8 +138,8 @@ class SubtaskIndex extends React.Component {
   }
 
   render() {
-    const { task, tasks } = this.state;
-    const { updateTask, createSubtask } = this.props;
+    const { task } = this.state;
+    const { updateTask, createSubtask, tasks } = this.props;
 
     let subtasks = task.subtask.map((subtaskId, index) => {
       if (tasks[subtaskId]) return (

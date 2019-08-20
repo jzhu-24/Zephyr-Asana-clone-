@@ -27,6 +27,11 @@
   border-top: 0.5px solid rgba(0, 0, 0, 0.25);
 }
 
+.task-edit-subtask:active {
+  background: white;
+  border: 0.5px solid rgba(0, 0, 0, 0.25);
+}
+
 .task-edit-subtask-drag {
   color: inherit;
   margin: 3px 10px 0px 0px;
