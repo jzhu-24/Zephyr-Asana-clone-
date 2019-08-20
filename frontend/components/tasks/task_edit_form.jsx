@@ -104,8 +104,10 @@ class TaskEditForm extends React.Component {
   toggleCompleted() {
     const { task, updateTask } = this.props;
     const updatedTask = task;
+
     updatedTask.completed = !task.completed;
-    updateTask(updatedTask);
+    
+    this.setState({ task: updatedTask }, () => updateTask(updatedTask));
   }
 
   render() {
