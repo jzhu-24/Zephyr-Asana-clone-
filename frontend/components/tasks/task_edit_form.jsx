@@ -41,6 +41,9 @@ class TaskEditForm extends React.Component {
   }
 
   createSubtask(type) {
+    const activeSubtaskId = Number(document.activeElement.classList[1]);
+    document.activeElement.blur();
+
     const { task, createTask, updateTask } = this.props;
     const newSubtask = {
       name: '',
@@ -50,13 +53,12 @@ class TaskEditForm extends React.Component {
     createTask(newSubtask).then((result) => {
       const subtask = result.task;
       const updatedTask = task;
-    
+
+
       if (type === 'task') {
         updatedTask.subtask.unshift(subtask.id);
       } else if (type === 'subtask') {
-        const activeSubtaskId = Number(document.activeElement.classList[1]);
         const activeSubtaskIdIndex = updatedTask.subtask.indexOf(activeSubtaskId);
-
         updatedTask.subtask.splice(activeSubtaskIdIndex + 1, 0, subtask.id);
       }
 
