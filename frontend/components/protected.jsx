@@ -12,11 +12,17 @@ import { ProtectedRoute } from '../util/route_util';
 
 class Protected extends React.Component {
   componentDidMount() {
-    this.props.requestWorkspaces();
+    const { workspaceId } = this.props.match.params;
+    const { requestProjects, requestProjectFavorites, requestWorkspaces, requestUsers } = this.props;
+
+    requestProjects(workspaceId);
+    requestProjectFavorites(workspaceId);
+    requestWorkspaces();
+    requestUsers();
   }
 
   render() {
-    const { workspaceIds, workspaceId } = this.props;
+    const { workspaceIds, workspaceId, match } = this.props;
 
     if (workspaceIds.length !== 0 && !workspaceIds.includes(workspaceId)) {
       const firstWorkspaceId = workspaceIds[0];
@@ -29,17 +35,12 @@ class Protected extends React.Component {
     return (
       <div className="protected" id="logged-in-view">
         <ProtectedRoute path="/:workspaceId?/:projectId?/:taskId?" component={Modal} />
-        <ProtectedRoute path="/:workspaceId" component={NavContainer} />
+        {/* <ProtectedRoute path="/:workspaceId" component={NavContainer} /> */}
+        <NavContainer match={match} />
         <div className="main-container">
           <div className="header-container">
-            <ProtectedRoute
-              path="/:workspaceId?/:projectId?"
-              component={HeaderContainer}
-            />
-            <ProtectedRoute
-              path="/:workspaceId"
-              component={UserDropdownContainer}
-            />
+            <HeaderContainer match={match} />
+            <UserDropdownContainer />
           </div>
           <Switch>
             <ProtectedRoute

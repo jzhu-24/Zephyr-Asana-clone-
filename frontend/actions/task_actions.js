@@ -17,13 +17,10 @@ export const requestTask = id => dispatch =>
   fetchTask(id).then(task => dispatch(receiveTask(task)));
 
 export const createTask = task => dispatch =>
-  postTask(task).then(task =>
-    dispatch(receiveTask(task))
-  );
+  postTask(task).then(task => dispatch(receiveTask(task)));
 
 export const updateTask = task => dispatch => {
   patchTask(task).then(task => dispatch(receiveTask(task)));
-
 }
 
 export const deleteTask = id => dispatch =>

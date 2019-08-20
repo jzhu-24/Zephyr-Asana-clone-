@@ -249,12 +249,10 @@ class ColumnIndex extends React.Component {
         task: newTaskIds
       };
 
-      let that = this;
-
       const newState = {
         ...this.state,
         columns: {
-          ...that.state.columns,
+          ...this.state.columns,
           [newColumn.id]: newColumn
         }
       };

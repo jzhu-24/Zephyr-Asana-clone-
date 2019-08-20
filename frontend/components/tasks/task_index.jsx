@@ -19,7 +19,7 @@ class TaskIndex extends React.Component {
   }
 
   render() {
-    let { column, tasks, updateTask, handleDeleteTask } = this.props;
+    let { column, tasks, updateTask, handleDeleteTask, match, editTask } = this.props;
 
     if (Object.keys(tasks).length === 0 || !column) return null;
 

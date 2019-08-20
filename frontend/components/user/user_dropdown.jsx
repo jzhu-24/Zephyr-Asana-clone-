@@ -12,11 +12,6 @@ class UserDropdown extends React.Component {
     this.displayInitials = this.displayInitials.bind(this);
   }
 
-  componentDidMount() {
-    this.props.requestWorkspaces();
-    this.props.requestUsers();
-  }
-
   componentDidUpdate() {
     this.closeDropdown();
   }

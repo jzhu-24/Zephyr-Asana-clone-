@@ -8,8 +8,8 @@ const selectProjects = ({ projects }, workspaceId) => {
   return Object.values(projects).filter(project => project.workspace_id === parseInt(workspaceId));
 };
 
-const mapStateToProps = (state, ownProps) => {
-  const currentWorkspaceId = ownProps.match.params.workspaceId;
+const mapStateToProps = (state, { match }) => {
+  const currentWorkspaceId = match.params.workspaceId;
   const favoritedProjects = {};
 
   Object.values(state.entities.projectFavorites).forEach(projectFavorite => {

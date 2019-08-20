@@ -11,8 +11,8 @@ import { requestProject, updateProject } from '../../actions/project_actions';
 import { createTask, updateTask, requestTasks, deleteTask } from '../../actions/task_actions';
 import { openModal } from '../../actions/modal_actions';
 
-const mapStateToProps = (state, ownProps) => {  
-  const projectId = ownProps.match.params.projectId;
+const mapStateToProps = (state, { match }) => {  
+  const projectId = match.params.projectId;
   let columnsArray;
 
   if (!state.entities.projects[projectId]) {

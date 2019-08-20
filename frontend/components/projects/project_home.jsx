@@ -6,26 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class ProjectHome extends React.Component {
   componentDidMount() {
-    const { workspaceId } = this.props.match.params;
-    const { requestProjects, requestProjectFavorites } = this.props;
-
-    requestProjects(workspaceId);
-    requestProjectFavorites(workspaceId);
-
     this.showLiked = this.showLiked.bind(this);
-  }
-
-  componentDidUpdate(prevProps) {
-    const { workspaceId } = this.props.match.params;
-    const { requestProjects, requestProjectFavorites, favoritedProjects } = this.props;
-
-    if (prevProps.match.params.workspaceId !== workspaceId) {
-      requestProjects(workspaceId);
-    }
-
-    // if (prevProps.favoritedProjects.length !== favoritedProjects.length) {
-    //   requestProjectFavorites(workspaceId);
-    // }
   }
 
   showLiked(project) {

@@ -41,7 +41,7 @@ class TaskEditForm extends React.Component {
     this.props.updateTask(this.state.task);
   }
 
-  createSubtask() {
+  createSubtask(type) {
     const { task, createTask, updateTask } = this.props;
     const subtask = {
       name: '',
@@ -51,8 +51,22 @@ class TaskEditForm extends React.Component {
     createTask(subtask).then(result => {
       const subtask = result.task;
       const updatedTask = task;
-      updatedTask.subtask.unshift(subtask.id);
+      
+      if (type === "task") {
+        updatedTask.subtask.unshift(subtask.id);
+      } else if (type === "subtask") {
+        const activeSubtaskId = Number(document.activeElement.classList[1]);
+        const activeSubtaskIdIndex = updatedTask.subtask.indexOf(activeSubtaskId);
+
+        updatedTask.subtask.splice(activeSubtaskIdIndex + 1, 0, subtask.id);
+      }
+
       updateTask(updatedTask);
+
+      setTimeout(() => {
+        this.setState({ task: updatedTask});
+        document.getElementsByClassName(`task-edit-subtask-name ${result.task.id}`)[0].focus();
+      }, 50);
     })
   }
 
@@ -95,7 +109,7 @@ class TaskEditForm extends React.Component {
   }
 
   render() {
-    const { closeModal, updateTask, tasks } = this.props;
+    const { closeModal, deleteTask, updateTask, tasks } = this.props;
     const { task } = this.state;
     let completed;
 
@@ -138,7 +152,7 @@ class TaskEditForm extends React.Component {
               <FontAwesomeIcon
                 icon={faTasks}
                 className="task-edit-new-subtask"
-                onClick={() => this.createSubtask()}
+                onClick={() => this.createSubtask("task")}
               />
             </div>
             <div onClick={closeModal} className="task-edit-cross">
@@ -158,7 +172,13 @@ class TaskEditForm extends React.Component {
             <TaskDate {...this.props} task={task} updateTask={updateTask} />
           </div>
         </div>
-        <SubtaskIndex task={task} tasks={tasks} updateTask={updateTask} />
+        <SubtaskIndex 
+          task={task}
+          tasks={tasks}
+          updateTask={updateTask}
+          createSubtask={this.createSubtask}
+          deleteTask={deleteTask}
+        />
         <div className="task-edit-border" />
         <div className="task-edit-description-container">
           <FontAwesomeIcon

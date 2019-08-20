@@ -7,6 +7,7 @@ const mapStateToProps = (state, {match}) => {
 
   const favoritedProjects = {};
 
+  // selector for projectFavorites for current user only
   Object.values(state.entities.projectFavorites).forEach(projectFavorite => {
     if (state.session.currentUser === projectFavorite.user_id) favoritedProjects[projectFavorite.project_id] = projectFavorite.id;
   });

@@ -14,16 +14,39 @@ class SubtaskIndex extends React.Component {
       tasks: { ...this.props.tasks },
     };
 
+    this.subtaskEventListeners = this.subtaskEventListeners.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.toggleCompleted = this.toggleCompleted.bind(this);
+    this.toggleActiveSubtask = this.toggleActiveSubtask.bind(this);
+    this.deleteSubtask = this.deleteSubtask.bind(this);
+  }
+
+  componentDidMount() {
+    document.addEventListener('keydown', this.subtaskEventListeners);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.subtaskEventListeners);
   }
 
   componentDidUpdate(prevProps) {
     if (Object.keys(prevProps.tasks).length !== Object.keys(this.props.tasks).length) {
       const { tasks } = this.props;
       const task = tasks[this.props.task.id];
+
       this.setState({ task, tasks });
+    }
+  }
+
+  subtaskEventListeners(e) {
+    const activeTaskElement = document.activeElement;
+    const subtaskId = Number(activeTaskElement.classList[1]);
+
+    if (e.keyCode == 8 && subtaskId && activeTaskElement.value.length === 0) {
+      this.deleteSubtask(subtaskId);
+    } else if (e.keyCode == 40 || e.keyCode == 38) {
+      this.toggleActiveSubtask(subtaskId, e.keyCode);
     }
   }
 
@@ -62,12 +85,6 @@ class SubtaskIndex extends React.Component {
     this.setState({ newState }, () => updateTask(newTask));
   }
 
-  enterPressed = e => {
-    if (e.charCode === 13) {
-      // create new task + change focus
-    }
-  };
-
   handleInput(id) {
     // combine handleInput and toggleCompleted?
     return e => {
@@ -86,11 +103,39 @@ class SubtaskIndex extends React.Component {
     updateTask(subtask);
   }
 
+  toggleActiveSubtask(subtaskId, direction) {
+    const subtask = this.state.task.subtask;
+    const newDirection = direction - 39;
+    const newActiveSubtaskId = subtask[subtask.indexOf(subtaskId) + newDirection];
+
+    debugger
+
+    if (newActiveSubtaskId) {
+      const newActiveSubtaskElement = document.getElementsByClassName(`task-edit-subtask-name ${newActiveSubtaskId}`)[0]
+      newActiveSubtaskElement.focus();
+    }
+  }
+
+  deleteSubtask(subtaskId) {
+    const { deleteTask, updateTask } = this.props;
+    const { task } = this.state;
+    const updatedTask = task;
+    const index = updatedTask.subtask.indexOf(subtaskId);
+    const prevSubtaskId = updatedTask.subtask[index - 1] || 0;
+
+    updatedTask.subtask.splice(index, 1);
+    
+    this.setState({ task: updatedTask }, () => {
+      updateTask(updatedTask);
+      deleteTask(subtaskId).then(result => {
+        this.toggleActiveSubtask(prevSubtaskId, 39);
+      });
+    })
+  }
+
   render() {
     const { task, tasks } = this.state;
-    const { updateTask } = this.props;
-
-    if (!task) return;
+    const { updateTask, createSubtask } = this.props;
 
     let subtasks = task.subtask.map((subtaskId, index) => {
       if (tasks[subtaskId]) return (
@@ -111,11 +156,13 @@ class SubtaskIndex extends React.Component {
                     className={tasks[subtaskId].completed ? 'task-edit-subtask-complete' : 'task-edit-subtask-incomplete' } 
                     onClick={() => this.toggleCompleted(subtaskId)}
                     />
-                  <input 
-                    onChange={this.handleInput(subtaskId)}
-                    type="text" 
-                    value={tasks[subtaskId].name} 
-                    className={tasks[subtaskId].completed ? 'task-edit-subtask-name completed' : 'task-edit-subtask-name' }/>
+                  <form onSubmit={() => createSubtask("subtask")}>
+                    <input 
+                      onChange={this.handleInput(subtaskId)}
+                      type="text" 
+                      value={tasks[subtaskId].name} 
+                      className={tasks[subtaskId].completed ? `task-edit-subtask-name completed ${subtaskId}` : `task-edit-subtask-name ${subtaskId}` }/>
+                  </form>
                   <TaskIndexDate updateTask={updateTask} task={tasks[subtaskId]} className="task-edit-subtask" />
                 </div>
               </div>
