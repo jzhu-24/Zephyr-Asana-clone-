@@ -104,6 +104,8 @@ class SubtaskIndex extends React.Component {
     subtask.completed = !subtask.completed;
     tasks[id] = subtask;
     
+    debugger
+
     this.setState({ tasks }, () => updateTask(subtask));
   }
 

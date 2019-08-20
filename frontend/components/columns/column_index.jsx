@@ -72,7 +72,7 @@ class ColumnIndex extends React.Component {
   }
 
   handleDeleteColumn(columnId) {
-    const updatedProject = this.state.columns;
+    const updatedProject = this.state.project;
     const index = updatedProject.column.indexOf(columnId);
     updatedProject.column.splice(index, 1);
 
