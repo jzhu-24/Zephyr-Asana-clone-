@@ -46,6 +46,7 @@ class TaskIndexDate extends React.Component {
     
     return classNames(
       `${className}-date-text`,
+      'grey',
       {
         'green': ['Tomorrow', 'Today'].includes(diffDays),
         'red': (diffDays === 'Yesterday' || diffDaysNum > 1),
