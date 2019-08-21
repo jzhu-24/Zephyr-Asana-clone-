@@ -6,9 +6,9 @@
 
 .task {
   max-height: 200px;
-  min-height: 90px;
+  min-height: 80px;
   margin: 10px;
-  padding: 15px 8px 15px 0px;
+  padding: 8px 8px 8px 0px;
   font-size: 13px;
   line-height: normal;
   background: white;
@@ -29,7 +29,7 @@
 }
 
 .task-name {
-  height: 21px;
+  min-height: 21px;
   overflow: hidden;
   overflow-wrap: break-word;
   color: black;
