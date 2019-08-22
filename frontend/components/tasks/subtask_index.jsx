@@ -42,7 +42,7 @@ class SubtaskIndex extends React.Component {
   subtaskEventListeners(e) {
     const activeTaskElement = document.activeElement;
     const subtaskId = Number(activeTaskElement.classList[1]);
-
+    
     if (e.keyCode == 8 && subtaskId && activeTaskElement.value.length === 0) {
       this.deleteSubtask(subtaskId);
     } else if (e.keyCode == 40 || e.keyCode == 38) {
@@ -109,9 +109,10 @@ class SubtaskIndex extends React.Component {
   toggleActiveSubtask(subtaskId, direction) {
     const subtask = this.state.task.subtask;
     const newDirection = direction - 39;
-    const newActiveSubtaskId = subtask[subtask.indexOf(subtaskId) + newDirection];
+    const newIndex = subtask.indexOf(subtaskId) + newDirection;
+    const newActiveSubtaskId = subtask[newIndex];
 
-    if (newActiveSubtaskId) {
+    if (newActiveSubtaskId && newIndex < subtask.length - 1) {
       const newActiveSubtaskElement = document.getElementsByClassName(`task-edit-subtask-name ${newActiveSubtaskId}`)[0]
       newActiveSubtaskElement.focus();
     }
@@ -162,7 +163,7 @@ class SubtaskIndex extends React.Component {
                       onChange={this.handleInput(subtaskId)}
                       type="text" 
                       value={tasks[subtaskId].name} 
-                      className={tasks[subtaskId].completed ? `task-edit-subtask-name completed ${subtaskId}` : `task-edit-subtask-name ${subtaskId}` }/>
+                      className={tasks[subtaskId].completed ? `task-edit-subtask-name ${subtaskId} completed` : `task-edit-subtask-name ${subtaskId}` }/>
                   </form>
                   <TaskIndexDate updateTask={updateTask} task={tasks[subtaskId]} className="task-edit-subtask" />
                 </div>
