@@ -158,7 +158,7 @@ class SubtaskIndex extends React.Component {
                     className={tasks[subtaskId].completed ? 'task-edit-subtask-complete' : 'task-edit-subtask-incomplete' } 
                     onClick={() => this.toggleCompleted(subtaskId)}
                     />
-                  <form className="task-edit-subtask-form" onSubmit={() => createSubtask("subtask")}>
+                  <form className="task-edit-subtask-form" onSubmit={() => document.activeElement.classList[0] === "task-edit-subtask-name" && createSubtask("subtask")}>
                     <input 
                       onChange={this.handleInput(subtaskId)}
                       type="text" 
