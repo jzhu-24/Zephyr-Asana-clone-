@@ -137,7 +137,7 @@
   box-shadow: none;
   border-radius: 4px;
   overflow: auto;
-  resize: none;
+  resize: vertical;
   transition-property: box-shadow;
   transition-duration: .2s;
   transition-timing-function: ease-out;

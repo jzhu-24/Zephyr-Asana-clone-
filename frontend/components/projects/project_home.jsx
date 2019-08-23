@@ -1,12 +1,44 @@
-import React from "react";
-import { Link, withRouter } from "react-router-dom";
+import React from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
 import { faStar as regStar } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class ProjectHome extends React.Component {
-  componentDidMount() {
+  constructor(props) {
+    super(props);
+
+    this.closeDropdown = this.closeDropdown.bind(this);
+    this.toggleDropdown = this.toggleDropdown.bind(this);
     this.showLiked = this.showLiked.bind(this);
+  }
+
+  componentDidMount() {
+    document.addEventListener('keydown', this.closeDropdown);
+    document.addEventListener('click', this.closeDropdown);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.closeDropdown);
+    document.removeEventListener('click', this.closeDropdown);
+  }
+
+  toggleDropdown(id) {
+    const projectDropdownElement = document.getElementsByClassName(`project-dropdown ${id}`)[0]
+    projectDropdownElement.classList.toggle('show');
+    projectDropdownElement.parentElement.parentElement.parentElement.classList.toggle('projectHover');
+  }
+
+  closeDropdown(e) {
+    if (e.target && e.target.classList[0] === 'project-ellipsis') return;
+
+    const projectDropdownElement = document.getElementsByClassName('project-dropdown show')[0];
+    const dropdownClassnames = ['project-dropdown', 'project-dropdown-item'];
+
+    if (projectDropdownElement && (e.keyCode === 27 || !dropdownClassnames.includes(e.target.className))) {
+      projectDropdownElement.classList.remove('show');
+      projectDropdownElement.parentElement.parentElement.parentElement.classList.remove('projectHover');
+    }
   }
 
   showLiked(project) {
@@ -20,15 +52,23 @@ class ProjectHome extends React.Component {
   }
 
   render() {
-    const { createProject, projects, favoritedProjects } = this.props;
+    const { createProject, projects, deleteProject, editProject } = this.props;
 
     const projectIndex = projects.map(project => {
       return (
         <div className="project" key={project.id}>
-          {this.showLiked(project)}
-          <Link to={`/${project.workspace_id}/${project.id}`}>
-            <div className="project-tile">
+          <div>
+            {this.showLiked(project)}
+            <div className={`project-ellipsis ${project.id}`} onClick={() => this.toggleDropdown(project.id)}>
+              ...
+              <div className={`project-dropdown ${project.id}`}>
+                <div className="project-dropdown-item" onClick={() => editProject(project.id)} >Edit Project</div>
+                <div className="project-dropdown-item" onClick={() => deleteProject(project.id)} >Delete Project</div>
+              </div>
             </div>
+          </div>
+          <Link to={`/${project.workspace_id}/${project.id}`}>
+            <div className="project-tile"></div>
             <div className="project-name">{project.name}</div>
           </Link>
         </div>

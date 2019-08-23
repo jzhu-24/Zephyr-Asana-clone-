@@ -3,6 +3,7 @@ import Nav from './nav';
 import { requestWorkspace } from '../../actions/workspace_actions';
 import { requestProjects } from '../../actions/project_actions';
 import { requestProjectFavorites } from '../../actions/project_favorites_actions';
+import { openModal } from '../../actions/modal_actions';
 
 const selectProjects = ({ projects }, workspaceId) => {
   return Object.values(projects).filter(project => project.workspace_id === parseInt(workspaceId));
@@ -27,6 +28,7 @@ const mapDispatchToProps = dispatch => ({
   requestWorkspace: id => dispatch(requestWorkspace(id)),
   requestProjects: workspaceId => dispatch(requestProjects(workspaceId)),
   requestProjectFavorites: workspaceId => dispatch(requestProjectFavorites(workspaceId)),
+  createProject: () => dispatch(openModal('createProject')),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Nav);

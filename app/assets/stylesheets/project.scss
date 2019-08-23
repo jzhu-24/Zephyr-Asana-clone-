@@ -24,12 +24,21 @@
     transition-timing-function: ease-out;
     border-radius: 20px;
     position: relative;
+    color: transparent;
+}
+
+.projectHover {
+    margin-top: 0px;
+    background-color: #e7f0f5;
+    border-radius: 20px;
+    color: #d5dce0;  
 }
 
 .project:hover {
     margin-top: 0px;
     background-color: #e7f0f5;
     border-radius: 20px;
+    color: #d5dce0;
 }
 
 .project-title {
@@ -53,13 +62,43 @@
 }
 
 .project-favorite {
-    color: rgba(255, 255, 255, 0.932);
+    color: inherit;
     padding: 10px;
     font-size: 16px;
     z-index: 2;
     position: absolute;
     left: 15px;
     cursor: pointer;
+}
+
+.project-ellipsis {
+    position: absolute;
+    right: 30px;
+    top: 20px;
+    color: inherit;
+}
+
+.project-dropdown {
+    display: none;
+    position: absolute;
+    background: white;
+    font-size: 12px;
+    width: 110px;
+    color: black;
+    border-radius: 5px;
+    padding: 5px 0px;
+    z-index: 2;
+    margin-top: 5px;
+    line-height: 20px;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.05);
+}
+
+.project-dropdown-item {
+    padding: 5px 10px;
+}
+
+.project-dropdown-item:hover {
+    background-color: #ddd;
 }
 
 .project-name {

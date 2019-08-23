@@ -3,7 +3,6 @@ import { Redirect, withRouter } from 'react-router-dom';
 import WorkspaceIndexItem from '../workspaces/workspace_index_item';
 
 class UserDropdown extends React.Component {
-
   constructor(props) {
     super(props);
     this.toggleDropdown = this.toggleDropdown.bind(this);
@@ -20,7 +19,6 @@ class UserDropdown extends React.Component {
     document.getElementsByClassName('user-dropdown-container')[0].classList.toggle('show');
   }
 
-  // eslint-disable-next-line class-methods-use-this
   closeDropdown() {
     const userDropdown = document.getElementsByClassName('user-dropdown-container')[0];
 

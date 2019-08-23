@@ -45,19 +45,35 @@
   margin-left: 15px;
 }
 
+.nav-header {
+  display: flex;
+  justify-content: space-between;
+  margin: 0px 15px 10px 15px;
+}
+
+.nav-create-project {
+  color: grey;
+  cursor: pointer;
+  padding: 5px;
+  line-height: 0;
+}
+
+.nav-create-project:hover {
+  color: #d5dce0;
+  cursor: pointer;
+}
+
 .nav-workspace {
   text-decoration: none;
   color: #d5dce0;
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Helvetica,Arial,sans-serif;
   font-weight: 400;
   font-size: 15px;
-  margin-left: 15px;
-  margin-bottom: 15px;
   cursor: pointer;
 }
 
 .nav-project-index {
-  margin-top: 10px;
+  margin-top: 5px;
 }
 
 .nav-project-row {

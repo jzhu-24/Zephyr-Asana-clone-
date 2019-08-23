@@ -29,6 +29,7 @@ const mapDispatchToProps = dispatch => ({
   deleteProjectFavorite: projectId => dispatch(deleteProjectFavorite(projectId)),
   requestProjectFavorites: workspaceId => dispatch(requestProjectFavorites(workspaceId)),
   createProject: () => dispatch(openModal('createProject')),
+  editProject: id => dispatch(openModal('editProject', id)),
 });
 
 export default connect(

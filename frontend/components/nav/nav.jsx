@@ -14,7 +14,7 @@ class Nav extends React.Component {
   }
 
   render() {
-    let { currentWorkspace, match, projects, favoritedProjects } = this.props;
+    const { currentWorkspace, match, projects, favoritedProjects, createProject } = this.props;
 
     if (currentWorkspace === undefined) {
       return (
@@ -44,7 +44,10 @@ class Nav extends React.Component {
           <p className="nav-favorites-title">Favorites</p>
           <ProjectIndex match={match} projects={favoritedProjects} />
         </div>
-        <Link to={`/${currentWorkspace.id}`} className="nav-workspace">{currentWorkspace.name}</Link>
+        <div className="nav-header">
+          <Link to={`/${currentWorkspace.id}`} className="nav-workspace">{currentWorkspace.name}</Link>
+          <div className="nav-create-project" onClick={() => createProject()}>+</div>
+        </div>
         <ProjectIndex match={match} projects={projects} />
       </div>
     )
