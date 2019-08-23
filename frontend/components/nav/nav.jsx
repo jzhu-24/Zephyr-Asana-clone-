@@ -11,10 +11,38 @@ class Nav extends React.Component {
     if (workspaceId > 0) requestWorkspace(workspaceId);
     requestProjects(workspaceId);
     requestProjectFavorites(workspaceId);
+    document.addEventListener('keydown', this.closeDropdown);
+    document.addEventListener('click', this.closeDropdown);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.closeDropdown);
+    document.removeEventListener('click', this.closeDropdown);
+  }
+
+  // static function
+  closeDropdown(e) {
+    const { target } = e;
+    const projectId = e.target.classList[1];
+    const projectElement = document.getElementsByClassName(`nav-project ${projectId}`)[0];
+    const currentId = document.getElementsByClassName('show')[1];
+    const currentDropdown = document.getElementsByClassName('show')[0];
+    const currentProjectHover = document.getElementsByClassName('projectHover')[0];
+    const otherDropdowns = ['project-ellipsis', 'nav-project-ellipsis', 'user-dropdown-button'];
+
+    if (target.className === `nav-project-ellipsis ${projectId}`) {
+      target.children[0].classList.toggle('show');
+      projectElement && projectElement.classList.add('projectHover');
+    }
+
+    if ((target.className !== `nav-project-ellipsis ${currentId}` && !otherDropdowns.includes(target.classList[0])) || e.keyCode === 27) {
+      currentDropdown && currentDropdown.classList.remove('show');
+      currentProjectHover && currentProjectHover.classList.remove('projectHover');
+    }
   }
 
   render() {
-    const { currentWorkspace, match, projects, favoritedProjects, createProject } = this.props;
+    const { currentWorkspace, match, projects, favoritedProjects, createProject, deleteProject, editProject } = this.props;
 
     if (currentWorkspace === undefined) {
       return (
@@ -48,7 +76,12 @@ class Nav extends React.Component {
           <Link to={`/${currentWorkspace.id}`} className="nav-workspace">{currentWorkspace.name}</Link>
           <div className="nav-create-project" onClick={() => createProject()}>+</div>
         </div>
-        <ProjectIndex match={match} projects={projects} />
+        <ProjectIndex
+          match={match}
+          projects={projects}
+          editProject={editProject}
+          deleteProject={deleteProject}
+        />
       </div>
     )
   }

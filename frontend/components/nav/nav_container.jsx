@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Nav from './nav';
 import { requestWorkspace } from '../../actions/workspace_actions';
-import { requestProjects } from '../../actions/project_actions';
+import { requestProjects, deleteProject } from '../../actions/project_actions';
 import { requestProjectFavorites } from '../../actions/project_favorites_actions';
 import { openModal } from '../../actions/modal_actions';
 
@@ -27,8 +27,10 @@ const mapStateToProps = (state, { match }) => {
 const mapDispatchToProps = dispatch => ({
   requestWorkspace: id => dispatch(requestWorkspace(id)),
   requestProjects: workspaceId => dispatch(requestProjects(workspaceId)),
+  deleteProject: id => dispatch(deleteProject(id)),
   requestProjectFavorites: workspaceId => dispatch(requestProjectFavorites(workspaceId)),
   createProject: () => dispatch(openModal('createProject')),
+  editProject: id => dispatch(openModal('editProject', id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Nav);

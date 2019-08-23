@@ -71,7 +71,7 @@ class UserDropdown extends React.Component {
 
     return (
       <div>
-        <div className="user-dropdown" >
+        <div className="user-dropdown">
           <div onClick={this.toggleDropdown} className="user-dropdown-button">{this.displayInitials()}</div>
           <div className="user-dropdown-container">
             <div className="user-dropdown-workspaces">
