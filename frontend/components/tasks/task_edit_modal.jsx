@@ -56,7 +56,6 @@ class TaskEditModal extends React.Component {
       const subtask = result.task;
       const updatedTask = task;
 
-
       if (type === 'task') {
         updatedTask.subtask.unshift(subtask.id);
       } else if (type === 'subtask') {

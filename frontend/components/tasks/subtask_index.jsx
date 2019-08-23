@@ -32,10 +32,10 @@ class SubtaskIndex extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (Object.keys(prevProps.tasks).length !== Object.keys(this.props.tasks).length) {
-      const { tasks } = this.props;
-      const task = tasks[this.props.task.id];
+      const { task, tasks } = this.props;
+      const updatedTask = tasks[task.id];
 
-      this.setState({ task, tasks });
+      this.setState({ task: updatedTask, tasks });
     }
   }
 
@@ -112,7 +112,7 @@ class SubtaskIndex extends React.Component {
     const newIndex = subtask.indexOf(subtaskId) + newDirection;
     const newActiveSubtaskId = subtask[newIndex];
 
-    if (newActiveSubtaskId && newIndex < subtask.length - 1) {
+    if (newActiveSubtaskId && newIndex <= subtask.length - 1) {
       const newActiveSubtaskElement = document.getElementsByClassName(`task-edit-subtask-name ${newActiveSubtaskId}`)[0]
       newActiveSubtaskElement.focus();
     }
@@ -157,7 +157,7 @@ class SubtaskIndex extends React.Component {
                     icon={faCheckCircle} 
                     className={tasks[subtaskId].completed ? 'task-edit-subtask-complete' : 'task-edit-subtask-incomplete' } 
                     onClick={() => this.toggleCompleted(subtaskId)}
-                    />
+                  />
                   <form className="task-edit-subtask-form" onSubmit={() => document.activeElement.tagName === "INPUT" && createSubtask("subtask")}>
                     <input 
                       onChange={this.handleInput(subtaskId)}
