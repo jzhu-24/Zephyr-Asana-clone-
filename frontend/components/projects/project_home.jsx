@@ -9,7 +9,7 @@ class ProjectHome extends React.Component {
     super(props);
 
     this.closeDropdown = this.closeDropdown.bind(this);
-    this.toggleDropdown = this.toggleDropdown.bind(this);
+    // this.toggleDropdown = this.toggleDropdown.bind(this);
     this.showLiked = this.showLiked.bind(this);
   }
 
@@ -23,21 +23,31 @@ class ProjectHome extends React.Component {
     document.removeEventListener('click', this.closeDropdown);
   }
 
-  toggleDropdown(id) {
-    const projectDropdownElement = document.getElementsByClassName(`project-dropdown ${id}`)[0]
-    projectDropdownElement.classList.toggle('show');
-    projectDropdownElement.parentElement.parentElement.parentElement.classList.toggle('projectHover');
-  }
+  // toggleDropdown(id) {
+  //   // const projectHoverElement = document.getElementsByClassName(`project-Hover`);
+  //   // projectHoverElement && projectHoverElement.classList.remove('projectHover');
+
+  //   const projectDropdownElement = document.getElementsByClassName(`project-dropdown ${id}`)[0]
+  //   projectDropdownElement.classList.toggle('show');
+  //   // projectDropdownElement.parentElement.parentElement.parentElement.classList.add('projectHover');
+  // }
 
   closeDropdown(e) {
-    if (e.target && e.target.classList[0] === 'project-ellipsis') return;
+    const target = e.target;
+    const projectId = e.target.classList[1];
+    const projectElement = document.getElementsByClassName(`project ${projectId}`)[0];
+    const currentId = document.getElementsByClassName('show')[1];
+    const currentDropdown = document.getElementsByClassName('show')[0];
+    const currentProjectHover = document.getElementsByClassName('projectHover')[0];
 
-    const projectDropdownElement = document.getElementsByClassName('project-dropdown show')[0];
-    const dropdownClassnames = ['project-dropdown', 'project-dropdown-item'];
-
-    if (projectDropdownElement && (e.keyCode === 27 || !dropdownClassnames.includes(e.target.className))) {
-      projectDropdownElement.classList.remove('show');
-      projectDropdownElement.parentElement.parentElement.parentElement.classList.remove('projectHover');
+    if (target.className === `project-ellipsis ${projectId}`) {
+      target.children[0].classList.toggle('show');
+      projectElement.classList.add('projectHover');
+    } 
+    
+    if (target.className !== `project-ellipsis ${currentId}` || e.keyCode === 27) {
+      currentDropdown.classList.remove('show');
+      currentProjectHover.classList.remove('projectHover');
     }
   }
 
@@ -56,10 +66,10 @@ class ProjectHome extends React.Component {
 
     const projectIndex = projects.map(project => {
       return (
-        <div className="project" key={project.id}>
+        <div className={`project ${project.id}`} key={project.id}>
           <div>
             {this.showLiked(project)}
-            <div className={`project-ellipsis ${project.id}`} onClick={() => this.toggleDropdown(project.id)}>
+            <div className={`project-ellipsis ${project.id}`} >
               ...
               <div className={`project-dropdown ${project.id}`}>
                 <div className="project-dropdown-item" onClick={() => editProject(project.id)} >Edit Project</div>
