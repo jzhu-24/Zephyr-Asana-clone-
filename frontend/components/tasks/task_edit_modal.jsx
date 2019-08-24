@@ -64,9 +64,8 @@ class TaskEditModal extends React.Component {
       }
 
       updateTask(updatedTask).then((result) => {
-        const newTaskElement = document.getElementsByClassName(`task-edit-subtask-name ${subtask.id}`)[0];
-
         this.setState({ task: updatedTask }, () => {
+          const newTaskElement = document.getElementsByClassName(`task-edit-subtask-name ${subtask.id}`)[0];
           newTaskElement && newTaskElement.focus();
         });
       });
