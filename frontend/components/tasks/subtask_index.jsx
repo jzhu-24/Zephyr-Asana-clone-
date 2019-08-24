@@ -48,6 +48,11 @@ class SubtaskIndex extends React.Component {
     } else if (e.keyCode == 40 || e.keyCode == 38) {
       this.toggleActiveSubtask(subtaskId, e.keyCode);
     }
+
+    if (e.keyCode == 13) {
+      console.log(this.state);
+      console.log(document.activeElement);
+    }
   }
 
   onDragEnd = result => {
