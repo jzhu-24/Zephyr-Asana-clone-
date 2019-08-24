@@ -63,10 +63,12 @@ class TaskEditModal extends React.Component {
         updatedTask.subtask.splice(activeSubtaskIdIndex + 1, 0, subtask.id);
       }
 
-      this.setState({ task: updatedTask }, () => {
-        const newTaskElement = document.getElementsByClassName(`task-edit-subtask-name ${result.task.id}`)[0];
-        newTaskElement && newTaskElement.focus();
-        updateTask(updatedTask);
+      updateTask(updatedTask).then((result) => {
+        const newTaskElement = document.getElementsByClassName(`task-edit-subtask-name ${subtask.id}`)[0];
+
+        this.setState({ task: updatedTask }, () => {
+          newTaskElement && newTaskElement.focus();
+        });
       });
     });
   }
