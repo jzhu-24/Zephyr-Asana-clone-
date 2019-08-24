@@ -10,7 +10,7 @@ const configureStore = (preloadedState = {}) => {
     middleware = [...middleware, logger];
   }
 
-  middleware = [...middleware, logger];
+  // middleware = [...middleware, logger];
 
   return createStore(
     RootReducer,
