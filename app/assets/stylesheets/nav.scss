@@ -3,6 +3,10 @@
   background: #151b26;
   min-width: 244px;
   max-width: 244px;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .nav-logo {
@@ -135,7 +139,7 @@
   color: black;
   border-radius: 5px;
   padding: 5px 0px;
-  z-index: 2;
+  z-index: 3;
   margin-top: 5px;
   line-height: 20px;
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.05);
@@ -148,4 +152,16 @@
 
 .nav-project-dropdown-item:hover {
   background-color: #ddd;
+}
+
+.nav-footer {
+  margin: 120px 0px 30px 0px;
+  text-align: center;
+}
+
+.nav-footer > * {
+  color: white;
+  cursor: pointer;
+  font-size: 30px;
+  margin: 15px;
 }

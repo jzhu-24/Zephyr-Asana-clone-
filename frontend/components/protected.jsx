@@ -8,7 +8,7 @@ import Home from './home';
 import UserDropdownContainer from './user/user_dropdown_container'
 import ColumnIndexContainer from './columns/column_index_container';
 import { ProtectedRoute } from '../util/route_util';
-
+import { toggleDropdown } from '../event_listeners/toggle_dropdown';
 
 class Protected extends React.Component {
   componentDidMount() {
@@ -19,6 +19,13 @@ class Protected extends React.Component {
     requestProjectFavorites(workspaceId);
     requestWorkspaces();
     requestUsers();
+    document.addEventListener('keydown', toggleDropdown);
+    document.addEventListener('click', toggleDropdown);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', toggleDropdown);
+    document.removeEventListener('click', toggleDropdown);
   }
 
   render() {

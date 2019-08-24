@@ -14,40 +14,7 @@ class ProjectHome extends React.Component {
   constructor(props) {
     super(props);
 
-    this.closeDropdown = this.closeDropdown.bind(this);
-    // this.toggleDropdown = this.toggleDropdown.bind(this);
     this.showLiked = this.showLiked.bind(this);
-  }
-
-  componentDidMount() {
-    document.addEventListener('keydown', this.closeDropdown);
-    document.addEventListener('click', this.closeDropdown);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('keydown', this.closeDropdown);
-    document.removeEventListener('click', this.closeDropdown);
-  }
-
-  // static function
-  closeDropdown(e) {
-    const { target } = e;
-    const projectId = e.target.classList[1];
-    const projectElement = document.getElementsByClassName(`project ${projectId}`)[0];
-    const currentId = document.getElementsByClassName('show')[1];
-    const currentDropdown = document.getElementsByClassName('show')[0];
-    const currentProjectHover = document.getElementsByClassName('projectHover')[0];
-    const otherDropdowns = ['project-ellipsis', 'nav-project-ellipsis', 'user-dropdown-button'];
-
-    if (target.className === `project-ellipsis ${projectId}`) {
-      target.children[0].classList.toggle('show');
-      projectElement.classList.add('projectHover');
-    }
-
-    if ((target.className !== `project-ellipsis ${currentId}` && !otherDropdowns.includes(target.classList[0])) || e.keyCode === 27) {
-      currentDropdown && currentDropdown.classList.remove('show');
-      currentProjectHover && currentProjectHover.classList.remove('projectHover');
-    }
   }
 
   showLiked(project) {
