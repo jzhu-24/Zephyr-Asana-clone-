@@ -24,35 +24,35 @@ class ProjectHome extends React.Component {
       <FontAwesomeIcon
         icon={favoritedProjects[project.id] ? solidStar : regStar}
         className="project-favorite"
-        onClick={() => favoritedProjects[project.id] ? deleteProjectFavorite(favoritedProjects[project.id]) : createProjectFavorite(project.id)}
+        onClick={() => (favoritedProjects[project.id] ? deleteProjectFavorite(favoritedProjects[project.id]) : createProjectFavorite(project.id))}
       />
     );
   }
 
   render() {
-    const { createProject, projects, deleteProject, editProject } = this.props;
+    const {
+      createProject, projects, deleteProject, editProject,
+    } = this.props;
 
-    const projectIndex = projects.map(project => {
-      return (
-        <div className={`project ${project.id}`} key={project.id}>
-          <div>
-            {this.showLiked(project)}
-            <div className={`project-ellipsis ${project.id}`}>
+    const projectIndex = projects.map(project => (
+      <div className={`project ${project.id}`} key={project.id}>
+        <div>
+          {this.showLiked(project)}
+          <div className={`project-ellipsis ${project.id}`}>
               ...
-              <div className={`project-dropdown ${project.id}`}>
-                <div className="project-dropdown-item" onClick={() => editProject(project.id)}>Edit Project</div>
-                <div className="project-dropdown-item" onClick={() => deleteProject(project.id)}>Delete Project</div>
-              </div>
+            <div className={`project-dropdown ${project.id}`}>
+              <div className="project-dropdown-item" onClick={() => editProject(project.id)}>Edit Project</div>
+              <div className="project-dropdown-item" onClick={() => deleteProject(project.id)}>Delete Project</div>
             </div>
           </div>
-          <Link to={`/${project.workspace_id}/${project.id}`}>
-            <div className="project-tile" />
-            <FontAwesomeIcon icon={faTrello} className="project-list-icon" />
-            <div className="project-name">{project.name}</div>
-          </Link>
         </div>
-      );
-    });
+        <Link to={`/${project.workspace_id}/${project.id}`}>
+          <div className="project-tile" />
+          <FontAwesomeIcon icon={faTrello} className="project-list-icon" />
+          <div className="project-name">{project.name}</div>
+        </Link>
+      </div>
+    ));
 
     return (
       <div className="project-home">
