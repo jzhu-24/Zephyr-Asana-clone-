@@ -22,13 +22,13 @@ class Signup extends React.Component {
   
   handleInput(type) {
     return (e) => {
-      this.setState({ [type]: e.target.value })
+      this.setState({ [type]: e.target.value });
     }
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.createNewUser(this.state)
+    this.props.createNewUser(this.state);
   }
 
   demoLogin(e) {

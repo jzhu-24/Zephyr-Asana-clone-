@@ -20,6 +20,7 @@ class SubtaskIndex extends React.Component {
     this.toggleCompleted = this.toggleCompleted.bind(this);
     this.toggleActiveSubtask = this.toggleActiveSubtask.bind(this);
     this.deleteSubtask = this.deleteSubtask.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -37,6 +38,13 @@ class SubtaskIndex extends React.Component {
 
       this.setState({ task: updatedTask, tasks });
     }
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+
+    const { createSubtask } = this.props;
+    document.activeElement.tagName === "INPUT" && createSubtask("subtask");
   }
 
   subtaskEventListeners(e) {
@@ -158,7 +166,7 @@ class SubtaskIndex extends React.Component {
                     className={tasks[subtaskId].completed ? 'task-edit-subtask-complete' : 'task-edit-subtask-incomplete' } 
                     onClick={() => this.toggleCompleted(subtaskId)}
                   />
-                  <form className="task-edit-subtask-form" onSubmit={() => document.activeElement.tagName === "INPUT" && createSubtask("subtask")}>
+                  <form className="task-edit-subtask-form" onSubmit={this.handleSubmit}>
                     <input 
                       onChange={this.handleInput(subtaskId)}
                       type="text" 
@@ -182,11 +190,9 @@ class SubtaskIndex extends React.Component {
               ref={provided.innerRef}
               {...provided.droppableProps}
             >        
-            
               <div className="task-edit-subtasks">
                 {subtasks}
               </div>
-
               {provided.placeholder}
             </div>
           )}
